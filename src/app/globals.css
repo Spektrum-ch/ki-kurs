@@ -1,0 +1,48 @@
+/* ============================================
+   KI-KURS PLANUNGSWELT – Design System
+   Inter Font, Blau/Türkis (Planungswelt)
+   Angelehnt an minu-ai-next Patterns
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+}
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f8f9fa;
+  color: #1d1d1f;
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Farb-Variablen */
+:root {
+  --blau: #0057a8;
+  --blau-hell: #1a7fd4;
+  --tuerkis: #00a896;
+  --tuerkis-hell: #00c4b4;
+  --hintergrund: #f8f9fa;
+  --weiss: #ffffff;
+  --text: #1d1d1f;
+  --text-grau: #6e6e73;
+  --border: #d2d2d7;
+  --border-hell: #e8e8ed;
+  --gradient: linear-gradient(135deg, #0057a8 0%, #00a896 100%);
+  --schatten: 0 4px 20px rgba(0, 87, 168, 0.12);
+  --schatten-hover: 0 8px 30px rgba(0, 87, 168, 0.2);
+}
