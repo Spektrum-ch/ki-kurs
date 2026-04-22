@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
-    const { email } = await req.json();
+    const { email, redirect } = await req.json();
 
     if (!email) {
       return NextResponse.json({ error: 'E-Mail ist erforderlich.' }, { status: 400 });
@@ -23,9 +23,10 @@ export async function POST(req: NextRequest) {
 
     const token = generateLoginToken();
     const expires = getLoginTokenExpiry();
+    const safeRedirect = (typeof redirect === 'string' && redirect.startsWith('/')) ? redirect : '/kurse';
 
     updateUser(emailClean, { login_token: token, login_token_expires: expires });
-    await sendMagicLink(emailClean, token, user.name);
+    await sendMagicLink(emailClean, token, user.name, safeRedirect);
 
     return NextResponse.json({ message: 'Login-Link wurde gesendet. Prüfe deine E-Mails.' });
   } catch (err) {

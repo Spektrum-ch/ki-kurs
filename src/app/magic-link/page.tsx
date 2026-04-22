@@ -8,6 +8,7 @@ function MagicLinkContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get('token');
+  const redirect = searchParams.get('redirect') || '/kurse';
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -17,11 +18,11 @@ function MagicLinkContent() {
     const res = await fetch('/api/auth/magic-link', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ token, redirect }),
     });
     const data = await res.json();
     if (data.success) {
-      router.push(data.redirect || '/kurs');
+      router.push(data.redirect || '/kurse');
     } else {
       setError(data.error || 'Ungültiger Link.');
       setLoading(false);

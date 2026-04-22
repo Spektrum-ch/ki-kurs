@@ -1,21 +1,35 @@
+import type { Metadata } from 'next';
 import { getUserFromCookie } from '@/lib/auth';
-import { getUserByEmail } from '@/lib/users';
-import { getProgress, getProgressPercent } from '@/lib/progress';
+import { getProgress } from '@/lib/progress';
 import { COURSE_INTERESSENABWAEGUNG } from '@/data/course-interessenabwaegung';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProgressBar from '@/components/ProgressBar';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+
+export const metadata: Metadata = {
+  title: 'Interessenabwägung mit KI – Gratis Kurs | SPEKTRUM',
+  description: 'Gratis Einführungskurs in das KI-Tool interessenabwaegung.ch. Methodik und Praxis der KI-gestützten Interessenabwägung nach Schweizer Raumplanungsrecht (RPG). Kostenlos zugänglich.',
+  keywords: ['Interessenabwägung KI', 'interessenabwaegung.ch', 'RPG KI Schweiz', 'Raumplanung KI Tool', 'Interessenabwägung Tool', 'KI Raumplanungsrecht', 'Gratis KI Kurs Raumplanung'],
+  alternates: { canonical: 'https://kurse.spekt.ch/kurs-interessenabwaegung' },
+  openGraph: {
+    title: 'Interessenabwägung mit KI – Gratis Kurs',
+    description: 'Gratis Einführung in KI-gestützte Interessenabwägung nach Schweizer RPG – zugänglich für alle.',
+    url: 'https://kurse.spekt.ch/kurs-interessenabwaegung',
+    siteName: 'SPEKTRUM KI-Kurse',
+    locale: 'de_CH',
+    type: 'website',
+  },
+};
 
 export default async function KursInteressenabwaegungPage() {
   const auth = getUserFromCookie();
-  if (!auth) redirect('/login');
-
-  const user = getUserByEmail(auth.email);
-  const progress = getProgress(auth.email);
-  const percent = getProgressPercent(auth.email);
-  const totalLessons = COURSE_INTERESSENABWAEGUNG.modules.reduce((s, m) => s + m.lessons.length, 0);
+  // Keine Weiterleitung – Kursübersichtsseiten sind öffentlich (SEO)
+  const progress = auth ? getProgress(auth.email) : { completedLessons: [] as string[], quizResults: [], lastActivity: '' };
+  const allLessonIds = COURSE_INTERESSENABWAEGUNG.modules.flatMap(m => m.lessons.map(l => `${m.slug}/${l.slug}`));
+  const completedForCourse = progress.completedLessons.filter(id => allLessonIds.includes(id));
+  const totalLessons = allLessonIds.length;
+  const percent = totalLessons > 0 ? Math.round(completedForCourse.length / totalLessons * 100) : 0;
 
   return (
     <>
@@ -298,7 +312,23 @@ export default async function KursInteressenabwaegungPage() {
         }
       `}} />
 
-      <Header userEmail={auth.email} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Course',
+        name: 'Interessenabwägung mit KI',
+        description: 'Gratis Einführungskurs in das KI-Tool interessenabwaegung.ch. Methodik und Praxis der KI-gestützten Interessenabwägung nach Schweizer Raumplanungsrecht (RPG).',
+        url: 'https://kurse.spekt.ch/kurs-interessenabwaegung',
+        provider: { '@type': 'Organization', name: 'SPEKTRUM Partner GmbH', url: 'https://spekt.ch' },
+        instructor: { '@type': 'Person', name: 'Andreas Rupf', url: 'https://spekt.ch' },
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'CHF', availability: 'https://schema.org/InStock', validFrom: '2024-01-01' },
+        educationalLevel: 'Einsteiger',
+        inLanguage: 'de',
+        availableLanguage: 'de',
+        coursePrerequisites: 'Keine Vorkenntnisse erforderlich',
+        teaches: ['Interessenabwägung Methodik', 'KI-Tool interessenabwaegung.ch', 'RPG Schweiz', 'KI Raumplanungsrecht'],
+        hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT3H', inLanguage: 'de' },
+      }) }} />
+      <Header userEmail={auth?.email} />
       <div className="kp-wrap">
 
         {/* Breadcrumb */}
@@ -318,25 +348,29 @@ export default async function KursInteressenabwaegungPage() {
           <p className="kp-subtitle">{COURSE_INTERESSENABWAEGUNG.description}</p>
         </div>
 
-        {/* Preis-Card */}
-        <div className="kp-price-card">
-          <div>
-            <div className="kp-price-amount">Gratis</div>
-            <div className="kp-price-sub">Frei zugänglich</div>
+        {/* Login-Prompt für nicht eingeloggte User */}
+        {!auth && (
+          <div style={{ background: '#f0f7ff', border: '1.5px solid #c0d4f0', borderRadius: 14, padding: '16px 24px', marginBottom: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+            <div style={{ fontSize: 14, color: '#0057a8', fontWeight: 600 }}>
+              🔐 Einloggen oder registrieren um Zugang zu erhalten
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <a href="/login" style={{ padding: '8px 18px', borderRadius: 8, border: '1.5px solid #0057a8', color: '#0057a8', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Einloggen</a>
+              <a href="/register" style={{ padding: '8px 18px', borderRadius: 8, background: '#0057a8', color: 'white', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Registrieren</a>
+            </div>
           </div>
-          <Link href="/register" className="kp-buy-btn">
-            Jetzt ohne Kosten starten
-          </Link>
-        </div>
+        )}
 
         {/* Fortschritts-Card */}
-        <div className="kp-progress-card">
-          <div className="kp-progress-label">Dein Fortschritt</div>
-          <ProgressBar
-            percent={percent}
-            label={`${progress.completedLessons.length} von ${totalLessons} Lektionen abgeschlossen`}
-          />
-        </div>
+        {auth && (
+          <div className="kp-progress-card">
+            <div className="kp-progress-label">Dein Fortschritt</div>
+            <ProgressBar
+              percent={percent}
+              label={`${completedForCourse.length} von ${totalLessons} Lektionen abgeschlossen`}
+            />
+          </div>
+        )}
 
         {/* Kursmodule */}
         <div className="kp-section-heading">
@@ -426,13 +460,13 @@ export default async function KursInteressenabwaegungPage() {
             Schliesse alle Module ab und beweise dein Wissen im finalen Test.
             Bei 70% oder mehr erhältst du dein persönliches Abschlusszertifikat.
           </p>
-          <span className="kp-cert-badge">
+          <Link href="/zertifikat?course=kurs-interessenabwaegung" className="kp-cert-badge" style={{ textDecoration: 'none', cursor: 'pointer' }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="8" r="6"/>
               <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
             </svg>
-            Abschlusszertifikat inklusive
-          </span>
+            Abschlusszertifikat öffnen →
+          </Link>
         </div>
 
         {/* Unterer CTA */}
@@ -446,6 +480,13 @@ export default async function KursInteressenabwaegungPage() {
         </div>
 
       </div>
+
+      {/* SEO-Textblock */}
+      <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px 48px', color: '#6e6e73', fontSize: 14, lineHeight: 1.7 }}>
+        <h2 style={{ fontSize: 16, fontWeight: 700, color: '#1d1d1f', marginBottom: 10 }}>KI-gestützte Interessenabwägung nach Schweizer Raumplanungsrecht</h2>
+        <p>Die Interessenabwägung ist ein zentrales Instrument des Schweizer Raumplanungsrechts (RPG). Das KI-Tool interessenabwaegung.ch unterstützt Raumplanende dabei, öffentliche und private Interessen systematisch zu erfassen, zu gewichten und abzuwägen. Dieser Gratis-Kurs führt in die Methodik und Nutzung des Tools ein. Du lernst, wie KI den Abwägungsprozess strukturiert, beschleunigt und dokumentiert – und wie du die Ergebnisse in deiner Planungspraxis einsetzt. Kostenlos und ohne Vorkenntnisse zugänglich.</p>
+      </div>
+
       <Footer />
     </>
   );

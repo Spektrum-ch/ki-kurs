@@ -9,12 +9,14 @@ import QuizQuestion from '@/components/QuizQuestion';
 import VideoPlayer from '@/components/VideoPlayer';
 import { COURSE_BUERO } from '@/data/course-buero';
 import { findLessonInCourse, findNextLessonInCourse, findPrevLessonInCourse } from '@/lib/courseUtils';
+import { useCourseAccess } from '@/hooks/useCourseAccess';
 
 export default function LektionBueroPage() {
   const params = useParams();
   const router = useRouter();
   const moduleSlug = params.modul as string;
   const lessonSlug = params.lektion as string;
+  const access = useCourseAccess('kurs-buero');
 
   const found = findLessonInCourse(COURSE_BUERO, moduleSlug, lessonSlug);
   const next = findNextLessonInCourse(COURSE_BUERO, moduleSlug, lessonSlug);
@@ -67,6 +69,11 @@ export default function LektionBueroPage() {
   function handleQuizAnswer(questionId: string, correct: boolean) {
     setQuizAnswers(prev => ({ ...prev, [questionId]: correct }));
   }
+
+  if (access === 'loading') {
+    return <div style={{ padding: '120px 20px', textAlign: 'center', color: '#6e6e73', fontSize: 14 }}>Prüfe Zugang…</div>;
+  }
+  if (access === 'denied') return null;
 
   if (!found) {
     return (

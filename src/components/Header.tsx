@@ -162,8 +162,6 @@ export default function Header({ showNav = true, userEmail }: HeaderProps) {
             ) : (
               <>
                 <Link href="/kurse" className="kk-nav-link">Kurse</Link>
-                <Link href="/login" className="kk-nav-btn">Einloggen</Link>
-                <Link href="/register" className="kk-nav-btn-primary">Kostenlos starten</Link>
               </>
             )}
           </nav>

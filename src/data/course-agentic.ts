@@ -43,7 +43,7 @@ export const COURSE_AGENTIC: Course = {
 <h3>Der entscheidende Unterschied: Autonomie</h3>
 <p>Chatbots reagieren auf einzelne Eingaben. Agenten verfolgen Ziele über mehrere Schritte hinweg – und das zunehmend ohne dass Menschen dazwischen eingreifen müssen. Diese Autonomie ist das, was den Begriff «Agentic AI» prägt.</p>
 
-<blockquote>«Ein KI-Agent ist wie ein gut briefter Mitarbeiter, dem man ein Ziel gibt – und der dann selbstständig den Weg dahin findet, statt bei jedem Schritt auf Anweisung zu warten.»</blockquote>
+<blockquote>«Ein KI-Agent ist wie ein gut briefte Mitarbeitsperson, dem man ein Ziel gibt – und der dann selbstständig den Weg dahin findet, statt bei jedem Schritt auf Anweisung zu warten.»</blockquote>
 
 <h3>Wo stehen wir heute?</h3>
 <p>Aktuelle Agentensysteme wie <strong>Claude mit Computer Use</strong>, <strong>OpenAI Assistants</strong> oder <strong>AutoGPT</strong> sind bereits in der Lage, komplexe Aufgaben eigenständig auszuführen. Sie sind nicht perfekt – Fehler passieren, Qualitätskontrolle bleibt nötig. Aber für klar definierte, wiederholbare Aufgaben leisten sie heute schon erheblichen Mehrwert.
@@ -330,7 +330,7 @@ export const COURSE_AGENTIC: Course = {
 <h3>Schritt-für-Schritt: Einen Recherche-Agenten konfigurieren</h3>
 <p>Am Beispiel eines «Richtplan-Monitors» für den Kanton Zürich:</p>
 <ol>
-  <li><strong>System-Prompt definieren:</strong> «Du bist ein Experte für kantonale Raumplanung. Deine Aufgabe ist es, aktuelle Entwicklungen im Zürcher Richtplan zu beobachten, relevante Änderungen zu identifizieren und präzise Zusammenfassungen zu erstellen.»</li>
+  <li><strong>System-Prompt definieren:</strong> «Du bist eine Fachperson für kantonale Raumplanung. Deine Aufgabe ist es, aktuelle Entwicklungen im Zürcher Richtplan zu beobachten, relevante Änderungen zu identifizieren und präzise Zusammenfassungen zu erstellen.»</li>
   <li><strong>Relevante Dokumente hochladen:</strong> Aktueller Richtplan, ARE-Wegleitungen, relevante Urteile</li>
   <li><strong>Websuche aktivieren:</strong> Für aktuelle Änderungen und Neuigkeiten</li>
   <li><strong>Output-Format definieren:</strong> «Fasse Änderungen in folgendem Format zusammen: Thema, Beschreibung, Relevanz für Gemeinden, Handlungsbedarf.»</li>
@@ -939,7 +939,7 @@ export const COURSE_AGENTIC: Course = {
                   'KI ist 10-mal schneller als Menschen',
                   'Für jeden Dollar Software-Tools zahlen Unternehmen 10 Dollar Lohn – WaaS adressiert genau diesen 10x-grösseren Markt',
                   'WaaS-Dienste kosten 10-mal mehr als SaaS',
-                  'Unternehmen brauchen 10 Tools pro Mitarbeiter',
+                  'Unternehmen brauchen 10 Tools pro Mitarbeitende',
                 ],
                 correct: 1,
                 explanation: 'Das 10:1-Verhältnis ($7K Tools vs. $75K Lohn) zeigt: Der Arbeitsmarkt ist 10x grösser als der Tool-Markt. WaaS-Anbieter, die Arbeit direkt liefern, spielen in einer fundamental grösseren Liga.',

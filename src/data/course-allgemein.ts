@@ -141,7 +141,7 @@ export const COURSE_ALLGEMEIN: Course = {
 <ul>
   <li>Ärzte, die KI-Diagnosen als zweite Meinung nutzen, aber die Entscheidung selbst treffen</li>
   <li>Juristen, die KI-gestützte Dokumentenanalyse nutzen, aber selbst urteilen</li>
-  <li>Planer und Gemeinden, die KI-Datenauswertungen als Entscheidungsgrundlage verwenden</li>
+  <li>Planende und Gemeinden, die KI-Datenauswertungen als Entscheidungsgrundlage verwenden</li>
 </ul>
 
 <blockquote>«KI soll unterstützen, nicht ersetzen. Der Mensch bleibt Autor seiner Entscheidungen.» – SPEKTRUM</blockquote>

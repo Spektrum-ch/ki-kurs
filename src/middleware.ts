@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const COOKIE_NAME = 'kurs-auth';
-const PROTECTED_ROUTES = ['/kurs', '/kurs-allgemein', '/kurs-gemeinden', '/kurs-buero', '/kurs-agentic', '/kurs-strategie', '/kurs-interessenabwaegung', '/zertifikat', '/admin'];
 
+// Kursübersichtsseiten sind öffentlich (SEO) – nur Lektion-Unterseiten + Zertifikat + Admin schützen
 function isProtectedRoute(pathname: string): boolean {
-  return PROTECTED_ROUTES.some(route => pathname.startsWith(route));
+  // /kurs/modul/lektion – geschützt (hat trailing slash)
+  const courseLessonPatterns = [
+    '/kurs/', '/kurs-allgemein/', '/kurs-gemeinden/', '/kurs-buero/',
+    '/kurs-agentic/', '/kurs-strategie/', '/kurs-interessenabwaegung/',
+  ];
+  if (courseLessonPatterns.some(p => pathname.startsWith(p))) return true;
+  // Zertifikat + Admin komplett geschützt
+  return pathname.startsWith('/zertifikat') || pathname.startsWith('/admin');
 }
 
 function base64UrlDecode(str: string): Uint8Array {
@@ -105,5 +112,16 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/kurs/:path*', '/kurs-allgemein/:path*', '/kurs-gemeinden/:path*', '/kurs-buero/:path*', '/kurs-agentic/:path*', '/kurs-strategie/:path*', '/kurs-interessenabwaegung/:path*', '/zertifikat/:path*', '/admin/:path*'],
+  // :path+ = mindestens 1 Segment → Übersichtsseiten (/kurs etc.) werden NICHT erfasst
+  matcher: [
+    '/kurs/:path+',
+    '/kurs-allgemein/:path+',
+    '/kurs-gemeinden/:path+',
+    '/kurs-buero/:path+',
+    '/kurs-agentic/:path+',
+    '/kurs-strategie/:path+',
+    '/kurs-interessenabwaegung/:path+',
+    '/zertifikat/:path*',  // /zertifikat selbst + Unterseiten geschützt
+    '/admin/:path*',
+  ],
 };

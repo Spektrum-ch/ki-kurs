@@ -104,7 +104,7 @@ export const COURSE: Course = {
           id: 'pw-augmented-intel',
           slug: 'mensch-ki-augmented-intelligence',
           title: 'Mensch, Maschine & Augmented Intelligence',
-          description: 'Wann ersetzt KI den Planer – und wann unterstützt sie ihn? Die entscheidende Unterscheidung.',
+          description: 'Wann ersetzt KI Planende – und wann unterstützt sie sie? Die entscheidende Unterscheidung.',
           videoId: '',
           content: `
 <h2>Drei Formen der Intelligenz</h2>
@@ -135,7 +135,7 @@ export const COURSE: Course = {
 <h3>Augmented Intelligence in der Planungspraxis</h3>
 <p>Konkrete Beispiele, wo Augmented Intelligence heute schon funktioniert:</p>
 <ul>
-  <li>KI fasst Einsprachen zusammen → Planer gewichtet und empfiehlt</li>
+  <li>KI fasst Einsprachen zusammen → Planende gewichten und empfehlen</li>
   <li>KI analysiert Bauzonenpotenziale aus Geodaten → Gemeinderat entscheidet</li>
   <li>KI erstellt Entwurf für Planungsbericht → Planerin prüft, ergänzt, zeichnet verantwortlich</li>
   <li>KI protokolliert Sitzungen → Verantwortliche genehmigen</li>
@@ -176,7 +176,7 @@ export const COURSE: Course = {
                 options: [
                   'GIS berechnet automatisch Zonenflächen',
                   'KI genehmigt Baugesuche ohne menschliche Prüfung',
-                  'KI fasst Einsprachen zusammen – Planer gewichtet und empfiehlt',
+                  'KI fasst Einsprachen zusammen – Planende gewichten und empfehlen',
                   'Ein Tabellenkalkulationsprogramm erstellt Berichte',
                 ],
                 correct: 2,
@@ -189,7 +189,7 @@ export const COURSE: Course = {
           id: 'pw-generative-ki',
           slug: 'generative-ki-und-llms',
           title: 'Generative KI & LLMs in der Planung',
-          description: 'Was ChatGPT und Co. für Planer bedeuten – und wo Generative KI bereits in der Praxis eingesetzt wird.',
+          description: 'Was ChatGPT und Co. für Planende bedeuten – und wo Generative KI bereits in der Praxis eingesetzt wird.',
           videoId: '',
           content: `
 <h2>Traditionelle KI vs. Generative KI</h2>
@@ -423,7 +423,7 @@ export const COURSE: Course = {
       id: 'modul-2',
       slug: 'ki-tools-alltag',
       title: 'KI-Tools im Planungsalltag',
-      description: 'Konkrete Werkzeuge, die Planer sofort nutzen können.',
+      description: 'Konkrete Werkzeuge, die Planende sofort nutzen können.',
       icon: '🛠️',
       order: 3,
       lessons: [
@@ -434,7 +434,7 @@ export const COURSE: Course = {
           description: 'ChatGPT, Claude & Co. effektiv für Planungsaufgaben nutzen.',
           content: `
 <h2>KI für Texte – der grösste Quick Win</h2>
-<p>Grosse Sprachmodelle wie ChatGPT oder Claude sind der einfachste Einstieg in die KI-Nutzung für Planer.</p>
+<p>Grosse Sprachmodelle wie ChatGPT oder Claude sind der einfachste Einstieg in die KI-Nutzung für Planende.</p>
 
 <h3>Konkrete Einsatzgebiete</h3>
 <ul>
@@ -747,7 +747,7 @@ export const COURSE: Course = {
           title: 'Ethik & Bias in der Planung',
           description: 'Faire und ethische KI-Nutzung in der Raumplanung.',
           content: `
-<h2>Ethik und Bias – was Planer wissen müssen</h2>
+<h2>Ethik und Bias – was Planende wissen müssen</h2>
 
 <h3>Was ist Bias in KI?</h3>
 <p>KI-Modelle lernen aus historischen Daten. Wenn diese Daten bestimmte Gruppen unter- oder überrepräsentieren, spiegelt sich das in den Ergebnissen wider.</p>

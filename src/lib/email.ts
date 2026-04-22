@@ -23,8 +23,8 @@ function getTransporter() {
 }
 
 /** Magic-Link E-Mail senden */
-export async function sendMagicLink(email: string, token: string, name: string): Promise<void> {
-  const link = `${BASE_URL}/api/auth/magic-link?token=${token}`;
+export async function sendMagicLink(email: string, token: string, name: string, redirect = '/kurse'): Promise<void> {
+  const link = `${BASE_URL}/api/auth/magic-link?token=${token}&redirect=${encodeURIComponent(redirect)}`;
 
   // Dev-Mode: Link in Konsole ausgeben statt senden
   if (!isSmtpConfigured()) {

@@ -397,7 +397,7 @@ export const COURSE_GEMEINDEN: Course = {
                   'Google Gemini, weil er kostenlos ist',
                 ],
                 correct: 1,
-                explanation: 'Microsoft Copilot ist direkt in Word, Outlook und Teams integriert. Für M365-Nutzer ist der Datenschutz bereits im Vertrag geregelt – das erleichtert den Einstieg erheblich.',
+                explanation: 'Microsoft Copilot ist direkt in Word, Outlook und Teams integriert. Für M365-Nutzenden ist der Datenschutz bereits im Vertrag geregelt – das erleichtert den Einstieg erheblich.',
               },
               {
                 id: 'gm-q5-2',
@@ -665,7 +665,7 @@ export const COURSE_GEMEINDEN: Course = {
                   'KI funktioniert nur in Gemeinden über 10\'000 Einwohner',
                   'Klein anfangen, konkrete Anwendung wählen, Wirkung messen und Mitarbeitende einbeziehen',
                   'Erst eine vollständige KI-Strategie entwickeln, dann umsetzen',
-                  'KI-Projekte erfordern immer externe Berater',
+                  'KI-Projekte erfordern immer externe Beratende',
                 ],
                 correct: 1,
                 explanation: 'Der pragmatische Ansatz – konkrete Anwendung, kleine Schritte, messbare Wirkung, Einbezug der Mitarbeitenden – ist der Schlüssel zu erfolgreichen KI-Projekten in Gemeinden.',
@@ -1478,7 +1478,7 @@ export const COURSE_GEMEINDEN: Course = {
                 options: [
                   'Mitarbeitende, die KI-Systeme bedienen',
                   'KI-Systeme, die komplexere mehrstufige Aufgaben selbständig ausführen können',
-                  'Externe Berater für KI-Einführungsprojekte',
+                  'Externe Beratende für KI-Einführungsprojekte',
                   'Chatbots auf Gemeindewebsites',
                 ],
                 correct: 1,
@@ -1684,7 +1684,7 @@ export const COURSE_GEMEINDEN: Course = {
 <ul>
   <li><strong>Früher Einbezug:</strong> Mitarbeitende von Beginn an einbinden – nicht als Empfänger einer fertigen Lösung, sondern als Mitgestaltende.</li>
   <li><strong>Transparenz:</strong> Ehrlich kommunizieren, was KI leisten soll, was es nicht leisten kann, und was es für das Personal bedeutet.</li>
-  <li><strong>Piloten mit Freiwilligen starten:</strong> Enthusiasten als erste Nutzer einsetzen und ihre Erfahrungen sichtbar machen.</li>
+  <li><strong>Piloten mit Freiwilligen starten:</strong> Enthusiasten als erste Nutzende einsetzen und ihre Erfahrungen sichtbar machen.</li>
   <li><strong>Schulung und Support:</strong> Nicht nur einmalig schulen, sondern kontinuierlich begleiten und eine Anlaufstelle für Fragen schaffen.</li>
   <li><strong>Erfolge feiern:</strong> Konkrete Verbesserungen sichtbar machen – das motiviert und überzeugt Skeptiker.</li>
 </ul>

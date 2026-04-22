@@ -10,6 +10,7 @@ export interface User {
   verified: boolean;
   login_token?: string | null;
   login_token_expires?: string | null;
+  purchasedCourses?: Record<string, string>; // slug → ISO-Kaufdatum, z.B. { "kurs-buero": "2026-04-18T..." }
 }
 
 /** Fortschritt eines Nutzers */

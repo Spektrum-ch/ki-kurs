@@ -1,21 +1,41 @@
+import type { Metadata } from 'next';
 import { getUserFromCookie } from '@/lib/auth';
 import { getUserByEmail } from '@/lib/users';
-import { getProgress, getProgressPercent } from '@/lib/progress';
+import { getProgress } from '@/lib/progress';
 import { COURSE } from '@/data/course';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProgressBar from '@/components/ProgressBar';
+import BuyButton from '@/components/BuyButton';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { hasCourseAccess, getCourseExpiry, formatExpiry, daysRemaining } from '@/lib/courseAccess';
+
+export const metadata: Metadata = {
+  title: 'KI für die Planungswelt – Online-Kurs | SPEKTRUM',
+  description: 'Praxisnaher KI-Kurs für Raumplanende, Architektinnen und Stadtplaner im DACH-Raum. ChatGPT, Prompt Engineering und KI-Tools konkret für die Planungspraxis. 90 Tage Zugang – CHF 19.',
+  keywords: ['KI Raumplanung', 'KI Kurs Architekt', 'ChatGPT Raumplaner', 'KI Stadtplanung', 'Künstliche Intelligenz Raumplanung Deutschland Österreich Schweiz', 'KI Weiterbildung Raumplaner', 'Online Kurs Raumplanung KI'],
+  alternates: { canonical: 'https://kurse.spekt.ch/kurs' },
+  openGraph: {
+    title: 'KI für die Planungswelt – Online-Kurs',
+    description: 'ChatGPT, Prompt Engineering und KI-Tools konkret für Raumplanende und Architektinnen – praxisnah, sofort anwendbar.',
+    url: 'https://kurse.spekt.ch/kurs',
+    siteName: 'SPEKTRUM KI-Kurse',
+    locale: 'de_CH',
+    type: 'website',
+  },
+};
 
 export default async function KursPage() {
   const auth = getUserFromCookie();
-  if (!auth) redirect('/login');
-
-  const user = getUserByEmail(auth.email);
-  const progress = getProgress(auth.email);
-  const percent = getProgressPercent(auth.email);
-  const totalLessons = COURSE.modules.reduce((s, m) => s + m.lessons.length, 0);
+  // Keine Weiterleitung – Kursübersichtsseiten sind öffentlich (SEO)
+  const user = auth ? getUserByEmail(auth.email) : null;
+  const purchased = hasCourseAccess(user, 'kurs');
+  const expiry = getCourseExpiry(user, 'kurs');
+  const progress = auth ? getProgress(auth.email) : { completedLessons: [] as string[], quizResults: [], lastActivity: '' };
+  const allLessonIds = COURSE.modules.flatMap(m => m.lessons.map(l => `${m.slug}/${l.slug}`));
+  const completedForCourse = progress.completedLessons.filter(id => allLessonIds.includes(id));
+  const totalLessons = allLessonIds.length;
+  const percent = totalLessons > 0 ? Math.round(completedForCourse.length / totalLessons * 100) : 0;
 
   return (
     <>
@@ -298,7 +318,23 @@ export default async function KursPage() {
         }
       `}} />
 
-      <Header userEmail={auth.email} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Course',
+        name: 'KI für die Planungswelt',
+        description: 'Praxisnaher KI-Kurs für Raumplanende, Architektinnen und Stadtplaner. ChatGPT, Prompt Engineering und KI-Tools konkret für die Planungspraxis.',
+        url: 'https://kurse.spekt.ch/kurs',
+        provider: { '@type': 'Organization', name: 'SPEKTRUM Partner GmbH', url: 'https://spekt.ch' },
+        instructor: { '@type': 'Person', name: 'Andreas Rupf', url: 'https://spekt.ch' },
+        offers: { '@type': 'Offer', price: '19', priceCurrency: 'CHF', availability: 'https://schema.org/InStock', validFrom: '2024-01-01' },
+        educationalLevel: 'Einsteiger',
+        inLanguage: 'de',
+        availableLanguage: 'de',
+        coursePrerequisites: 'Keine Vorkenntnisse erforderlich',
+        teaches: ['ChatGPT für Raumplanung', 'Prompt Engineering', 'KI-Tools im Planungsalltag', 'KI-Methoden für Architektinnen'],
+        hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT5H', inLanguage: 'de' },
+      }) }} />
+      <Header userEmail={auth?.email} />
       <div className="kp-wrap">
 
         {/* Breadcrumb */}
@@ -319,24 +355,48 @@ export default async function KursPage() {
         </div>
 
         {/* Preis-Card */}
-        <div className="kp-price-card">
-          <div className="kp-price-left">
-            <div className="kp-price-amount">CHF 19</div>
-            <div className="kp-price-sub">Lifetime Access</div>
+        {purchased ? (
+          <div className="kp-price-card" style={{ background: 'linear-gradient(135deg, #f0fff8 0%, #e6ffe6 100%)', borderColor: '#00a896' }}>
+            <div className="kp-price-left">
+              <div className="kp-price-amount" style={{ color: '#007a6e' }}>✓ Zugang aktiv</div>
+              <div className="kp-price-sub">
+                {expiry ? `Gültig bis ${formatExpiry(expiry)} (${daysRemaining(expiry)} Tage)` : '90 Tage Zugang'}
+              </div>
+            </div>
           </div>
-          <Link href="/register" className="kp-buy-btn">
-            Lifetime Access kaufen – CHF 19
-          </Link>
-        </div>
+        ) : (
+          <div className="kp-price-card">
+            <div className="kp-price-left">
+              <div className="kp-price-amount">CHF 19</div>
+              <div className="kp-price-sub">90 Tage Zugang</div>
+            </div>
+            <BuyButton courseSlug="kurs" label="Zugang kaufen – CHF 19" color="#0057a8" />
+          </div>
+        )}
+
+        {/* Login-Prompt für nicht eingeloggte User */}
+        {!auth && (
+          <div style={{ background: '#f0f7ff', border: '1.5px solid #c0d4f0', borderRadius: 14, padding: '16px 24px', marginBottom: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+            <div style={{ fontSize: 14, color: '#0057a8', fontWeight: 600 }}>
+              🔐 Einloggen oder registrieren um Zugang zu erhalten
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <a href="/login" style={{ padding: '8px 18px', borderRadius: 8, border: '1.5px solid #0057a8', color: '#0057a8', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Einloggen</a>
+              <a href="/register" style={{ padding: '8px 18px', borderRadius: 8, background: '#0057a8', color: 'white', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Registrieren</a>
+            </div>
+          </div>
+        )}
 
         {/* Fortschritts-Card */}
-        <div className="kp-progress-card">
-          <div className="kp-progress-label">Dein Fortschritt</div>
-          <ProgressBar
-            percent={percent}
-            label={`${progress.completedLessons.length} von ${totalLessons} Lektionen abgeschlossen`}
-          />
-        </div>
+        {auth && (
+          <div className="kp-progress-card">
+            <div className="kp-progress-label">Dein Fortschritt</div>
+            <ProgressBar
+              percent={percent}
+              label={`${completedForCourse.length} von ${totalLessons} Lektionen abgeschlossen`}
+            />
+          </div>
+        )}
 
         {/* Kursmodule */}
         <div className="kp-section-heading">
@@ -388,9 +448,21 @@ export default async function KursPage() {
 
               {/* Lektionen */}
               <div className="kp-lessons">
-                {modul.lessons.map(lektion => {
+                {modul.lessons.map((lektion, li) => {
                   const lessonId = `${modul.slug}/${lektion.slug}`;
                   const done = progress.completedLessons.includes(lessonId);
+                  const isFreePreview = mi === 0 && li === 0;
+                  if (!purchased && !isFreePreview) {
+                    return (
+                      <div key={lektion.id} className="kp-lesson" style={{ opacity: 0.55, cursor: 'default' }}>
+                        <div className="kp-lesson-check" style={{ fontSize: 12 }}>🔒</div>
+                        <div style={{ flex: 1 }}>
+                          <div className="kp-lesson-title">{lektion.title}</div>
+                          <div className="kp-lesson-desc">{lektion.description}</div>
+                        </div>
+                      </div>
+                    );
+                  }
                   return (
                     <Link
                       key={lektion.id}
@@ -401,7 +473,12 @@ export default async function KursPage() {
                         {done ? '✓' : ''}
                       </div>
                       <div style={{ flex: 1 }}>
-                        <div className="kp-lesson-title">{lektion.title}</div>
+                        <div className="kp-lesson-title">
+                          {lektion.title}
+                          {isFreePreview && !purchased && (
+                            <span style={{ marginLeft: 8, fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 100, background: '#00a896', color: 'white', textTransform: 'uppercase', letterSpacing: 0.5, verticalAlign: 'middle' }}>Gratis-Vorschau</span>
+                          )}
+                        </div>
                         <div className="kp-lesson-desc">{lektion.description}</div>
                       </div>
                       <span className="kp-lesson-arrow">→</span>
@@ -426,26 +503,33 @@ export default async function KursPage() {
             Schliesse alle Module ab und beweise dein Wissen im finalen Test.
             Bei 70% oder mehr erhältst du dein persönliches Abschlusszertifikat.
           </p>
-          <span className="kp-cert-badge">
+          <Link href="/zertifikat?course=kurs" className="kp-cert-badge" style={{ textDecoration: 'none', cursor: 'pointer' }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="8" r="6"/>
               <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
             </svg>
-            Abschlusszertifikat inklusive
-          </span>
-        </div>
-
-        {/* Unterer CTA */}
-        <div className="kp-cta-bar">
-          <span className="kp-cta-text">
-            Lifetime Access zu allen {COURSE.modules.length} Modulen inkl. Abschlusszertifikat.
-          </span>
-          <Link href="/register" className="kp-cta-btn">
-            Lifetime Access kaufen – CHF 19
+            Abschlusszertifikat öffnen →
           </Link>
         </div>
 
+        {/* Unterer CTA */}
+        {!purchased && (
+          <div className="kp-cta-bar">
+            <span className="kp-cta-text">
+              90 Tage Zugang zu allen {COURSE.modules.length} Modulen inkl. Abschlusszertifikat.
+            </span>
+            <BuyButton courseSlug="kurs" label="Zugang kaufen – CHF 19" color="#0057a8" />
+          </div>
+        )}
+
       </div>
+
+      {/* SEO-Textblock */}
+      <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px 48px', color: '#6e6e73', fontSize: 14, lineHeight: 1.7 }}>
+        <h2 style={{ fontSize: 16, fontWeight: 700, color: '#1d1d1f', marginBottom: 10 }}>KI für Raumplanende und Architektinnen im DACH-Raum</h2>
+        <p>Raumplanende, Architektinnen und Stadtplaner in der Schweiz, Deutschland und Österreich stehen vor der Aufgabe, Künstliche Intelligenz sinnvoll in die Planungspraxis zu integrieren. Dieser Online-Kurs zeigt konkret, wie ChatGPT und KI-Tools für Raumanalysen, Planungsberichte, Stellungnahmen und die Kommunikation mit Behörden eingesetzt werden. Du lernst Prompt Engineering speziell für Planungsaufgaben und entdeckst, wie KI repetitive Arbeiten übernimmt – damit du dich auf das Wesentliche konzentrieren kannst. Praxisbeispiele aus der deutschsprachigen Planungspraxis, kein Informatik-Studium nötig.</p>
+      </div>
+
       <Footer />
     </>
   );

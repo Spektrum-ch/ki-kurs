@@ -2,6 +2,7 @@ import { getUserFromCookie, isAdmin } from '@/lib/auth';
 import { getAllUsers } from '@/lib/users';
 import { getProgress, getProgressPercent } from '@/lib/progress';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import Header from '@/components/Header';
 
 export default async function AdminPage() {
@@ -48,6 +49,16 @@ export default async function AdminPage() {
       <div className="admin-page">
         <h1 className="admin-title">Admin Dashboard</h1>
         <p className="admin-subtitle">Kurs «KI für die Planungswelt» – Nutzerübersicht</p>
+
+        <div style={{ marginBottom: 28, padding: 18, background: 'linear-gradient(135deg, #1d1d1f 0%, #0d3d26 100%)', borderRadius: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
+          <div>
+            <div style={{ fontWeight: 700, color: 'white', fontSize: 15, marginBottom: 3 }}>Team-Lizenz freischalten</div>
+            <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13 }}>Liste einer Gemeinde/Firma einfügen und mehrere Personen in einem Rutsch freischalten.</div>
+          </div>
+          <Link href="/admin/team-unlock" style={{ padding: '10px 18px', background: '#00C853', color: '#1d1d1f', borderRadius: 50, fontWeight: 700, fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+            → Freischalten
+          </Link>
+        </div>
 
         <div className="admin-stats">
           <div className="admin-stat">

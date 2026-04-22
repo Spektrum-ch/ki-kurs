@@ -536,7 +536,7 @@ export const COURSE_STRATEGIE: Course = {
   <tbody>
     <tr>
       <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">SaaS-Tools (ChatGPT, Claude, etc.)</td>
-      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">CHF 20-50 / Nutzer / Monat</td>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">CHF 20-50 / Nutzende / Monat</td>
       <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Oft kein Ausschreibungsverfahren nötig</td>
     </tr>
     <tr>
@@ -924,7 +924,7 @@ export const COURSE_STRATEGIE: Course = {
                   'Ein Bankkonto für KI-Investitionen',
                   'Das Vertrauen wird wie ein Konto langsam aufgebaut (durch gute Erfahrungen) und kann schnell verbraucht werden (durch Fehler oder Pannen)',
                   'Ein spezielles Finanzierungsmodell für KI-Projekte',
-                  'Das Vertrauen des Gemeinderats in externe Berater',
+                  'Das Vertrauen des Gemeinderats in externe Beratende',
                 ],
                 correct: 1,
                 explanation: 'Das Vertrauens-Konto ist eine Metapher: Jede positive Erfahrung baut Vertrauen auf; jede negative Erfahrung – falscher Chatbot, Datenpanne – verbraucht es. Nachhaltiger KI-Einsatz investiert bewusst in dieses Konto.',

@@ -9,12 +9,14 @@ import QuizQuestion from '@/components/QuizQuestion';
 import VideoPlayer from '@/components/VideoPlayer';
 import { COURSE_ALLGEMEIN } from '@/data/course-allgemein';
 import { findLessonInCourse, findNextLessonInCourse, findPrevLessonInCourse } from '@/lib/courseUtils';
+import { useCourseAccess } from '@/hooks/useCourseAccess';
 
 export default function LektionAllgemeinPage() {
   const params = useParams();
   const router = useRouter();
   const moduleSlug = params.modul as string;
   const lessonSlug = params.lektion as string;
+  const access = useCourseAccess('kurs-allgemein');
 
   const found = findLessonInCourse(COURSE_ALLGEMEIN, moduleSlug, lessonSlug);
   const next = findNextLessonInCourse(COURSE_ALLGEMEIN, moduleSlug, lessonSlug);
@@ -67,6 +69,11 @@ export default function LektionAllgemeinPage() {
   function handleQuizAnswer(questionId: string, correct: boolean) {
     setQuizAnswers(prev => ({ ...prev, [questionId]: correct }));
   }
+
+  if (access === 'loading') {
+    return <div style={{ padding: '120px 20px', textAlign: 'center', color: '#6e6e73', fontSize: 14 }}>Prüfe Zugang…</div>;
+  }
+  if (access === 'denied') return null;
 
   if (!found) {
     return (

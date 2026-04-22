@@ -11,6 +11,7 @@ export interface CourseCard {
   course: Course;
   slug: string;
   emoji: string;
+  image?: string;       // optionales Foto, z.B. "/images/kurs-planungswelt.jpg"
   level: 'Einsteiger' | 'Fortgeschritten' | 'Experte';
   tag: string;
   href: string;
@@ -24,6 +25,7 @@ export const ALL_COURSES: CourseCard[] = [
     course: COURSE,
     slug: 'ki-planungswelt',
     emoji: '🗺️',
+    image: '/images/kurs-planungswelt.webp',
     level: 'Einsteiger',
     tag: 'Raumplanung',
     href: '/kurs',
@@ -35,6 +37,7 @@ export const ALL_COURSES: CourseCard[] = [
     course: COURSE_ALLGEMEIN,
     slug: 'ki-einsteiger',
     emoji: '🤖',
+    image: '/images/kurs-allgemein.webp',
     level: 'Einsteiger',
     tag: 'Allgemein',
     href: '/kurs-allgemein',
@@ -46,6 +49,7 @@ export const ALL_COURSES: CourseCard[] = [
     course: COURSE_GEMEINDEN,
     slug: 'ki-gemeinden',
     emoji: '🏛️',
+    image: '/images/kurs-gemeinden.webp',
     level: 'Fortgeschritten',
     tag: 'Gemeinden',
     href: '/kurs-gemeinden',

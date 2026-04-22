@@ -112,7 +112,7 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
                   'Das Bundesamt für Raumentwicklung (ARE)',
                 ],
                 correct: 2,
-                explanation: 'Die fachliche Verantwortung liegt immer beim zuständigen Planer oder der Planerin. Werkzeuge – ob analog oder digital – unterstützen den Prozess, ersetzen aber nicht das professionelle Urteilsvermögen.',
+                explanation: 'Die fachliche Verantwortung liegt immer bei den zuständigen Planenden. Werkzeuge – ob analog oder digital – unterstützen den Prozess, ersetzen aber nicht das professionelle Urteilsvermögen.',
               },
             ],
           },
@@ -401,6 +401,18 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
       <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Kantone / ARE</td>
       <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Vergleichbarkeit von Abwägungsberichten; strukturierte Grundlage</td>
     </tr>
+    <tr>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Verbände / Vereine</td>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Professionelle Stellungnahmen in Vernehmlassungen und Einspracheverfahren</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Projektentwickler / Investoren</td>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Frühzeitige Einschätzung der Abwägungschancen vor Gesuchseinreichung</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Hochschulen / Forschung</td>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Methodisch fundierte Fallstudien und Lehrmaterial zu Interessenabwägungen</td>
+    </tr>
   </tbody>
 </table>
 
@@ -414,7 +426,7 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
 <p>Das Tool deckt alle 26 Schweizer Kantone ab und ist in vier Sprachen verfügbar: Deutsch, Französisch, Italienisch und Rätoromanisch. Die Geodaten werden kantonal aktualisiert.</p>
 
 <h3>Was das Tool nicht tut</h3>
-<p>Wichtig: Das Tool ersetzt keine fachliche Beurteilung. Es beschleunigt die Identifikation und schlägt Bewertungen vor – die finale Beurteilung, Begründung und Verantwortung liegt beim zuständigen Planer oder der Planerin.</p>
+<p>Wichtig: Das Tool ersetzt keine fachliche Beurteilung. Es beschleunigt die Identifikation und schlägt Bewertungen vor – die finale Beurteilung, Begründung und Verantwortung liegt bei den zuständigen Planenden.</p>
           `,
           order: 1,
           quiz: {
@@ -449,11 +461,11 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
                 options: [
                   'Es funktioniert nur für Einzonungen',
                   'Es liefert keine Karten',
-                  'Es ersetzt nicht die fachliche Beurteilung – Bewertungen sind Vorschläge, die Verantwortung liegt beim Planer',
+                  'Es ersetzt nicht die fachliche Beurteilung – Bewertungen sind Vorschläge, die Verantwortung liegt bei Planenden',
                   'Es kann nur auf Deutsch genutzt werden',
                 ],
                 correct: 2,
-                explanation: 'Das Tool beschleunigt und strukturiert, ersetzt aber nicht. Die fachliche Verantwortung – und damit die Haftung – liegt beim zuständigen Planer oder der Planerin.',
+                explanation: 'Das Tool beschleunigt und strukturiert, ersetzt aber nicht. Die fachliche Verantwortung – und damit die Haftung – liegt bei den zuständigen Planenden.',
               },
             ],
           },
@@ -498,10 +510,10 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
 <ol>
   <li>Das Tool zeigt die relevanten Geodaten (z.B. «Parzelle liegt zu 30% in FFF»)</li>
   <li>Es macht einen Bewertungsvorschlag für Erheblichkeit und Gewichtung</li>
-  <li>Der Planer prüft, passt an und begründet die eigene Einschätzung</li>
+  <li>Planende prüfen, passen an und begründen die eigene Einschätzung</li>
   <li>Die Begründung wird direkt im Tool eingegeben und fliesst in den Bericht</li>
 </ol>
-<p><strong>Wichtig:</strong> Interessen können auch manuell hinzugefügt werden, wenn das Tool etwas nicht automatisch erfasst hat. Der Planer hat immer das letzte Wort.</p>
+<p><strong>Wichtig:</strong> Interessen können auch manuell hinzugefügt werden, wenn das Tool etwas nicht automatisch erfasst hat. Planende haben immer das letzte Wort.</p>
 
 <h3>Phase 4: Abwägung und Synthese</h3>
 <p>Nach der Einzelbewertung aller Interessen folgt die Gesamtabwägung:</p>
@@ -523,7 +535,7 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
   <li>Kantonale Checkliste (kantonal variierend)</li>
   <li>Rechtsgrundlagenverzeichnis</li>
 </ul>
-<p>Das Dokument ist so strukturiert, dass es direkt als Planungsbericht nach Art. 47 RPV verwendet werden kann – nach fachlicher Prüfung und allfälliger Ergänzung durch den Planer.</p>
+<p>Das Dokument ist so strukturiert, dass es direkt als Planungsbericht nach Art. 47 RPV verwendet werden kann – nach fachlicher Prüfung und allfälliger Ergänzung durch Planende.</p>
 
 <blockquote>Der Workflow des Tools folgt bewusst der Dreischrittmethodik: Identifikation (Phase 2) → Bewertung (Phase 3) → Abwägung (Phase 4). Das entspricht exakt der rechtlichen Anforderung und der EspaceSuisse-Methodik.</blockquote>
           `,
@@ -556,7 +568,7 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
               },
               {
                 id: 'ia-q5-3',
-                question: 'Was kann der Planer in Phase 3 (Interessen bewerten) anpassen?',
+                question: 'Was können Planende in Phase 3 (Interessen bewerten) anpassen?',
                 options: [
                   'Nichts – die KI-Bewertungen sind fix',
                   'Nur die Farbe der Tabelle',
@@ -564,7 +576,7 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
                   'Nur die Schlussfolgerung',
                 ],
                 correct: 2,
-                explanation: 'Der Planer hat volle Kontrolle: KI-Vorschläge sind ein Ausgangspunkt. Erheblichkeit und Gewichtung können angepasst, Begründungen eingegeben und fehlende Interessen manuell ergänzt werden.',
+                explanation: 'Planende haben volle Kontrolle: KI-Vorschläge sind ein Ausgangspunkt. Erheblichkeit und Gewichtung können angepasst, Begründungen eingegeben und fehlende Interessen manuell ergänzt werden.',
               },
             ],
           },
@@ -596,7 +608,7 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
 <div style="background: #fce4ec; border-left: 4px solid #c62828; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0;">
   <strong>CONTRA-Agent (Schutzinteressen)</strong><br/>
   <em>Rolle: Den Advocatus Diaboli spielen</em><br/>
-  Er verteidigt Schutzinteressen: Wurden Naturwerte ausreichend gewichtet? Sind Gefahrenrisiken unterschätzt? Er nimmt die Perspektive einer Einsprecherin ein und formuliert die stärksten möglichen Gegenargumente – damit der Planer sie adressieren kann, bevor jemand anders es tut.
+  Er verteidigt Schutzinteressen: Wurden Naturwerte ausreichend gewichtet? Sind Gefahrenrisiken unterschätzt? Er nimmt die Perspektive einer Einsprecherin ein und formuliert die stärksten möglichen Gegenargumente – damit Planende sie adressieren können, bevor jemand anders es tut.
 </div>
 
 <div style="background: #e3f2fd; border-left: 4px solid #1565c0; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0;">
@@ -646,7 +658,7 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
                   'Er prüft die Vollständigkeit der Geodaten',
                 ],
                 correct: 1,
-                explanation: 'Der CONTRA-Agent nimmt bewusst die Perspektive einer Einsprecherin ein und formuliert die stärksten Gegenargumente. Damit hilft er dem Planer, Schwachstellen zu erkennen und zu stärken, bevor Einsprachen eingehen.',
+                explanation: 'Der CONTRA-Agent nimmt bewusst die Perspektive einer Einsprecherin ein und formuliert die stärksten Gegenargumente. Damit hilft er Planenden, Schwachstellen zu erkennen und zu stärken, bevor Einsprachen eingehen.',
               },
               {
                 id: 'ia-q6-2',
@@ -731,7 +743,7 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
   <li>Rechtsgrundlagenverzeichnis</li>
   <li>Kantonale Checkliste</li>
 </ul>
-<p>Diese Teile brauchen typischerweise Ergänzung durch den Planer:</p>
+<p>Diese Teile brauchen typischerweise Ergänzung durch Planende:</p>
 <ul>
   <li>Einleitung und Projekthintergrund (lokales Wissen)</li>
   <li>Begründungen für strittige Interessen</li>
