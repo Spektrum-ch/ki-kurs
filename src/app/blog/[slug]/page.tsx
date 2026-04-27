@@ -8,6 +8,23 @@ interface BlogPageProps {
   params: { slug: string };
 }
 
+function getAllPosts(): BlogPost[] {
+  try {
+    const file = path.join(process.cwd(), 'src', 'data', 'blog.json');
+    if (fs.existsSync(file)) {
+      return JSON.parse(fs.readFileSync(file, 'utf-8'));
+    }
+  } catch (error) {
+    console.error('Error loading blog posts:', error);
+  }
+  return [];
+}
+
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+  return posts.map(post => ({ slug: post.slug }));
+}
+
 function getPost(slug: string): BlogPost | null {
   try {
     const file = path.join(process.cwd(), 'src', 'data', 'blog.json');

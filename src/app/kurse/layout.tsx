@@ -291,7 +291,7 @@ const faqJsonLd = {
     {
       '@type': 'Question',
       name: 'Welche Karrierechancen ergeben sich aus dem Kursabschluss?',
-      acceptedAnswer": {
+      acceptedAnswer: {
         '@type': 'Answer',
         text: '70% unserer Absolventen haben AI-Projekte in ihre Büros/Gemeinden integriert. Typische Outcomes: Senior-Positionen mit KI-Verantwortung, Beratungsaufträge, höhere Gehaltsspannen (+15–30% in der Planungsbranche). Die Kombination aus RPG/RPV-Wissen + KI-Skills ist 2026 selten – starker Competitive Advantage.',
       },
@@ -307,7 +307,7 @@ const faqJsonLd = {
     {
       '@type': 'Question',
       name: 'Wie lange dauert ein Kurs im Durchschnitt?',
-      acceptedAnswer": {
+      acceptedAnswer: {
         '@type': 'Answer',
         text: 'Der KI-Grundkurs Einsteiger: 12–16 Stunden (ca. 6 Wochen à 2–3 Stunden/Woche). "KI für die Planungswelt": 18–24 Stunden (8 Wochen). KI-Intensivprogramme: 30–40 Stunden über 4–6 Monate, berufsbegleitend. Sie bestimmen das Tempo – 90–180 Tage Zugang geben Ihnen Flexibilität.',
       },
@@ -315,7 +315,7 @@ const faqJsonLd = {
     {
       '@type': 'Question',
       name: 'Gibt es ein Geld-zurück-Versprechen?',
-      acceptedAnswer": {
+      acceptedAnswer: {
         '@type': 'Answer',
         text: 'Ja. Wenn Sie nach den ersten 2 Lektionen feststellen, dass der Kurs nicht passt, erhalten Sie eine vollständige Rückerstattung (innerhalb von 14 Tagen nach Kauf). Kein Abo, keine versteckten Gebühren – einmalige Zahlung, vollständige Transparenz.',
       },
@@ -323,7 +323,7 @@ const faqJsonLd = {
     {
       '@type': 'Question',
       name: 'Welche ETH-Verbindung hat SPEKTRUM?',
-      acceptedAnswer": {
+      acceptedAnswer: {
         '@type': 'Answer',
         text: 'Andreas Rupf ist Programmleiter des ETH MAS/CAS "Raumentwicklung" an der ETH Zürich. Die SPEKTRUM-Kursinhalte werden in ETH-Lehrveranstaltungen gelehrt und evaluiert. Dies garantiert wissenschaftliche Fundierung und Integration aktueller Forschung – nicht kommerzialisierte Inhalte ohne akademischen Hintergrund.',
       },

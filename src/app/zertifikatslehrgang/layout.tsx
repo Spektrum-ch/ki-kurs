@@ -132,7 +132,7 @@ const faqJsonLd = {
     {
       '@type': 'Question',
       name: 'Welche beruflichen Chancen ergeben sich nach einem KI-Intensivprogramm?',
-      acceptedAnswer": {
+      acceptedAnswer: {
         '@type': 'Answer',
         text: '70% unserer Absolventen erhalten Senior-Positionen oder KI-Spezialisten-Rollen in ihren Organisationen. Planungsbüros berichten von +20% höheren Gehältern für KI-kompetente Mitarbeitende. Internationale Chancen (ISOCARP, Eurocities): KI-Skills sind 2026 in Europa extrem selten bei Raumplanenden.',
       },
@@ -140,7 +140,7 @@ const faqJsonLd = {
     {
       '@type': 'Question',
       name: 'Welches KI-Intensivprogramm passt zu meinem beruflichen Hintergrund?',
-      acceptedAnswer": {
+      acceptedAnswer: {
         '@type': 'Answer',
         text: '1. Planerinnen: "KI für die Planungswelt" (RPG/RPV + praktisch). 2. Gemeinderat/Verwaltung: "Verwaltung & Gemeinden" (Governance + Alltag). 3. Planungsbüro-Leitung: "Planungsbüros" (Strategie + Team-Coaching). 4. KI-Profis: "KI-Profis" (Agenten, Advanced Tools). Eine Person, ein Programm.',
       },
@@ -148,7 +148,7 @@ const faqJsonLd = {
     {
       '@type': 'Question',
       name: 'Kann ich während des Lehrgangs meine Meinung ändern und wechseln?',
-      acceptedAnswer": {
+      acceptedAnswer: {
         '@type': 'Answer',
         text: 'Ja, innerhalb der ersten 14 Tage kostenlos. Nach 14 Tagen sind Wechsel nicht mehr möglich – Sie haben aber 180 Tage Zeit, den Lehrgang zu absolvieren, und können einzelne Kurse zeitlich verschieben.',
       },

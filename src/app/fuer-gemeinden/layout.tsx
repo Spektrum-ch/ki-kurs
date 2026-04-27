@@ -117,7 +117,7 @@ const faqJsonLd = {
     {
       '@type': 'Question',
       name: 'Können wir den Kurs unseren Mitarbeitenden empfehlen, auch wenn sie noch nicht IT-affin sind?',
-      acceptedAnswer": {
+      acceptedAnswer: {
         '@type': 'Answer',
         text: 'Ja, empfohlen. Der KI-Grundkurs Einsteiger ist speziell für Nicht-IT-Profis konzipiert – keine Programmierung, keine Kompliziertheit. Die meisten Absolventinnen berichten: "Das ist einfacher als Excel-Funktionen." Die Kursmaterialien sind praxisnah und auf Raumplanung zugeschnitten, nicht theoretisch.',
       },
