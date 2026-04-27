@@ -3,7 +3,7 @@ import type { Course } from '@/types';
 export const COURSE_INTERESSENABWAEGUNG: Course = {
   title: 'Interessenabwägung mit KI',
   slug: 'ki-interessenabwaegung',
-  description: 'Fundierte Methodik und praxisorientierte Einführung in das KI-Tool interessenabwaegung.ch – von den rechtlichen Grundlagen nach RPG und RPV bis zur Agenten-Debatte.',
+  description: 'Fundierte Methodik und praxisorientierte Einführung in das KI-Tool interessenabwaegung.ch – von den rechtlichen Grundlagen nach RPG und RPV über Sachpläne und Bundesgerichtsentscheide bis zur Agenten-Debatte.',
   modules: [
     {
       id: 'ia-modul-1',
@@ -683,6 +683,208 @@ export const COURSE_INTERESSENABWAEGUNG: Course = {
                 ],
                 correct: 1,
                 explanation: 'Der RECHT-Agent prüft gegen die Bundesgerichtspraxis und benennt konkrete Anfechtungsrisiken. Diese Hinweise vor der Einreichung zu beheben ist der direkteste Weg zu einer rechtssicheren Abwägung.',
+              },
+            ],
+          },
+        },
+        {
+          id: 'ia-sachplaene',
+          slug: 'ia-sachplaene',
+          order: 8,
+          title: 'Sachpläne als Referenz',
+          description: 'Welche Bundes- und Kantonsebene-Sachpläne im Tool hinterlegt sind, wie sie die Interessenabwägung beeinflussen und wie man Konflikte frühzeitig erkennt.',
+          videoId: '',
+          content: `
+<h2>Sachpläne im Tool: Was hinterlegt ist – und warum das entscheidend ist</h2>
+<p>Eines der stärksten Features von interessenabwaegung.ch ist die Hinterlegung der relevanten Bundes-Sachpläne. Das Tool kann damit bei jeder Interessenabwägung automatisch prüfen, ob das Vorhaben mit geltenden Sachplanfestlegungen kollidiert – und diese Konflikte direkt in die Abwägungsstruktur einfliessen lassen.</p>
+
+<h3>Was ist ein Sachplan?</h3>
+<p>Sachpläne sind Planungsinstrumente des Bundes (und der Kantone), mit denen raumwirksame Tätigkeiten koordiniert werden. Sie sind für Behörden verbindlich (Festsetzungen) und müssen bei Nutzungsplanungen berücksichtigt werden. Wer einen Sachplan übersieht oder ignoriert, riskiert eine Plananfechtung.</p>
+
+<h3>Hinterlegte Sachpläne im Tool</h3>
+
+<div style="background: #f0fff8; border-left: 4px solid #00a896; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0;">
+  <strong>Sachplan Fruchtfolgeflächen (FFF)</strong><br/>
+  Festlegung der minimalen FFF-Kontingente je Kanton. Das Tool erkennt, ob eine geplante Einzonung FFF betrifft, und weist auf die Kompensationspflicht nach Art. 30 RPV hin. FFF-Verluste sind einer der häufigsten Ablehnungsgründe bei Einzonungen.
+</div>
+
+<div style="background: #f0fff8; border-left: 4px solid #00a896; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0;">
+  <strong>Sachplan Biotope von nationaler Bedeutung (inkl. Hoch- und Flachmoore, Amphibienlaichgebiete, Auengebiete)</strong><br/>
+  Die Bundesinventare nach NHG sind für Planungsbehörden verbindlich. Das Tool prüft Überschneidungen und zeigt an, ob das Vorhaben in einem Bundesinventar-Perimeter liegt – was eine besonders qualifizierte Abwägung erfordert.
+</div>
+
+<div style="background: #f0fff8; border-left: 4px solid #00a896; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0;">
+  <strong>ISOS – Inventar schützenswerter Ortsbilder der Schweiz</strong><br/>
+  ISOS-Einstufungen (A, B, C) sind bei allen Nutzungsplanungen zu berücksichtigen. Das Tool weist auf die Ortsbild-Relevanz hin und unterstützt die Formulierung einer sachgerechten Abwägung zwischen Siedlungsentwicklung und Ortsbildschutz.
+</div>
+
+<div style="background: #f0fff8; border-left: 4px solid #00a896; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0;">
+  <strong>BLN – Bundesinventar der Landschaften und Naturdenkmäler</strong><br/>
+  BLN-Gebiete geniessen erhöhten Schutz. Das Tool markiert BLN-Überschneidungen und erinnert an die Bundesgerichtspraxis, wonach bei BLN-Objekten eine besonders gewichtige Begründung für Eingriffe notwendig ist.
+</div>
+
+<div style="background: #f0fff8; border-left: 4px solid #00a896; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0;">
+  <strong>IVS – Inventar historischer Verkehrswege der Schweiz</strong><br/>
+  Historische Verkehrswege von nationaler und regionaler Bedeutung sind bei Planungen zu beachten. Das Tool zeigt Überschneidungen und unterstützt die Abwägung bei Wegeumlegungen oder Überbauungen.
+</div>
+
+<div style="background: #f0fff8; border-left: 4px solid #00a896; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0;">
+  <strong>Sachplan Verkehr (SIN, SIL, SIM)</strong><br/>
+  Sachplan Infrastruktur Schiene, Luft und Militär – relevant für Gebiete in der Nähe von Verkehrsinfrastrukturen. Das Tool weist auf Koordinationspflichten hin.
+</div>
+
+<h3>Wie das Tool Sachpläne nutzt</h3>
+<p>Wenn du eine Parzelle oder ein Planungsgebiet erfasst, prüft das Tool automatisch:</p>
+<ol>
+  <li><strong>Welche Sachpläne betroffen sind</strong> – basierend auf geografischer Lage und hinterlegten GIS-Ebenen</li>
+  <li><strong>Welche Schutzinteressen daraus entstehen</strong> – mit Verweis auf die konkrete Rechtsgrundlage</li>
+  <li><strong>Welche Abwägungsanforderungen gelten</strong> – einfache Begründung, substantiierte Begründung oder qualifizierter Nachweis</li>
+</ol>
+
+<h3>Praxistipp: Sachplan-Check vor Planungsbeginn</h3>
+<p>Nutze das Tool bereits in der Vorstudienphase als Sachplan-Checker: Erfasse die Parzelle und lass dir anzeigen, welche Bundesinventare und Sachpläne betroffen sind. Das gibt dir in wenigen Minuten eine verlässliche Konfliktübersicht – und verhindert böse Überraschungen im Genehmigungsverfahren.</p>
+
+<blockquote>Ein häufiger Fehler in der Praxis: Die FFF-Betroffenheit wird nicht geprüft oder erst im Genehmigungsverfahren erkannt. Das Tool macht diese Prüfung zum Standardschritt.</blockquote>
+`,
+          quiz: {
+            questions: [
+              {
+                id: 'ia-qs-1',
+                question: 'Was sind Sachpläne und welche Bindungswirkung haben sie?',
+                options: [
+                  'Empfehlungen des Bundes ohne Verbindlichkeit',
+                  'Kommunale Nutzungspläne mit Rechtswirkung für Grundeigentümer',
+                  'Koordinationsinstrumente des Bundes, die für Behörden bei Festsetzungen verbindlich sind',
+                  'Kantonale Richtpläne mit Genehmigungspflicht',
+                ],
+                correct: 2,
+                explanation: 'Sachpläne sind Planungsinstrumente des Bundes. Festsetzungen sind für Behörden verbindlich und müssen bei Nutzungsplanungen berücksichtigt werden. Wer sie ignoriert, riskiert eine erfolgreiche Plananfechtung.',
+              },
+              {
+                id: 'ia-qs-2',
+                question: 'Welches Instrument ist bei Einzonungen besonders kritisch und wird vom Tool automatisch geprüft?',
+                options: [
+                  'ISOS – Inventar schützenswerter Ortsbilder',
+                  'Sachplan Fruchtfolgeflächen (FFF)',
+                  'IVS – Inventar historischer Verkehrswege',
+                  'Sachplan Militär (SIM)',
+                ],
+                correct: 1,
+                explanation: 'FFF-Verluste durch Einzonungen müssen kompensiert werden (Art. 30 RPV). Das Tool erkennt FFF-Betroffenheit automatisch und ist einer der häufigsten Ablehnungsgründe bei Einzonungen.',
+              },
+              {
+                id: 'ia-qs-3',
+                question: 'Wann empfiehlt es sich, den Sachplan-Check im Tool durchzuführen?',
+                options: [
+                  'Erst nach Einreichung des Nutzungsplans',
+                  'Nur wenn ein Bundesinventar bekannt ist',
+                  'Bereits in der Vorstudienphase, um Konflikte frühzeitig zu erkennen',
+                  'Ausschliesslich bei kantonalen Planungen',
+                ],
+                correct: 2,
+                explanation: 'Der frühe Sachplan-Check in der Vorstudienphase verhindert böse Überraschungen im Genehmigungsverfahren und erlaubt, die Planung von Anfang an auf Konflikte auszurichten.',
+              },
+            ],
+          },
+        },
+        {
+          id: 'ia-rechtsprechung',
+          slug: 'ia-rechtsprechung',
+          order: 9,
+          title: 'Relevante Rechtsprechung nutzen',
+          description: 'Wie das Tool nach der Agenten-Debatte passende Gerichtsentscheide vorschlägt – Bundesgericht, kantonale Verwaltungsgerichte und Baurekursgericht ZH – und wie man sie im Planungsbericht einsetzt.',
+          videoId: '',
+          content: `
+<h2>Rechtsprechung als Stütze der Interessenabwägung</h2>
+<p>Eine rechtlich fundierte Interessenabwägung stützt sich nicht nur auf Gesetze und Sachpläne – sie bezieht sich auch auf die geltende Rechtsprechung. Bundesgerichtsurteile, kantonale Verwaltungsgerichtsentscheide und Entscheide des Baurekursgerichts Zürich (BRKE) präzisieren, wie die Gerichte die Abwägungsanforderungen im Einzelfall auslegen. interessenabwaegung.ch hat diese Entscheide indexiert und schlägt nach der Agenten-Debatte automatisch passende Urteile zu deiner konkreten Situation vor.</p>
+
+<h3>Woher stammt die Rechtsprechung?</h3>
+
+<table style="width:100%; border-collapse: collapse; margin: 20px 0;">
+  <thead>
+    <tr style="background: #f0f7ff;">
+      <th style="padding: 10px 12px; text-align: left; border: 1px solid #d2d2d7;">Quelle</th>
+      <th style="padding: 10px 12px; text-align: left; border: 1px solid #d2d2d7;">Relevanz</th>
+      <th style="padding: 10px 12px; text-align: left; border: 1px solid #d2d2d7;">Verfügbarkeit im Tool</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;"><strong>Bundesgericht (BGer)</strong></td>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Höchste Instanz, schweizweit verbindlich. Legt die Mindestanforderungen an Interessenabwägungen fest.</td>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">✓ Hinterlegt</td>
+    </tr>
+    <tr style="background: #fafafa;">
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;"><strong>Kantonale Verwaltungsgerichte</strong></td>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Kantonsspezifische Präzisierungen, oft näher am konkreten Planungsalltag. Relevant für Kantone ZH, BE, AG, SG u.a.</td>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">✓ Hinterlegt (wachsend)</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;"><strong>Baurekursgericht ZH (BRKE)</strong></td>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">Spezialisierte erste Rekursinstanz im Kanton Zürich. Besonders relevant für Planungsbüros und Gemeinden im Kanton ZH.</td>
+      <td style="padding: 10px 12px; border: 1px solid #d2d2d7;">✓ Hinterlegt</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Wie der Ablauf funktioniert</h3>
+<ol>
+  <li><strong>Agenten-Debatte abschliessen:</strong> Der MODERATOR-Agent fasst die Abwägungsqualität zusammen und identifiziert die rechtlich schwächsten Punkte.</li>
+  <li><strong>Rechtsprechungs-Vorschläge erscheinen:</strong> Das Tool zeigt automatisch 3–7 relevante Gerichtsentscheide an, die zur identifizierten Problematik passen – mit Quellenangabe (BGer-Urteilsnummer, Datum, Kanton).</li>
+  <li><strong>Entscheid lesen und einordnen:</strong> Jeder Entscheid wird mit einer kurzen Zusammenfassung der relevanten Aussage angezeigt – du musst nicht das ganze Urteil lesen.</li>
+  <li><strong>In den Bericht integrieren:</strong> Passende Urteile können direkt als Referenz in den Planungsbericht übernommen werden.</li>
+</ol>
+
+<h3>Wie man Rechtsprechung im Planungsbericht einsetzt</h3>
+<p>Die Integration von Rechtsprechung in einen Planungsbericht ist eine Stärke, die viele Berichte schwächen – oder ganz weglassen. Das Bundesgericht selbst hat in zahlreichen Urteilen betont, dass die Behörde ihre Abwägung nachvollziehbar begründen muss. Wer zeigt, dass er die Gerichtspraxis kennt und anwendet, macht die Abwägung anfechtungssicherer.</p>
+
+<div style="background: #e3f2fd; border-left: 4px solid #1565c0; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0;">
+  <strong>Formulierungsbeispiel mit Rechtsprechungsreferenz:</strong><br/><br/>
+  <em>«Das Bundesgericht hat in BGer 1C_XXX/20XX festgehalten, dass bei Eingriffen in Fruchtfolgeflächen die landwirtschaftliche Qualität des Bodens und die Kompensationsmöglichkeiten substantiiert zu prüfen sind (E. 4.3). Die vorliegende Abwägung berücksichtigt diese Anforderung, indem [konkrete Massnahme / Begründung].»</em>
+</div>
+
+<h3>Grenzen und Eigenverantwortung</h3>
+<p>Das Tool liefert Vorschläge basierend auf semantischer Ähnlichkeit zur eingegebenen Situation – es ersetzt keine juristische Überprüfung. Vor der Übernahme in Rechtsschriften sollte die Originalquelle konsultiert werden. Die Quellenangabe im Tool verweist direkt auf die offizielle Urteilsveröffentlichung (bger.ch, kantonale Gerichte).</p>
+
+<blockquote>Rechtsprechungsreferenzen im Planungsbericht signalisieren: Diese Abwägung kennt die Gerichtspraxis. Das erhöht die Überzeugungskraft gegenüber Genehmigungsbehörden – und die Widerstandsfähigkeit gegen Einsprachen.</blockquote>
+`,
+          quiz: {
+            questions: [
+              {
+                id: 'ia-qr-1',
+                question: 'Wann schlägt das Tool relevante Gerichtsentscheide vor?',
+                options: [
+                  'Direkt nach der Parzellenerfassung',
+                  'Nur auf explizite Anfrage per Suchfunktion',
+                  'Automatisch nach Abschluss der Agenten-Debatte',
+                  'Nur in der Professional-Version',
+                ],
+                correct: 2,
+                explanation: 'Nach der Agenten-Debatte, wenn der MODERATOR-Agent die schwächsten rechtlichen Punkte identifiziert hat, zeigt das Tool automatisch passende Gerichtsentscheide zu diesen Schwachstellen an.',
+              },
+              {
+                id: 'ia-qr-2',
+                question: 'Welches Gericht ist die spezialisierte erste Rekursinstanz für Baufragen im Kanton Zürich?',
+                options: [
+                  'Bundesgericht in Lausanne',
+                  'Obergericht des Kantons Zürich',
+                  'Verwaltungsgericht des Kantons Zürich',
+                  'Baurekursgericht Zürich (BRKE)',
+                ],
+                correct: 3,
+                explanation: 'Das Baurekursgericht Zürich (BRKE) ist die spezialisierte erste Rekursinstanz für Bau- und Planungsfragen im Kanton Zürich und damit besonders relevant für lokale Planungsbüros und Gemeinden.',
+              },
+              {
+                id: 'ia-qr-3',
+                question: 'Welchen Vorteil bietet die Integration von Rechtsprechung in einen Planungsbericht?',
+                options: [
+                  'Sie ersetzt die eigentliche Interessenabwägung',
+                  'Sie macht die Abwägung anfechtungssicherer und überzeugender für Genehmigungsbehörden',
+                  'Sie ist zwingend vorgeschrieben und sonst wird der Plan abgelehnt',
+                  'Sie verkürzt das Genehmigungsverfahren um mindestens 6 Monate',
+                ],
+                correct: 1,
+                explanation: 'Rechtsprechungsreferenzen signalisieren, dass die Abwägung die Gerichtspraxis kennt und anwendet. Das erhöht die Überzeugungskraft und macht den Bericht widerstandsfähiger gegen Einsprachen – ersetzt aber nicht die eigentliche Abwägungsarbeit.',
               },
             ],
           },

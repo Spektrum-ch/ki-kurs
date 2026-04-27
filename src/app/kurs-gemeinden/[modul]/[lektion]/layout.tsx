@@ -1,14 +1,13 @@
-import { getUserFromCookie } from '@/lib/auth';
-import { getUserByEmail } from '@/lib/users';
-import { redirect } from 'next/navigation';
-import { hasCourseAccess } from '@/lib/courseAccess';
+import { enforceLessonAccess } from '@/lib/lessonAccess';
+import { COURSE_GEMEINDEN } from '@/data/course-gemeinden';
 
-export default function LektionGemeindenLayout({ children }: { children: React.ReactNode }) {
-  const auth = getUserFromCookie();
-  if (!auth) redirect('/login?redirect=/kurs-gemeinden');
-
-  const user = getUserByEmail(auth.email);
-  if (!hasCourseAccess(user, 'kurs-gemeinden')) redirect('/kurs-gemeinden');
-
+export default function LektionGemeindenLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { modul: string; lektion: string };
+}) {
+  enforceLessonAccess(COURSE_GEMEINDEN, 'kurs-gemeinden', '/kurs-gemeinden', params);
   return <>{children}</>;
 }

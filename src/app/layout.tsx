@@ -6,8 +6,8 @@ export const metadata: Metadata = {
     default: 'KI-Kurse für Raumplanung & Verwaltung – kurse.spekt.ch',
     template: '%s | SPEKTRUM KI-Kurse',
   },
-  description: 'Online-Kurse zu KI für Raumplanende, Architektinnen, Planungsbüros und Gemeindeverwaltungen in der Schweiz. Praxisnah, sofort anwendbar – von CHF 0 bis 39.',
-  keywords: ['KI Kurs Raumplanung', 'KI Weiterbildung Gemeinden', 'Künstliche Intelligenz Architekt', 'KI Planungsbüro Deutschland Österreich Schweiz', 'ChatGPT Raumplanung', 'KI Verwaltung DACH', 'Online Kurs KI Deutsch', 'KI Agenten Kurs Deutsch', 'KI Strategie Gemeinden', 'Interessenabwägung KI'],
+  description: 'Online-Kurse zu KI für Raumplanende, Architektinnen, Planungsbüros und Gemeindeverwaltungen in der Schweiz. Gratis bis CHF 89. Interessenabwägung, UVP, KI-Agenten – praxisnah, sofort anwendbar.',
+  keywords: ['KI Kurs Raumplanung Schweiz', 'KI Weiterbildung Gemeinde Schweiz', 'Künstliche Intelligenz Raumplanung DACH', 'Interessenabwägung KI RPG Schweiz', 'UVP Umweltverträglichkeitsprüfung KI Kurs', 'KI-Intensivprogramm Verwaltung Online', 'ChatGPT Raumplanung', 'KI Verwaltung DACH', 'Online Kurs KI Deutsch', 'KI Agenten Kurs Deutsch', 'KI Strategie Gemeinden', 'KI Planungsbüro Schweiz'],
   authors: [{ name: 'Andreas Rupf', url: 'https://spekt.ch' }],
   metadataBase: new URL('https://kurse.spekt.ch'),
   openGraph: {
@@ -59,6 +59,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+        <script
+          defer
+          src="https://stats.spekt.ch/script.js"
+          data-website-id="c7629876-7da0-4ec2-8a81-129b438a6c9d"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

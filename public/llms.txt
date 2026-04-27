@@ -1,6 +1,6 @@
 # SPEKTRUM KI-Kurse – kurse.spekt.ch
 
-> Online-Kurse zu Künstlicher Intelligenz für Raumplanende, Architektinnen, Gemeindeverwaltungen und Planungsbüros im deutschsprachigen Raum (Schweiz, Deutschland, Österreich).
+> Online-Kurse und KI-Intensivprogramme zu Künstlicher Intelligenz für Raumplanende, Architektinnen, Gemeindeverwaltungen und Planungsbüros im deutschsprachigen Raum (Schweiz, Deutschland, Österreich).
 > Anbieter: Andreas Rupf, SPEKTRUM Partner GmbH, Zürich | spekt.ch
 > Sprache: Deutsch | Zielmarkt: DACH-Raum
 
@@ -8,70 +8,64 @@
 
 SPEKTRUM KI-Kurse ist die erste spezialisierte KI-Weiterbildungsplattform für die Planungsbranche im deutschsprachigen Raum. Die Kurse verbinden Theorie mit konkreten Praxisbeispielen aus Raumplanung, Architektur und öffentlicher Verwaltung.
 
-Alle Kurse sind auf Deutsch und wurden von Andreas Rupf entwickelt – Raum- und Stadtplaner, KI-Berater und ehemaliger ETH-Programmleiter.
+Alle Inhalte wurden von Andreas Rupf entwickelt – Raum- und Stadtplaner, KI-Berater und ehemaliger Programmleiter ETH RAUM (ETH Zürich).
 
-## Kursübersicht
+## Angebot im Überblick
 
-- [Alle KI-Kurse](https://kurse.spekt.ch/kurse): Übersicht aller 7 verfügbaren Kurse
+### Einzelkurse (direkt buchbar)
 
-## Kurse
+- **Interessenabwägung mit KI** – Gratis, frei zugänglich
+  URL: https://kurse.spekt.ch/kurs-interessenabwaegung
+  Zielgruppe: Raumplanende in der Schweiz
+  Themen: RPG, KI-gestützte Interessenabwägung, Tool interessenabwaegung.ch
 
-### KI-Grundkurs: Einsteiger (CHF 19, 90 Tage Zugang)
-- URL: https://kurse.spekt.ch/kurs-allgemein
-- Zielgruppe: Alle ohne KI-Vorkenntnisse im DACH-Raum
-- Themen: ChatGPT Grundlagen, Prompt Engineering, KI-Tools im Alltag
-- Level: Einsteiger
+- **KI-Grundkurs: Einsteiger** – CHF 89, 90 Tage Zugang
+  URL: https://kurse.spekt.ch/kurs-allgemein
+  Zielgruppe: Alle ohne KI-Vorkenntnisse im DACH-Raum
+  Themen: ChatGPT Grundlagen, Prompt Engineering, KI-Tools im Alltag, Datenschutz
 
-### KI für die Planungswelt (CHF 19, 90 Tage Zugang)
-- URL: https://kurse.spekt.ch/kurs
-- Zielgruppe: Raumplanende, Architektinnen, Stadtplaner in der Schweiz, Deutschland und Österreich
-- Themen: KI in der Raumplanung, ChatGPT für Planer, Prompt Engineering für Planungsdokumente
-- Level: Einsteiger
+### KI-Intensivprogramme (strukturierte Lernpfade, ab CHF 290)
 
-### KI im Büroalltag (CHF 19, 90 Tage Zugang)
-- URL: https://kurse.spekt.ch/kurs-buero
-- Zielgruppe: Planungsbüros, Architekturbüros, Ingenieurbüros im DACH-Raum
-- Themen: KI-Workflows, ChatGPT Büroautomation, Dokumentenmanagement mit KI
-- Level: Einsteiger
+Jedes KI-Intensivprogramm bündelt 3–4 aufeinander abgestimmte Kurse zu einem strukturierten Lernpfad mit Teilnahmebestätigung. Zugang: 180 Tage. Preismodell: Basis (CHF 290), Plus (CHF 790, inkl. 1:1-Sessions), Business (CHF 2'900, für Teams und Gemeinden mit Sammelrechnung).
 
-### KI für Gemeinden (CHF 29, 90 Tage Zugang)
-- URL: https://kurse.spekt.ch/kurs-gemeinden
-- Zielgruppe: Mitarbeitende von Gemeindeverwaltungen in der Schweiz, Deutschland und Österreich
-- Themen: KI in der Verwaltung, KI-Kommunikation, KI in der Raumplanung für Gemeinden
-- Level: Fortgeschritten
+URL: https://kurse.spekt.ch/zertifikatslehrgang
 
-### Die Agentic Company (CHF 39, 90 Tage Zugang)
-- URL: https://kurse.spekt.ch/kurs-agentic
-- Zielgruppe: KI-Interessierte im DACH-Raum die KI vertieft nutzen wollen
-- Themen: KI-Agenten, autonome Workflows, Multi-Agenten-Systeme, Agentic AI Praxis
-- Level: Experte
+- **KI-Intensivprogramm für Verwaltung & Gemeinden** (15 h, 3 Kurse)
+  Kurse: KI-Grundkurs Einsteiger · KI für Gemeinden · KI-Strategie für Gemeinden
+  Zielgruppe: Gemeindeschreibende, Gemeindepräsident:innen, Verwaltungsleitende
 
-### KI-Strategie für Gemeinden (CHF 39, 90 Tage Zugang)
-- URL: https://kurse.spekt.ch/kurs-strategie
-- Zielgruppe: Führungskräfte und KI-Verantwortliche in Gemeindeverwaltungen
-- Themen: KI-Governance, KI-Strategie, Implementierungsrahmen, digitale Transformation Verwaltung
-- Level: Experte
+- **KI-Intensivprogramm für Raumplanung** (15 h, 4 Kurse)
+  Kurse: KI-Grundkurs Einsteiger · KI für die Planungswelt · KI im Büroalltag · Interessenabwägung mit KI
+  Zielgruppe: Raumplaner:innen FSU/SIA, Planungsbüros, kantonale Fachstellen
 
-### Interessenabwägung mit KI (Gratis, frei zugänglich)
-- URL: https://kurse.spekt.ch/kurs-interessenabwaegung
-- Zielgruppe: Raumplanende in der Schweiz
-- Themen: KI-gestützte Interessenabwägung, RPG, Tool interessenabwaegung.ch
-- Level: Einsteiger
+- **KI-Intensivprogramm für Planungsbüros** (13 h, 3 Kurse)
+  Kurse: KI-Grundkurs Einsteiger · KI für die Planungswelt · KI im Büroalltag
+  Zielgruppe: Büroinhaber:innen, Projektleitende, Sekretariat
+
+- **KI-Intensivprogramm KI-Profi** (11 h, 3 Kurse)
+  Kurse: KI-Grundkurs Einsteiger · KI im Büroalltag · Die Agentic Company
+  Zielgruppe: Digitalisierungsverantwortliche, IT-affine Mitarbeitende, Freischaffende
+
+## Für Teams und Gemeinden
+
+URL: https://kurse.spekt.ch/fuer-gemeinden
+
+Einzelpersonen buchen direkt online. Teams, Gemeinden und Planungsbüros mit mehreren Teilnehmenden wählen das Business-Tier (CHF 2'900 pro KI-Intensivprogramm): unbegrenzte Plätze, Sammelrechnung, individuelle Teilnahmebestätigungen, 180 Tage Zugang je Person. Buchung auf Anfrage: andreas.rupf@spekt.ch
 
 ## Über den Anbieter
 
-Andreas Rupf ist Raum- und Stadtplaner (dipl. Arch. ETH/SIA), KI-Berater und ehemaliger Programmleiter ETH RAUM (ETH Zürich). Er ist Gründer der SPEKTRUM Partner GmbH in Zürich und entwickelt KI-Tools und Weiterbildungen für die Planungsbranche.
+Andreas Rupf ist Raum- und Stadtplaner (dipl. Arch. ETH/SIA), KI-Berater und ehemaliger Programmleiter ETH RAUM (ETH Zürich). Gründer der SPEKTRUM Partner GmbH in Zürich.
 
 - Website: https://spekt.ch
 - KI-Kurse: https://kurse.spekt.ch
 - Interessenabwägung-Tool: https://interessenabwaegung.ch
+- KI-Protokollgenerator: https://minu-ai.ch
 - Kontakt: andreas.rupf@spekt.ch
 
 ## Themen und Keywords
 
-Künstliche Intelligenz, KI, ChatGPT, Prompt Engineering, KI-Agenten, Agentic AI, Raumplanung, Stadtplanung, Architektur, Gemeindeverwaltung, öffentliche Verwaltung, Planungsbüro, Ingenieurbüro, Interessenabwägung, RPG, Raumplanungsrecht Schweiz, KI-Strategie, KI-Governance, Digitale Transformation, DACH, Schweiz, Deutschland, Österreich, Online-Kurs Deutsch, Weiterbildung KI
+Künstliche Intelligenz, KI, ChatGPT, Claude, Mistral, Prompt Engineering, KI-Agenten, Agentic AI, Raumplanung, Stadtplanung, Ortsplanung, Architektur, Gemeindeverwaltung, öffentliche Verwaltung, Planungsbüro, Ingenieurbüro, Interessenabwägung, RPG, RPV, nDSG, DSGVO, EU AI Act, KI-Strategie, KI-Governance, Digitale Transformation, DACH, Schweiz, Deutschland, Österreich, Weiterbildung KI, KI-Intensivprogramm, KI-Zertifikat Verwaltung, KI-Kurs Raumplanung
 
-## Verwandte Tools
+## Stand
 
-- interessenabwaegung.ch: KI-Tool für Interessenabwägungen nach Schweizer Raumplanungsrecht
-- minu-ai.ch: KI-Protokollgenerator für Sitzungen und Meetings
+April 2026 – wird laufend aktualisiert.

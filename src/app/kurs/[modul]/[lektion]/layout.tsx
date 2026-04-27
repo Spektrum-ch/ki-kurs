@@ -1,14 +1,13 @@
-import { getUserFromCookie } from '@/lib/auth';
-import { getUserByEmail } from '@/lib/users';
-import { redirect } from 'next/navigation';
-import { hasCourseAccess } from '@/lib/courseAccess';
+import { enforceLessonAccess } from '@/lib/lessonAccess';
+import { COURSE } from '@/data/course';
 
-export default function LektionKursLayout({ children }: { children: React.ReactNode }) {
-  const auth = getUserFromCookie();
-  if (!auth) redirect('/login?redirect=/kurs');
-
-  const user = getUserByEmail(auth.email);
-  if (!hasCourseAccess(user, 'kurs')) redirect('/kurs');
-
+export default function LektionKursLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { modul: string; lektion: string };
+}) {
+  enforceLessonAccess(COURSE, 'kurs', '/kurs', params);
   return <>{children}</>;
 }

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getUserByEmail, updateUser } from '@/lib/users';
 import { generateLoginToken, getLoginTokenExpiry } from '@/lib/auth';
 import { sendMagicLink } from '@/lib/email';
+import { reportError } from '@/lib/errorReporter';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,7 +31,12 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ message: 'Login-Link wurde gesendet. Prüfe deine E-Mails.' });
   } catch (err) {
-    console.error('[LOGIN]', err);
+    await reportError(err, {
+      source: 'api',
+      location: '/api/auth/login',
+      notifyUser: false,
+      severity: 'high',
+    });
     return NextResponse.json({ error: 'Fehler beim Login.' }, { status: 500 });
   }
 }

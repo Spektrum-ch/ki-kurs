@@ -50,6 +50,16 @@ export default async function AdminPage() {
         <h1 className="admin-title">Admin Dashboard</h1>
         <p className="admin-subtitle">Kurs «KI für die Planungswelt» – Nutzerübersicht</p>
 
+        <div style={{ marginBottom: 16, padding: 18, background: 'linear-gradient(135deg, #0057a8 0%, #00a896 100%)', borderRadius: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
+          <div>
+            <div style={{ fontWeight: 700, color: 'white', fontSize: 15, marginBottom: 3 }}>Kurs-Analytics</div>
+            <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13 }}>Wer hat welchen Kurs gestartet, abgebrochen oder abgeschlossen – Funnel &amp; Drop-off.</div>
+          </div>
+          <Link href="/admin/analytics" style={{ padding: '10px 18px', background: 'white', color: '#0057a8', borderRadius: 50, fontWeight: 700, fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+            → Analytics
+          </Link>
+        </div>
+
         <div style={{ marginBottom: 28, padding: 18, background: 'linear-gradient(135deg, #1d1d1f 0%, #0d3d26 100%)', borderRadius: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
           <div>
             <div style={{ fontWeight: 700, color: 'white', fontSize: 15, marginBottom: 3 }}>Team-Lizenz freischalten</div>

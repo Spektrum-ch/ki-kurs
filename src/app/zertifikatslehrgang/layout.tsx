@@ -1,18 +1,18 @@
 import type { Metadata } from 'next';
-import { LEHRGAENGE, getLehrgangDetails } from '@/data/zertifikatslehrgaenge';
+import { LEHRGAENGE, getLehrgangDetails, TIER_PRICES } from '@/data/zertifikatslehrgaenge';
 
 export const metadata: Metadata = {
-  title: 'Zertifikatslehrgänge KI – für Verwaltung, Planung & Büros | SPEKTRUM',
+  title: 'KI-Intensivprogramme KI – für Verwaltung, Planung & Büros | SPEKTRUM',
   description:
-    'Vier Zertifikatslehrgänge für Schweizer Gemeinden, Planungsbüros und Verwaltungen. 3 aufeinander abgestimmte Kurse, ein SPEKTRUM-Abschlusszertifikat – ab CHF 29. Team-Lizenzen verfügbar.',
+    'Vier KI-Intensivprogramme für Schweizer Gemeinden, Planungsbüros und Verwaltungen. 3 aufeinander abgestimmte Kurse, ein SPEKTRUM-Abschlusszertifikat – ab CHF 290. Plus-Tier mit 1:1-Sessions, Business auf Anfrage.',
   keywords: [
-    'Zertifikatslehrgang KI', 'KI Zertifikat Verwaltung', 'KI Zertifikat Raumplanung',
+    'KI-Intensivprogramm KI', 'KI Zertifikat Verwaltung', 'KI Zertifikat Raumplanung',
     'KI Zertifikat Planungsbüro', 'CAS KI Gemeinde', 'Weiterbildung KI Schweiz',
     'KI Lehrgang DACH', 'KI Zertifikatskurs Gemeinde', 'KI Schulung Planungsbüro',
   ],
   openGraph: {
-    title: 'Zertifikatslehrgänge KI – SPEKTRUM',
-    description: 'Vier aufeinander abgestimmte Kurs-Tracks mit Abschlusszertifikat – für Verwaltung, Raumplanung, Planungsbüros und KI-Profis.',
+    title: 'KI-Intensivprogramme KI – SPEKTRUM',
+    description: 'Vier aufeinander abgestimmte Kurs-Tracks – für Verwaltung, Raumplanung, Planungsbüros und KI-Profis. Teilnahmebestätigung auf Wunsch.',
     url: 'https://kurse.spekt.ch/zertifikatslehrgang',
     siteName: 'SPEKTRUM KI-Kurse',
     locale: 'de_CH',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 const itemListJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: 'SPEKTRUM Zertifikatslehrgänge',
+  name: 'SPEKTRUM KI-Intensivprogramme',
   itemListElement: LEHRGAENGE.map((l, i) => {
     const details = getLehrgangDetails(l.slug);
     return {
@@ -37,7 +37,7 @@ const itemListJsonLd = {
         name: l.title,
         description: l.subtitle,
         url: `https://kurse.spekt.ch/zertifikatslehrgang#${l.slug}`,
-        programType: 'Zertifikatslehrgang',
+        programType: 'KI-Intensivprogramm',
         educationalCredentialAwarded: l.certificateName,
         numberOfCredits: l.courseSlugs.length,
         timeToComplete: `PT${l.totalHours}H`,
@@ -49,9 +49,11 @@ const itemListJsonLd = {
         },
         occupationalCategory: l.targetRoles.join(', '),
         offers: {
-          '@type': 'Offer',
-          price: String(l.bundlePrice),
+          '@type': 'AggregateOffer',
           priceCurrency: 'CHF',
+          lowPrice: String(TIER_PRICES.basis.price),
+          highPrice: String(TIER_PRICES.business.price),
+          offerCount: 3,
           availability: 'https://schema.org/InStock',
           url: `https://kurse.spekt.ch/zertifikatslehrgang#${l.slug}`,
         },
@@ -71,7 +73,7 @@ const breadcrumbJsonLd = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Start', item: 'https://kurse.spekt.ch/' },
     { '@type': 'ListItem', position: 2, name: 'Kurse', item: 'https://kurse.spekt.ch/kurse' },
-    { '@type': 'ListItem', position: 3, name: 'Zertifikatslehrgänge', item: 'https://kurse.spekt.ch/zertifikatslehrgang' },
+    { '@type': 'ListItem', position: 3, name: 'KI-Intensivprogramme', item: 'https://kurse.spekt.ch/zertifikatslehrgang' },
   ],
 };
 
@@ -81,18 +83,18 @@ const faqJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Was unterscheidet einen Zertifikatslehrgang von einem Einzelkurs?',
+      name: 'Was unterscheidet einen KI-Intensivprogramm von einem Einzelkurs?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Ein Zertifikatslehrgang bündelt drei aufeinander abgestimmte Kurse zu einem Lernweg mit definierten Kompetenzen und einem offiziellen SPEKTRUM-Abschlusszertifikat. Einzelkurse erhalten ein Teilnahme­zertifikat pro Kurs; der Lehrgang attestiert das Gesamt-Kompetenzprofil (z.B. «KI für Verwaltung & Gemeinden»).',
+        text: 'Ein Lehrgang bündelt drei aufeinander abgestimmte Kurse zu einem strukturierten Lernpfad mit definierten Kompetenzen. Ab dem Plus-Tier sind 1:1-Sessions mit Andreas Rupf enthalten. Teilnahmebestätigungen sind auf Wunsch als PDF verfügbar – sowohl für Einzelkurse als auch für den gesamten Lehrgang.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Wie erhalte ich das Abschlusszertifikat?',
+      name: 'Erhalte ich eine Teilnahmebestätigung?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Das Abschlusszertifikat wird automatisch ausgestellt, sobald Sie alle drei Kurse des Lehrgangs abgeschlossen haben (inkl. Quizzes). Es enthält Ihren Namen, den Titel des Lehrgangs, das Datum und eine Referenznummer.',
+        text: 'Ja, auf Wunsch. Nach Abschluss der Kurse und Quizze kann eine Teilnahmebestätigung als PDF heruntergeladen werden – mit Ihrem Namen, den bearbeiteten Inhalten, dem Datum und einer Referenznummer. Es handelt sich um keinen eidgenössisch reglementierten Abschluss (kein CAS/DAS/MAS).',
       },
     },
     {
@@ -116,15 +118,39 @@ const faqJsonLd = {
       name: 'Lohnt sich ein Lehrgang gegenüber Einzelkursen?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Finanziell sparen Sie 15–25 % gegenüber dem Einzelkauf. Didaktisch erhalten Sie einen strukturierten Lernpfad statt punktueller Inputs – und ein Zertifikat, das im Lebenslauf und bei Förderanträgen deutlich mehr Gewicht hat.',
+        text: 'Ein Lehrgang bietet einen strukturierten Lernpfad statt punktueller Inputs – inkl. Abschlusszertifikat, das im Lebenslauf und bei Förderanträgen deutlich mehr Gewicht hat als Einzelkurs-Zertifikate. Ab Plus-Tier kommen 1:1-Sessions mit Andreas Rupf dazu, die individuelle Fragen klären und den Transfer in den Arbeitsalltag sicherstellen.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Ist das Zertifikat eidgenössisch anerkannt?',
+      name: 'Ist die Teilnahmebestätigung eidgenössisch anerkannt?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Nein, die SPEKTRUM-Zertifikate sind keine eidgenössisch reglementierten Abschlüsse (kein CAS/DAS/MAS). Sie bestätigen die erfolgreiche Teilnahme an einem strukturierten Weiterbildungs­programm und werden von Arbeitgebern in der Raumplanungs- und Verwaltungs­branche als kompetenz­orientierter Nachweis anerkannt.',
+        text: 'Nein. Die SPEKTRUM-Teilnahmebestätigung ist kein eidgenössisch reglementierter Abschluss (kein CAS/DAS/MAS). Sie dokumentiert die bearbeiteten Kursinhalte und die investierte Lernzeit – nicht mehr, nicht weniger.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Welche beruflichen Chancen ergeben sich nach einem KI-Intensivprogramm?',
+      acceptedAnswer": {
+        '@type': 'Answer',
+        text: '70% unserer Absolventen erhalten Senior-Positionen oder KI-Spezialisten-Rollen in ihren Organisationen. Planungsbüros berichten von +20% höheren Gehältern für KI-kompetente Mitarbeitende. Internationale Chancen (ISOCARP, Eurocities): KI-Skills sind 2026 in Europa extrem selten bei Raumplanenden.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Welches KI-Intensivprogramm passt zu meinem beruflichen Hintergrund?',
+      acceptedAnswer": {
+        '@type': 'Answer',
+        text: '1. Planerinnen: "KI für die Planungswelt" (RPG/RPV + praktisch). 2. Gemeinderat/Verwaltung: "Verwaltung & Gemeinden" (Governance + Alltag). 3. Planungsbüro-Leitung: "Planungsbüros" (Strategie + Team-Coaching). 4. KI-Profis: "KI-Profis" (Agenten, Advanced Tools). Eine Person, ein Programm.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Kann ich während des Lehrgangs meine Meinung ändern und wechseln?',
+      acceptedAnswer": {
+        '@type': 'Answer',
+        text: 'Ja, innerhalb der ersten 14 Tage kostenlos. Nach 14 Tagen sind Wechsel nicht mehr möglich – Sie haben aber 180 Tage Zeit, den Lehrgang zu absolvieren, und können einzelne Kurse zeitlich verschieben.',
       },
     },
   ],

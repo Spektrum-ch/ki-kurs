@@ -1,14 +1,13 @@
-import { getUserFromCookie } from '@/lib/auth';
-import { getUserByEmail } from '@/lib/users';
-import { redirect } from 'next/navigation';
-import { hasCourseAccess } from '@/lib/courseAccess';
+import { enforceLessonAccess } from '@/lib/lessonAccess';
+import { COURSE_STRATEGIE } from '@/data/course-strategie';
 
-export default function LektionStrategieLayout({ children }: { children: React.ReactNode }) {
-  const auth = getUserFromCookie();
-  if (!auth) redirect('/login?redirect=/kurs-strategie');
-
-  const user = getUserByEmail(auth.email);
-  if (!hasCourseAccess(user, 'kurs-strategie')) redirect('/kurs-strategie');
-
+export default function LektionStrategieLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { modul: string; lektion: string };
+}) {
+  enforceLessonAccess(COURSE_STRATEGIE, 'kurs-strategie', '/kurs-strategie', params);
   return <>{children}</>;
 }

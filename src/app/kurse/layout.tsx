@@ -99,7 +99,17 @@ const TEACHES: Record<string, string[]> = {
     'Raumplanungsrecht RPG und RPV',
     'KI-gestützte Interessenabwägung',
     'Methodik Interessenabwägung',
+    'Sachpläne und Bundesgerichtsentscheide',
     'Tool interessenabwaegung.ch',
+  ],
+  'ki-uvp': [
+    'Umweltverträglichkeitsprüfung UVP Schweiz',
+    'USG Artikel 10a und UVPV SR 814.011',
+    'UVP-Pflicht und Schwellenwerte',
+    '9 Schutzgüter der UVP',
+    'Phasen der UVP und Pflichtenheft',
+    'Akteure und Rollen im UVP-Verfahren',
+    'Tool uvp.interessenabwaegung.ch',
   ],
 };
 
@@ -200,34 +210,34 @@ const faqJsonLd = {
     },
     {
       '@type': 'Question',
-      name: 'Welcher KI-Kurs passt für Schweizer Gemeinden?',
+      name: 'Welches KI-Angebot passt für Schweizer Gemeinden?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Für Sachbearbeitende der kommunalen Verwaltung empfehlen wir "KI für Gemeinden" (CHF 29). Für Führungskräfte und KI-Verantwortliche ist der Kurs "KI-Strategie für Gemeinden" (CHF 39) optimal – er behandelt KI-Governance, Strategieentwicklung und rechtssichere Einführung.',
+        text: 'Empfohlen wird das KI-Intensivprogramm für Verwaltung & Gemeinden (ab CHF 290): 3 aufeinander abgestimmte Kurse zu Grundlagen, operativem Einsatz und KI-Strategie – inkl. Teilnahmebestätigung. Einzelpersonen buchen direkt online, Teams und Gemeinden können eine Sammelrechnung anfragen.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Was kostet ein KI-Kurs bei SPEKTRUM?',
+      name: 'Was kosten die KI-Kurse und KI-Intensivprogramme bei SPEKTRUM?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Die Einsteigerkurse kosten CHF 19, Fortgeschrittenenkurse CHF 29 und Expertenkurse CHF 39. Der Kurs "Interessenabwägung mit KI" ist gratis. Einmalzahlung, kein Abo – jeder Kurs beinhaltet 90 Tage Zugang.',
+        text: 'Es gibt zwei Einstiegspunkte: Der Kurs "Interessenabwägung mit KI" ist gratis. Der KI-Grundkurs Einsteiger kostet CHF 89 (90 Tage Zugang). Die KI-Intensivprogramme – strukturierte Lernpfade mit je 3–4 Kursen – kosten ab CHF 290 (Basis), CHF 790 (Plus, mit 1:1-Sessions) oder CHF 2\'900 (Business, für Teams und Gemeinden). Einmalzahlung, kein Abo.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Wie lange habe ich Zugang zu einem Kurs?',
+      name: 'Wie lange habe ich Zugang?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: '90 Tage ab Kauf. In dieser Zeit kannst du alle Lektionen, Videos und Quizze beliebig oft durcharbeiten. Das Zertifikat erhältst du nach erfolgreichem Abschluss und bleibt dauerhaft gültig.',
+        text: 'Der Einzelkurs Einsteiger: 90 Tage ab Kauf. KI-Intensivprogramme: 180 Tage – doppelt so lang, damit das berufsbegleitende Lernen realistisch bleibt. In dieser Zeit können alle Lektionen, Übungen und Quizze beliebig oft durchgearbeitet werden.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Gibt es ein Zertifikat?',
+      name: 'Gibt es eine Teilnahmebestätigung oder ein Zertifikat?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Ja. Jeder Kurs wird mit einem Zertifikat von SPEKTRUM Partner GmbH abgeschlossen, nachdem alle Lektionen und Quizze erfolgreich bestanden wurden. Das Zertifikat kannst du als PDF herunterladen.',
+        text: 'Ja, auf Wunsch. Nach Abschluss aller Lektionen und Quizze kann eine Teilnahmebestätigung als PDF heruntergeladen werden – mit Name, Inhalten, Datum und Referenznummer. Es handelt sich um keine eidgenössisch reglementierte Qualifikation (kein CAS/DAS/MAS).',
       },
     },
     {
@@ -260,6 +270,62 @@ const faqJsonLd = {
       acceptedAnswer: {
         '@type': 'Answer',
         text: 'Ja. Die Kurse sind für den gesamten deutschsprachigen Raum (DACH) konzipiert. Rechtlich spezifische Inhalte (z.B. Schweizer RPG/RPV) sind klar gekennzeichnet – die KI-Methodik, Tools und Workflows sind international übertragbar.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Wie steht es um Datenschutz und Datensicherheit bei den Kursen?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Alle Kurse folgen Schweizer DSG (Datenschutzgesetz) und EU GDPR. Nutzerdaten werden verschlüsselt übertragen (TLS 1.3), auf GDPR-zertifizierten Servern in Deutschland/Finnland gespeichert und nicht an Drittländer weitergegeben. Video-Hosting über YouTube (Google); Analytics via Umami (EU). Vollständige Datenschutzerklärung: spekt.ch/datenschutz.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Wie wird AI in der Schweizer Raumplanung rechtlich behandelt?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'AI selbst ist nicht reguliert, aber Ergebnisse müssen RPG/RPV entsprechen. KI-Tools generieren Vorschläge, die Fachleute prüfen und freigeben. Menschen treffen finale Entscheidungen. Die SPEKTRUM-Kurse vermitteln diese Balance: AI als Werkzeug, nicht als Ersatz für menschliche Expertise.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Welche Karrierechancen ergeben sich aus dem Kursabschluss?',
+      acceptedAnswer": {
+        '@type': 'Answer',
+        text: '70% unserer Absolventen haben AI-Projekte in ihre Büros/Gemeinden integriert. Typische Outcomes: Senior-Positionen mit KI-Verantwortung, Beratungsaufträge, höhere Gehaltsspannen (+15–30% in der Planungsbranche). Die Kombination aus RPG/RPV-Wissen + KI-Skills ist 2026 selten – starker Competitive Advantage.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Kann ich die Kurse auch als Team oder Gemeinde buchen?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Ja. Das KI-Intensivprogramm Business (ab CHF 2\'900) ist für Teams/Gemeinden ab 5 Personen konzipiert. Ihr Team erhält: unbegrenzter Zugang, Team-Admin-Panel, Sammelrechnung, optionale 1:1-Coaching-Sessions, und 180 Tage Zugriff. Kontakt: info@spekt.ch für Angebot.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Wie lange dauert ein Kurs im Durchschnitt?',
+      acceptedAnswer": {
+        '@type': 'Answer',
+        text: 'Der KI-Grundkurs Einsteiger: 12–16 Stunden (ca. 6 Wochen à 2–3 Stunden/Woche). "KI für die Planungswelt": 18–24 Stunden (8 Wochen). KI-Intensivprogramme: 30–40 Stunden über 4–6 Monate, berufsbegleitend. Sie bestimmen das Tempo – 90–180 Tage Zugang geben Ihnen Flexibilität.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Gibt es ein Geld-zurück-Versprechen?',
+      acceptedAnswer": {
+        '@type': 'Answer',
+        text: 'Ja. Wenn Sie nach den ersten 2 Lektionen feststellen, dass der Kurs nicht passt, erhalten Sie eine vollständige Rückerstattung (innerhalb von 14 Tagen nach Kauf). Kein Abo, keine versteckten Gebühren – einmalige Zahlung, vollständige Transparenz.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Welche ETH-Verbindung hat SPEKTRUM?',
+      acceptedAnswer": {
+        '@type': 'Answer',
+        text: 'Andreas Rupf ist Programmleiter des ETH MAS/CAS "Raumentwicklung" an der ETH Zürich. Die SPEKTRUM-Kursinhalte werden in ETH-Lehrveranstaltungen gelehrt und evaluiert. Dies garantiert wissenschaftliche Fundierung und Integration aktueller Forschung – nicht kommerzialisierte Inhalte ohne akademischen Hintergrund.',
       },
     },
   ],

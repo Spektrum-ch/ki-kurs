@@ -1,14 +1,13 @@
-import { getUserFromCookie } from '@/lib/auth';
-import { getUserByEmail } from '@/lib/users';
-import { redirect } from 'next/navigation';
-import { hasCourseAccess } from '@/lib/courseAccess';
+import { enforceLessonAccess } from '@/lib/lessonAccess';
+import { COURSE_BUERO } from '@/data/course-buero';
 
-export default function LektionBueroLayout({ children }: { children: React.ReactNode }) {
-  const auth = getUserFromCookie();
-  if (!auth) redirect('/login?redirect=/kurs-buero');
-
-  const user = getUserByEmail(auth.email);
-  if (!hasCourseAccess(user, 'kurs-buero')) redirect('/kurs-buero');
-
+export default function LektionBueroLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { modul: string; lektion: string };
+}) {
+  enforceLessonAccess(COURSE_BUERO, 'kurs-buero', '/kurs-buero', params);
   return <>{children}</>;
 }

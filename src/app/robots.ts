@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: ['/kurse', '/kurs', '/kurs-allgemein', '/kurs-buero', '/kurs-gemeinden', '/kurs-agentic', '/kurs-strategie', '/kurs-interessenabwaegung', '/register', '/login'],
+        allow: ['/kurse', '/zertifikatslehrgang', '/fuer-gemeinden', '/kurs', '/kurs-allgemein', '/kurs-buero', '/kurs-gemeinden', '/kurs-agentic', '/kurs-strategie', '/kurs-interessenabwaegung', '/kurs-uvp', '/register', '/login'],
         disallow: ['/api/', '/admin', '/zertifikat', '/kurs/*/'],
       },
     ],

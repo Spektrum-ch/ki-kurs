@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getUserByEmail, saveUser } from '@/lib/users';
 import { generateLoginToken, getLoginTokenExpiry, createToken, setAuthCookie } from '@/lib/auth';
 import { sendMagicLink, sendWelcomeEmail } from '@/lib/email';
+import { reportError } from '@/lib/errorReporter';
 
 export const dynamic = 'force-dynamic';
 
@@ -54,7 +55,12 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ message: 'Registrierung erfolgreich! Prüfe deine E-Mails für den Login-Link.' });
   } catch (err) {
-    console.error('[REGISTER]', err);
+    await reportError(err, {
+      source: 'api',
+      location: '/api/auth/register',
+      notifyUser: false,
+      severity: 'high',
+    });
     return NextResponse.json({ error: 'Registrierung fehlgeschlagen.' }, { status: 500 });
   }
 }

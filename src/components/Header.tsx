@@ -35,7 +35,7 @@ export default function Header({ showNav = true, userEmail }: HeaderProps) {
 
   const navLinks: { href: string; label: string }[] = [
     { href: '/kurse', label: 'Kurse' },
-    { href: '/zertifikatslehrgang', label: 'Zertifikatslehrgänge' },
+    { href: '/zertifikatslehrgang', label: 'KI-Intensivprogramme' },
     { href: '/fuer-gemeinden', label: 'Für Gemeinden' },
   ];
   if (userEmail) {

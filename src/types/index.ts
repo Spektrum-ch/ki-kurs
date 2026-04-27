@@ -11,6 +11,7 @@ export interface User {
   login_token?: string | null;
   login_token_expires?: string | null;
   purchasedCourses?: Record<string, string>; // slug → ISO-Kaufdatum, z.B. { "kurs-buero": "2026-04-18T..." }
+  purchasedLehrgaenge?: Record<string, string>; // lehrgang-slug → ISO-Kaufdatum (für Zertifikats-Ausstellung)
 }
 
 /** Fortschritt eines Nutzers */

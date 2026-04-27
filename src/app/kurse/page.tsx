@@ -1,21 +1,141 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { ALL_COURSES, CourseCard } from '@/data/courses';
-import { LEHRGAENGE, getLehrgangDetails } from '@/data/zertifikatslehrgaenge';
+import { PUBLIC_COURSES, CourseCard } from '@/data/courses';
+import { LEHRGAENGE, getLehrgangDetails, TIER_PRICES } from '@/data/zertifikatslehrgaenge';
 
 type FilterLevel = 'Alle' | 'Einsteiger' | 'Fortgeschritten' | 'Experte';
 
 export default function KursePage() {
   const [preview, setPreview] = useState<CourseCard | null>(null);
-  const [filter, setFilter] = useState<FilterLevel>('Alle');
+  const [filter] = useState<FilterLevel>('Alle');
 
-  const visibleCourses = filter === 'Alle'
-    ? ALL_COURSES
-    : ALL_COURSES.filter(c => c.level === filter);
+  // ── Quiz Selbstcheck ──────────────────────────────────────────
+  const [quizStep, setQuizStep] = useState<number>(-1);        // -1 = Intro, 0-4 = Fragen, 5 = Ergebnis
+  const [quizAnswers, setQuizAnswers] = useState<Record<number, number>>({});
+  const [quizSelected, setQuizSelected] = useState<number | null>(null);
+
+  const QUIZ = [
+    {
+      q: 'Was ist eine «Halluzination» bei KI-Sprachmodellen?',
+      options: [
+        'Ein Fehler in der Bildgenerierung',
+        'KI erfindet selbstbewusst Fakten, die nicht existieren',
+        'Das Modell antwortet zu langsam',
+        'Ein Sicherheitsproblem bei Cloud-Tools',
+      ],
+      correct: 1,
+    },
+    {
+      q: 'Du lädst 80 Seiten Zonenplan in ChatGPT. Was solltest du beachten?',
+      options: [
+        'Das funktioniert problemlos – KI hat unbegrenzten Speicher',
+        'Jedes Modell hat ein Kontextfenster – zu viel Text senkt die Qualität',
+        'ChatGPT kann generell keine PDFs lesen',
+        'Man braucht immer eine Business-Lizenz dafür',
+      ],
+      correct: 1,
+    },
+    {
+      q: 'Was macht ein KI-Agent anders als ein normaler Prompt?',
+      options: [
+        'Er antwortet schneller',
+        'Er hat Zugang zu geheimen Daten',
+        'Er kann eigenständig Aktionen ausführen, Tools nutzen und Schritte planen',
+        'Er braucht keine Internetverbindung',
+      ],
+      correct: 2,
+    },
+    {
+      q: 'Welche Aussage zum Datenschutz bei KI-Tools ist korrekt?',
+      options: [
+        'Alle KI-Tools speichern Daten in der Schweiz',
+        'KI-Tools unterliegen nicht dem DSG, weil sie im Ausland betrieben werden',
+        'Was du in ChatGPT eingibst, kann für Training genutzt werden – ausser du deaktivierst das',
+        'Anonymisierte Daten dürfen unbegrenzt eingegeben werden',
+      ],
+      correct: 2,
+    },
+    {
+      q: 'Prompt Engineering bedeutet…',
+      options: [
+        'Code für KI-Modelle schreiben',
+        'Ein eigenes KI-Modell trainieren',
+        'Testen ob eine KI sicher ist',
+        'Eingaben gezielt gestalten, um bessere und zuverlässigere Antworten zu erhalten',
+      ],
+      correct: 3,
+    },
+  ];
+
+  const quizScore = Object.entries(quizAnswers).filter(
+    ([i, a]) => QUIZ[Number(i)]?.correct === a
+  ).length;
+
+  const QUIZ_RESULTS = [
+    {
+      range: [0, 1],
+      level: 'KI-Einsteiger:in',
+      emoji: '🌱',
+      desc: 'Du stehst am Anfang – genau richtig, um mit soliden Grundlagen zu starten.',
+      program: 'KI-Grundkurs: Einsteiger',
+      href: '/kurs-allgemein',
+      price: 'CHF 89',
+    },
+    {
+      range: [2, 3],
+      level: 'KI-Anwender:in',
+      emoji: '📈',
+      desc: 'Du kennst die Basics – jetzt geht es darum, KI gezielt in deinem Berufsfeld einzusetzen.',
+      program: 'KI-Intensivprogramm (wähle deinen Track)',
+      href: '/zertifikatslehrgang',
+      price: 'ab CHF 290',
+    },
+    {
+      range: [4, 5],
+      level: 'KI-Profi',
+      emoji: '🤖',
+      desc: 'Starkes Wissen – du bist bereit für Agenten, Automatisierung und eigene KI-Workflows.',
+      program: 'KI-Intensivprogramm KI-Profi',
+      href: '/zertifikatslehrgang#ki-profi',
+      price: 'ab CHF 290',
+    },
+  ];
+
+  const quizResult = QUIZ_RESULTS.find(r => quizScore >= r.range[0] && quizScore <= r.range[1]);
+
+  function quizNext() {
+    if (quizSelected === null) return;
+    const next = { ...quizAnswers, [quizStep]: quizSelected };
+    setQuizAnswers(next);
+    setQuizSelected(null);
+    if (quizStep < QUIZ.length - 1) {
+      setQuizStep(quizStep + 1);
+    } else {
+      setQuizStep(5);
+    }
+  }
+
+  function quizReset() {
+    setQuizStep(-1);
+    setQuizAnswers({});
+    setQuizSelected(null);
+  }
+
+  const visibleCourses = PUBLIC_COURSES;
+
+  // Nach Hydration zu Anker-ID scrollen (Browser findet client-seitige Elemente nicht nativ)
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    const el = document.getElementById(hash);
+    if (el) {
+      setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
+    }
+  }, []);
 
   const lehrgaenge = LEHRGAENGE.map(l => getLehrgangDetails(l.slug)!).filter(Boolean);
 
@@ -93,6 +213,166 @@ export default function KursePage() {
           transition: all 0.15s;
         }
         .kl-hero-cta-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+
+        /* ========== SELBSTCHECK / QUIZ ========== */
+        .kl-check-section {
+          background: #f5f5f0;
+          border-top: 1px solid #e0e0da;
+          border-bottom: 1px solid #e0e0da;
+          padding: 72px 24px;
+        }
+        .kl-check-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+        .kl-check-label {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.7rem; font-weight: 600;
+          letter-spacing: 2px; text-transform: uppercase;
+          color: #00C853; margin-bottom: 14px; display: block;
+        }
+        .kl-check-heading {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+          font-weight: 800; letter-spacing: -1px;
+          color: #1A1A1A; margin: 0 0 10px;
+        }
+        .kl-check-sub {
+          font-size: 0.98rem; color: #555;
+          margin: 0 0 32px; line-height: 1.6;
+        }
+        /* Intro */
+        .kl-quiz-start-btn {
+          display: inline-flex; align-items: center; gap: 8px;
+          padding: 15px 32px; border-radius: 50px;
+          background: #1A1A1A; color: white;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.88rem; font-weight: 700;
+          letter-spacing: 0.5px; text-transform: uppercase;
+          border: none; cursor: pointer;
+          transition: background 0.15s;
+        }
+        .kl-quiz-start-btn:hover { background: #00C853; }
+        /* Progress */
+        .kl-quiz-progress {
+          display: flex; align-items: center; gap: 10px;
+          justify-content: center; margin-bottom: 28px;
+        }
+        .kl-quiz-progress-bar {
+          flex: 1; max-width: 260px; height: 4px;
+          background: #e0e0da; border-radius: 2px; overflow: hidden;
+        }
+        .kl-quiz-progress-fill {
+          height: 100%; background: #00C853; border-radius: 2px;
+          transition: width 0.3s ease;
+        }
+        .kl-quiz-progress-text {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.78rem; font-weight: 600;
+          color: #888; white-space: nowrap;
+        }
+        /* Frage */
+        .kl-quiz-question {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+          font-weight: 700; color: #1A1A1A;
+          margin-bottom: 24px; line-height: 1.4;
+          animation: kl-fadein 0.2s ease;
+        }
+        /* Antwort-Optionen */
+        .kl-quiz-options {
+          display: flex; flex-direction: column; gap: 10px;
+          margin-bottom: 24px; text-align: left;
+        }
+        .kl-quiz-option {
+          display: flex; align-items: center; gap: 14px;
+          padding: 14px 18px; border-radius: 12px;
+          border: 1.5px solid #e0e0da;
+          background: white; cursor: pointer;
+          font-size: 0.93rem; color: #1A1A1A;
+          line-height: 1.45; text-align: left;
+          transition: all 0.12s; outline: none;
+          width: 100%;
+        }
+        .kl-quiz-option:hover { border-color: #1A1A1A; }
+        .kl-quiz-option.selected {
+          border-color: #00C853; background: rgba(0,200,83,0.07);
+        }
+        .kl-quiz-option-letter {
+          width: 28px; height: 28px; border-radius: 50%;
+          background: #f5f5f0; border: 1.5px solid #e0e0da;
+          display: flex; align-items: center; justify-content: center;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.75rem; font-weight: 700;
+          color: #888; flex-shrink: 0; transition: all 0.12s;
+        }
+        .kl-quiz-option.selected .kl-quiz-option-letter {
+          background: #00C853; border-color: #00C853; color: white;
+        }
+        .kl-quiz-next-btn {
+          padding: 13px 28px; border-radius: 50px;
+          background: #1A1A1A; color: white;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.82rem; font-weight: 700;
+          letter-spacing: 0.5px; text-transform: uppercase;
+          border: none; cursor: pointer;
+          transition: background 0.15s; opacity: 1;
+        }
+        .kl-quiz-next-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+        .kl-quiz-next-btn:not(:disabled):hover { background: #00C853; }
+        /* Ergebnis */
+        .kl-quiz-result { animation: kl-fadein 0.25s ease; }
+        .kl-quiz-score {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 3.5rem; font-weight: 800;
+          color: #1A1A1A; letter-spacing: -2px;
+          line-height: 1; margin-bottom: 4px;
+        }
+        .kl-quiz-score-label {
+          font-size: 0.88rem; color: #888; margin-bottom: 28px;
+        }
+        .kl-quiz-result-card {
+          background: white; border: 1.5px solid #00C853;
+          border-radius: 16px; padding: 28px 28px;
+          display: flex; align-items: center;
+          justify-content: space-between; gap: 20px;
+          flex-wrap: wrap; text-align: left; margin-bottom: 16px;
+        }
+        .kl-quiz-result-level {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.7rem; font-weight: 700;
+          letter-spacing: 1.5px; text-transform: uppercase;
+          color: #00C853; margin-bottom: 4px; display: block;
+        }
+        .kl-quiz-result-title {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1.1rem; font-weight: 800;
+          color: #1A1A1A; margin-bottom: 4px;
+        }
+        .kl-quiz-result-desc {
+          font-size: 0.86rem; color: #555; line-height: 1.55;
+        }
+        .kl-quiz-result-meta {
+          font-size: 0.78rem; color: #888; margin-top: 4px;
+        }
+        .kl-quiz-result-btn {
+          display: inline-flex; align-items: center; gap: 6px;
+          padding: 12px 22px; border-radius: 50px;
+          background: #1A1A1A; color: white;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.78rem; font-weight: 700;
+          letter-spacing: 0.5px; text-transform: uppercase;
+          text-decoration: none; white-space: nowrap;
+          transition: background 0.15s;
+        }
+        .kl-quiz-result-btn:hover { background: #00C853; }
+        .kl-quiz-retry {
+          background: none; border: none; cursor: pointer;
+          font-size: 0.82rem; color: #888;
+          text-decoration: underline; margin-top: 8px;
+        }
+        .kl-quiz-retry:hover { color: #1A1A1A; }
+        @keyframes kl-fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+        @media (max-width: 600px) {
+          .kl-quiz-result-card { flex-direction: column; }
+        }
 
         /* ========== SECTION-STRUKTUR ========== */
         .kl-section {
@@ -723,8 +1003,8 @@ export default function KursePage() {
           Praxisnah. Zertifiziert. Selbst eingeteilt.
         </p>
         <div className="kl-hero-ctas">
-          <a href="#lehrgaenge" className="kl-hero-cta-primary">
-            Zertifikatslehrgänge entdecken →
+          <a href="#selbstcheck" className="kl-hero-cta-primary">
+            Bist du auf KI-Kurs? →
           </a>
           <a href="mailto:andreas.rupf@spekt.ch?subject=Beratungsgespräch%20KI-Kurse" className="kl-hero-cta-secondary">
             Beratungsgespräch buchen
@@ -732,7 +1012,81 @@ export default function KursePage() {
         </div>
       </section>
 
-      {/* ========== 2. FÜR WEN? ========== */}
+      {/* ========== 2. SELBSTCHECK / QUIZ ========== */}
+      <section id="selbstcheck" className="kl-check-section">
+        <div className="kl-check-inner">
+          <span className="kl-check-label">Kostenloser Selbstcheck</span>
+          <h2 className="kl-check-heading">Wie fit bist du in KI?</h2>
+
+          {/* Intro */}
+          {quizStep === -1 && (
+            <>
+              <p className="kl-check-sub">
+                5 Fragen, 3 Minuten – du erfährst wo du stehst und welches Programm zu dir passt.
+              </p>
+              <button className="kl-quiz-start-btn" onClick={() => setQuizStep(0)}>
+                Quiz starten →
+              </button>
+            </>
+          )}
+
+          {/* Fragen */}
+          {quizStep >= 0 && quizStep < QUIZ.length && (
+            <>
+              <div className="kl-quiz-progress">
+                <div className="kl-quiz-progress-bar">
+                  <div className="kl-quiz-progress-fill" style={{ width: `${((quizStep) / QUIZ.length) * 100}%` }} />
+                </div>
+                <span className="kl-quiz-progress-text">Frage {quizStep + 1} von {QUIZ.length}</span>
+              </div>
+              <div className="kl-quiz-question">{QUIZ[quizStep].q}</div>
+              <div className="kl-quiz-options">
+                {QUIZ[quizStep].options.map((opt, i) => (
+                  <button
+                    key={i}
+                    className={`kl-quiz-option${quizSelected === i ? ' selected' : ''}`}
+                    onClick={() => setQuizSelected(i)}
+                  >
+                    <span className="kl-quiz-option-letter">{String.fromCharCode(65 + i)}</span>
+                    {opt}
+                  </button>
+                ))}
+              </div>
+              <button
+                className="kl-quiz-next-btn"
+                disabled={quizSelected === null}
+                onClick={quizNext}
+              >
+                {quizStep < QUIZ.length - 1 ? 'Weiter →' : 'Auswertung anzeigen →'}
+              </button>
+            </>
+          )}
+
+          {/* Ergebnis */}
+          {quizStep === 5 && quizResult && (
+            <div className="kl-quiz-result">
+              <div className="kl-quiz-score">{quizScore}/{QUIZ.length}</div>
+              <div className="kl-quiz-score-label">Richtige Antworten</div>
+              <div className="kl-quiz-result-card">
+                <div style={{ flex: 1, minWidth: 200 }}>
+                  <span className="kl-quiz-result-level">{quizResult.emoji} {quizResult.level}</span>
+                  <div className="kl-quiz-result-title">{quizResult.program}</div>
+                  <div className="kl-quiz-result-desc">{quizResult.desc}</div>
+                  <div className="kl-quiz-result-meta">{quizResult.price} · 180 Tage Zugang</div>
+                </div>
+                <a href={quizResult.href} className="kl-quiz-result-btn">
+                  Programm ansehen →
+                </a>
+              </div>
+              <button className="kl-quiz-retry" onClick={quizReset}>
+                Quiz wiederholen
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ========== 3. FÜR WEN? ========== */}
       <section className="kl-section">
         <div className="kl-section-head">
           <span className="kl-eyebrow">Für wen sind die Kurse?</span>
@@ -754,7 +1108,7 @@ export default function KursePage() {
             <div className="kl-persona-emoji">🏢</div>
             <div className="kl-persona-title">Planungsbüros</div>
             <div className="kl-persona-desc">
-              KI büroweit verankern – vom Sekretariat bis zur Projektleitung. Zertifikatslehrgang mit Bundle-Preis.
+              KI büroweit verankern – vom Sekretariat bis zur Projektleitung. KI-Intensivprogramm mit drei Tiers.
             </div>
             <span className="kl-persona-link">Lehrgang für Büros →</span>
           </Link>
@@ -762,7 +1116,7 @@ export default function KursePage() {
             <div className="kl-persona-emoji">👤</div>
             <div className="kl-persona-title">Einzelpersonen</div>
             <div className="kl-persona-desc">
-              Einzelne Kurse ab CHF 19 oder ein kompletter Zertifikatslehrgang – ideal für berufs­begleitendes Lernen.
+              Einstiegskurs ab CHF 89 oder ein komplettes KI-Intensivprogramm – ideal für berufs­begleitendes Lernen.
             </div>
             <span className="kl-persona-link">Kurse ansehen →</span>
           </a>
@@ -773,11 +1127,11 @@ export default function KursePage() {
       <section id="lehrgaenge" className="kl-lehrgaenge-bg">
         <div className="kl-section" style={{ padding: '0 24px' }}>
           <div className="kl-section-head">
-            <span className="kl-eyebrow">Zertifikatslehrgänge</span>
+            <span className="kl-eyebrow">KI-Intensivprogramme</span>
             <h2 className="kl-section-h2">Strukturierter Lernpfad statt einzelner Kurse</h2>
             <p className="kl-section-lead">
-              Vier Tracks mit je drei aufeinander abgestimmten Kursen und einem SPEKTRUM-Abschlusszertifikat.
-              Bis zu 25 % günstiger als der Einzelkauf.
+              Vier Tracks mit je drei aufeinander abgestimmten Kursen. Teilnahmebestätigung auf Wunsch.
+              Drei Tiers: {TIER_PRICES.basis.priceLabel} (Basis), {TIER_PRICES.plus.priceLabel} (Plus mit 1:1-Sessions) oder {TIER_PRICES.business.priceLabel} (Business).
             </p>
           </div>
 
@@ -785,9 +1139,6 @@ export default function KursePage() {
             {lehrgaenge.map(l => (
               <Link key={l.slug} href={`/zertifikatslehrgang#${l.slug}`} className="kl-lehrgang-card" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="kl-lehrgang-head" style={{ background: l.color }}>
-                  {l.savingsPercent > 0 && (
-                    <div className="kl-lehrgang-savings">−{l.savingsPercent} %</div>
-                  )}
                   <div className="kl-lehrgang-emoji">{l.emoji}</div>
                   <div className="kl-lehrgang-title">{l.title}</div>
                   <div className="kl-lehrgang-subtitle">{l.subtitle}</div>
@@ -799,10 +1150,7 @@ export default function KursePage() {
                   </div>
                   <div className="kl-lehrgang-foot">
                     <div>
-                      <span className="kl-lehrgang-price">{l.bundlePriceLabel}</span>
-                      {l.singleTotal > l.bundlePrice && (
-                        <span className="kl-lehrgang-price-strike">CHF {l.singleTotal}</span>
-                      )}
+                      <span className="kl-lehrgang-price">ab {TIER_PRICES.basis.priceLabel}</span>
                     </div>
                     <span className="kl-lehrgang-cta">Details →</span>
                   </div>
@@ -823,24 +1171,11 @@ export default function KursePage() {
       <section id="kurse" className="kl-section">
         <div className="kl-section-head">
           <span className="kl-eyebrow">Einzelkurse</span>
-          <h2 className="kl-section-h2">Lieber punktuell lernen? Alle 7 Kurse einzeln.</h2>
+          <h2 className="kl-section-h2">Einstiegskurs &amp; Gratis-Kurs</h2>
           <p className="kl-section-lead">
-            Perfekt für gezielte Weiterbildung in einem spezifischen Thema. Ab CHF 19 und 90 Tage Zugang.
+            Zum Reinschnuppern. Alle weiteren Kurse sind Teil der KI-Intensivprogramme – das stellt einen
+            strukturierten Lernpfad sicher und vermeidet punktuelles Stückwerk.
           </p>
-        </div>
-
-        <div className="kl-filter-wrap">
-          <div className="kl-filter-tabs">
-            {(['Alle', 'Einsteiger', 'Fortgeschritten', 'Experte'] as FilterLevel[]).map(f => (
-              <button
-                key={f}
-                className={`kl-filter-tab${filter === f ? ' active' : ''}`}
-                onClick={() => setFilter(f)}
-              >
-                {f === 'Alle' ? 'Alle Levels' : f}
-              </button>
-            ))}
-          </div>
         </div>
 
         <div className="kl-grid">
@@ -854,7 +1189,7 @@ export default function KursePage() {
               const totalLessons = c.course.modules.reduce((s, m) => s + m.lessons.length, 0);
               const totalModules = c.course.modules.length;
               return (
-                <div key={c.slug} className="kl-card">
+                <div key={c.slug} id={c.slug} className="kl-card">
                   <div className="kl-card-img" style={{ background: c.image ? '#1a1a1a' : c.color }}>
                     {c.image ? (
                       <>
@@ -911,7 +1246,7 @@ export default function KursePage() {
               <div className="kl-method-num">01</div>
               <div className="kl-method-icon">📹</div>
               <div className="kl-method-title">Video-Input</div>
-              <div className="kl-method-desc">5–10 Minuten Video pro Lektion. Kein Marathon, sondern konzentrierte Impulse.</div>
+              <div className="kl-method-desc">Vertonte Slide-Videos, 5–8 Minuten pro Lektion. Die ersten Folgen sind in Produktion – weitere folgen laufend.</div>
             </div>
             <div className="kl-method">
               <div className="kl-method-num">02</div>
@@ -928,8 +1263,8 @@ export default function KursePage() {
             <div className="kl-method">
               <div className="kl-method-num">04</div>
               <div className="kl-method-icon">📜</div>
-              <div className="kl-method-title">Zertifikat</div>
-              <div className="kl-method-desc">Automatisch als PDF – mit Name, Kurs­titel und Referenz­nummer.</div>
+              <div className="kl-method-title">Teilnahmezertifikat</div>
+              <div className="kl-method-desc">Auf Wunsch als PDF – mit Name, Kurs­titel und Datum.</div>
             </div>
           </div>
         </div>
@@ -1008,11 +1343,11 @@ export default function KursePage() {
         <div className="kl-faq">
           {[
             { q: 'Für wen sind die SPEKTRUM KI-Kurse geeignet?', a: 'Die Kurse richten sich an Raumplanende, Architektinnen, Stadtplaner, Mitarbeitende von Gemeindeverwaltungen und Planungsbüros im deutschsprachigen Raum (Schweiz, Deutschland, Österreich). Je nach Kurs sind keine Vorkenntnisse nötig (Einsteiger) oder KI-Grundwissen wird vorausgesetzt (Fortgeschritten/Experte).' },
-            { q: 'Welcher KI-Kurs passt für Schweizer Gemeinden?', a: 'Für Sachbearbeitende der kommunalen Verwaltung empfehlen wir «KI für Gemeinden» (CHF 29). Für Führungskräfte und KI-Verantwortliche ist der Kurs «KI-Strategie für Gemeinden» (CHF 39) optimal. Oder direkt der Zertifikatslehrgang «KI für Verwaltung & Gemeinden».' },
-            { q: 'Was kostet ein KI-Kurs bei SPEKTRUM?', a: 'Einsteigerkurse CHF 19, Fortgeschrittenenkurse CHF 29, Expertenkurse CHF 39. «Interessenabwägung mit KI» ist gratis. Zertifikatslehrgänge ab CHF 29 (Bundle aus 3 Kursen). Einmalzahlung, kein Abo.' },
-            { q: 'Wie lange habe ich Zugang zu einem Kurs?', a: '90 Tage ab Kauf für Einzelkurse, 180 Tage für Zertifikatslehrgänge. In dieser Zeit können alle Lektionen, Videos und Quizze beliebig oft durchgearbeitet werden. Das Zertifikat bleibt dauerhaft gültig.' },
-            { q: 'Gibt es ein Zertifikat?', a: 'Ja. Jeder Einzelkurs wird mit einem Teilnahmezertifikat abgeschlossen. Zertifikatslehrgänge enden mit einem SPEKTRUM-Abschlusszertifikat, das das Gesamt-Kompetenzprofil attestiert. Download als PDF.' },
-            { q: 'Was ist der Unterschied zwischen Einzelkurs und Zertifikatslehrgang?', a: 'Ein Einzelkurs deckt ein Thema ab. Ein Zertifikatslehrgang bündelt drei aufeinander abgestimmte Kurse mit einem gemeinsamen Abschlusszertifikat – 15–25 % günstiger als der Einzelkauf und mit doppelter Zugangsdauer.' },
+            { q: 'Welcher KI-Kurs passt für Schweizer Gemeinden?', a: 'Für einen ersten Einstieg empfehlen wir den kostenlosen Kurs «Interessenabwägung mit KI». Für strukturierte Weiterbildung ist das KI-Intensivprogramm «KI für Verwaltung & Gemeinden» ideal – buchbar als Einzelperson (ab CHF 290) oder als Team-Lizenz.' },
+            { q: 'Was kostet ein KI-Kurs bei SPEKTRUM?', a: '«Interessenabwägung mit KI» ist gratis. Der Einstiegskurs «KI-Grundkurs Einsteiger» kostet CHF 89. KI-Intensivprogramme (3 Kurse, strukturierter Lernpfad) ab CHF 290 (Basis), CHF 790 (Plus mit 1:1-Sessions), CHF 2\'900 (Business, auf Anfrage). Einmalzahlung, kein Abo.' },
+            { q: 'Wie lange habe ich Zugang zu einem Kurs?', a: '90 Tage ab Kauf für den Einstiegskurs, 180 Tage für KI-Intensivprogramme. In dieser Zeit können alle Lektionen, Übungen und Quizze beliebig oft durchgearbeitet werden. Hinweis: Die Video-Vertonungen sind aktuell in Produktion und werden laufend ergänzt.' },
+            { q: 'Gibt es ein Zertifikat?', a: 'Ja, auf Wunsch. Nach Abschluss der Lektionen und Quizze kann eine Teilnahmebestätigung als PDF heruntergeladen werden. Es sind keine eidgenössisch reglementierten Abschlüsse (kein CAS/DAS/MAS) – die Bestätigung dokumentiert die bearbeiteten Inhalte und die investierte Lernzeit.' },
+            { q: 'Was ist der Unterschied zwischen Einstiegskurs und KI-Intensivprogramm?', a: 'Der Einstiegskurs (CHF 89) deckt ein einzelnes Thema ab – ideal zum Reinschnuppern. Ein KI-Intensivprogramm bündelt drei aufeinander abgestimmte Kurse zu einem strukturierten Lernpfad mit 180 Tagen Zugang. Ab Plus-Tier sind zusätzlich 1:1-Sessions mit Andreas Rupf enthalten.' },
             { q: 'Kann ich den Kurs als Team oder Gemeinde buchen?', a: 'Ja. Team-Lizenzen ab 5 Personen mit Sammelrechnung, individuellen Zertifikaten und Kickoff-Call. Details auf /fuer-gemeinden.' },
             { q: 'Wer steckt hinter SPEKTRUM KI-Kurse?', a: 'Andreas Rupf – Raum- und Stadtplaner, KI-Berater und ehemaliger Programmleiter ETH RAUM an der ETH Zürich. Gründer der SPEKTRUM Partner GmbH in Zürich und Entwickler der KI-Tools minu-ai.ch und interessenabwaegung.ch.' },
             { q: 'Sind die Kurse auch für Deutschland und Österreich relevant?', a: 'Ja. Die Kurse sind für den gesamten deutschsprachigen Raum (DACH) konzipiert. Rechtlich spezifische Inhalte (z.B. Schweizer RPG/RPV) sind klar gekennzeichnet – die KI-Methodik, Tools und Workflows sind international übertragbar.' },
@@ -1087,11 +1422,11 @@ export default function KursePage() {
               })}
 
               <div className="pv-final-card">
-                <div className="pv-final-heading">🏆 Abschlusstest &amp; Zertifikat</div>
+                <div className="pv-final-heading">🏆 Abschlusstest</div>
                 <div className="pv-final-desc">
-                  Teste dein Wissen mit einem abschliessenden Assessment. Bei 70 % oder mehr erhältst du dein persönliches Abschlusszertifikat.
+                  Teste dein Wissen mit einem abschliessenden Assessment. Auf Wunsch kannst du danach eine Teilnahmebestätigung als PDF herunterladen.
                 </div>
-                <span className="pv-cert-pill">📜 Abschlusszertifikat inklusive</span>
+                <span className="pv-cert-pill">📜 Teilnahmebestätigung auf Wunsch</span>
               </div>
             </div>
 

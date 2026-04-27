@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getUserByLoginToken, updateUser } from '@/lib/users';
 import { createToken, setAuthCookie, COOKIE_NAME } from '@/lib/auth';
+import { reportError } from '@/lib/errorReporter';
 
 export const dynamic = 'force-dynamic';
 
@@ -78,7 +79,12 @@ export async function POST(request: NextRequest) {
     const safeRedirect = (typeof redirect === 'string' && redirect.startsWith('/')) ? redirect : '/kurse';
     return NextResponse.json({ success: true, redirect: safeRedirect });
   } catch (err) {
-    console.error('[MAGIC-LINK POST]', err);
+    await reportError(err, {
+      source: 'api',
+      location: '/api/auth/magic-link',
+      notifyUser: false,
+      severity: 'high',
+    });
     return NextResponse.json({ error: 'Login fehlgeschlagen.' }, { status: 500 });
   }
 }

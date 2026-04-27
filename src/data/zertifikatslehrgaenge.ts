@@ -1,44 +1,39 @@
 import { ALL_COURSES } from './courses';
 
+/** Einheits-Preise über alle 4 Lehrgänge (Tier-Modell) */
+export const TIER_PRICES = {
+  basis: { price: 290, priceLabel: 'CHF 290' },
+  plus:  { price: 790, priceLabel: 'CHF 790' },
+  business: { price: 2900, priceLabel: 'CHF 2\'900' }, // nur als Referenz – Kauf per Anfrage
+} as const;
+
+export type TierKey = keyof typeof TIER_PRICES;
+
 export interface Lehrgang {
   slug: string;
   title: string;
   subtitle: string;
-  target: string;             // Zielgruppe in einem Satz
+  target: string;
   emoji: string;
-  color: string;              // Gradient für Karte
-  courseSlugs: string[];      // Reihenfolge der Kurse im Lehrgang
-  bundlePrice: number;        // CHF Einzelperson
-  bundlePriceLabel: string;
-  teamPrices: {
-    team5: { price: number; label: string };
-    team10: { price: number; label: string };
-    team25: { price: number; label: string };
-  };
+  color: string;
+  courseSlugs: string[];
   totalHours: number;
-  certificateName: string;    // Offizieller Titel auf dem Zertifikat
-  outcomes: string[];         // 4-5 Kompetenzen nach Abschluss
-  targetRoles: string[];      // Berufsbilder
+  certificateName: string;
+  outcomes: string[];
+  targetRoles: string[];
 }
 
 export const LEHRGAENGE: Lehrgang[] = [
   {
     slug: 'ki-verwaltung',
-    title: 'Zertifikatslehrgang KI für Verwaltung & Gemeinden',
+    title: 'KI-Intensivprogramm für Verwaltung & Gemeinden',
     subtitle: 'Vom ersten Prompt zur strategischen KI-Roadmap für Ihre Gemeinde.',
     target: 'Für Gemeinderäte, Gemeindeschreiber:innen, Verwaltungsleitende und Bereichsleitende, die KI in ihrer Verwaltung verankern wollen.',
     emoji: '🏛️',
     color: 'linear-gradient(135deg, #0d3d26 0%, #0057a8 100%)',
     courseSlugs: ['ki-einsteiger', 'ki-gemeinden', 'ki-strategie-gemeinden'],
-    bundlePrice: 69,
-    bundlePriceLabel: 'CHF 69',
-    teamPrices: {
-      team5:  { price: 299,  label: 'CHF 299'  },
-      team10: { price: 549,  label: 'CHF 549'  },
-      team25: { price: 1199, label: 'CHF 1\'199' },
-    },
-    totalHours: 18,
-    certificateName: 'SPEKTRUM Zertifikat – KI für Verwaltung & Gemeinden',
+    totalHours: 15,
+    certificateName: 'SPEKTRUM Teilnahmebestätigung – KI für Verwaltung & Gemeinden',
     outcomes: [
       'KI-Grundlagen sicher erklären – inkl. Chancen, Risiken und Datenschutz',
       'Konkrete Anwendungsfälle in Verwaltung, Baubewilligung und Einwohnerkommunikation umsetzen',
@@ -56,21 +51,14 @@ export const LEHRGAENGE: Lehrgang[] = [
   },
   {
     slug: 'ki-raumplanung',
-    title: 'Zertifikatslehrgang KI für Raumplanung',
+    title: 'KI-Intensivprogramm für Raumplanung',
     subtitle: 'KI-Werkzeuge für Planungsbüros, Fachstellen und Projekt­verantwortliche.',
     target: 'Für Raumplaner:innen, Architekt:innen mit Planungsfokus und Mitarbeitende in kantonalen Fachstellen.',
     emoji: '🗺️',
     color: 'linear-gradient(135deg, #0057a8 0%, #00a896 100%)',
-    courseSlugs: ['ki-einsteiger', 'ki-planungswelt', 'ki-interessenabwaegung'],
-    bundlePrice: 29,
-    bundlePriceLabel: 'CHF 29',
-    teamPrices: {
-      team5:  { price: 129, label: 'CHF 129' },
-      team10: { price: 239, label: 'CHF 239' },
-      team25: { price: 499, label: 'CHF 499' },
-    },
+    courseSlugs: ['ki-einsteiger', 'ki-planungswelt', 'ki-bueroalltag', 'ki-interessenabwaegung'],
     totalHours: 15,
-    certificateName: 'SPEKTRUM Zertifikat – KI für Raumplanung',
+    certificateName: 'SPEKTRUM Teilnahmebestätigung – KI für Raumplanung',
     outcomes: [
       'KI-Tools für Recherche, Analyse und Bericht­erstellung im Planungs­alltag einsetzen',
       'Nutzungsplanungs-, Richtplan- und ÖREB-Daten mit KI effizient aufbereiten',
@@ -88,21 +76,14 @@ export const LEHRGAENGE: Lehrgang[] = [
   },
   {
     slug: 'ki-planungsbuero',
-    title: 'Zertifikatslehrgang KI für Planungsbüros',
+    title: 'KI-Intensivprogramm für Planungsbüros',
     subtitle: 'KI im ganzen Büro verankern – vom Sekretariat bis zur Projektleitung.',
     target: 'Für Inhaber:innen und Teams von Raumplanungs-, Architektur- und Ingenieur­büros, die KI büroweit produktiv einsetzen wollen.',
     emoji: '🏢',
     color: 'linear-gradient(135deg, #00a896 0%, #0057a8 100%)',
     courseSlugs: ['ki-einsteiger', 'ki-planungswelt', 'ki-bueroalltag'],
-    bundlePrice: 45,
-    bundlePriceLabel: 'CHF 45',
-    teamPrices: {
-      team5:  { price: 199, label: 'CHF 199' },
-      team10: { price: 369, label: 'CHF 369' },
-      team25: { price: 799, label: 'CHF 799' },
-    },
-    totalHours: 16,
-    certificateName: 'SPEKTRUM Zertifikat – KI für Planungsbüros',
+    totalHours: 13,
+    certificateName: 'SPEKTRUM Teilnahmebestätigung – KI für Planungsbüros',
     outcomes: [
       'KI in Offert- und Angebots­prozessen büroweit einsetzen',
       'Planungs­berichte, Mitwirkungen und Stellung­nahmen mit KI beschleunigen',
@@ -120,21 +101,14 @@ export const LEHRGAENGE: Lehrgang[] = [
   },
   {
     slug: 'ki-profi',
-    title: 'Zertifikatslehrgang KI-Profi',
+    title: 'KI-Intensivprogramm KI-Profi',
     subtitle: 'Vom ChatGPT-Anwender zur Person, die KI-Agenten selbst baut.',
     target: 'Für Digitalisierungs­verantwortliche, IT-affine Mitarbeitende und alle, die KI tief verstehen und aktiv einsetzen wollen.',
     emoji: '🤖',
     color: 'linear-gradient(135deg, #5e35b1 0%, #0057a8 100%)',
     courseSlugs: ['ki-einsteiger', 'ki-bueroalltag', 'ki-agentic'],
-    bundlePrice: 59,
-    bundlePriceLabel: 'CHF 59',
-    teamPrices: {
-      team5:  { price: 259, label: 'CHF 259' },
-      team10: { price: 479, label: 'CHF 479' },
-      team25: { price: 999, label: 'CHF 999' },
-    },
-    totalHours: 17,
-    certificateName: 'SPEKTRUM Zertifikat – KI-Profi',
+    totalHours: 11,
+    certificateName: 'SPEKTRUM Teilnahmebestätigung – KI-Profi',
     outcomes: [
       'KI-Assistenten für wiederkehrende Büro­aufgaben bauen',
       'Prompt-Engineering und Kontext­fenster professionell nutzen',
@@ -152,7 +126,7 @@ export const LEHRGAENGE: Lehrgang[] = [
   },
 ];
 
-/** Hilfsfunktion: Kurse eines Lehrgangs inkl. Summenpreis ermitteln */
+/** Details eines Lehrgangs inkl. Kursliste und Einzelpreis-Summe */
 export function getLehrgangDetails(slug: string) {
   const l = LEHRGAENGE.find(x => x.slug === slug);
   if (!l) return null;
@@ -160,7 +134,5 @@ export function getLehrgangDetails(slug: string) {
     .map(cs => ALL_COURSES.find(c => c.slug === cs))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
   const singleTotal = courses.reduce((s, c) => s + c.price, 0);
-  const savings = singleTotal - l.bundlePrice;
-  const savingsPercent = singleTotal > 0 ? Math.round((savings / singleTotal) * 100) : 0;
-  return { ...l, courses, singleTotal, savings, savingsPercent };
+  return { ...l, courses, singleTotal };
 }

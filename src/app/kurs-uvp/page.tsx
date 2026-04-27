@@ -1,38 +1,32 @@
 import type { Metadata } from 'next';
 import { getUserFromCookie } from '@/lib/auth';
-import { getUserByEmail } from '@/lib/users';
 import { getProgress } from '@/lib/progress';
-import { COURSE_ALLGEMEIN } from '@/data/course-allgemein';
+import { COURSE_UVP } from '@/data/course-uvp';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProgressBar from '@/components/ProgressBar';
-import BuyButton from '@/components/BuyButton';
 import Link from 'next/link';
-import { hasCourseAccess, getCourseExpiry, formatExpiry, daysRemaining } from '@/lib/courseAccess';
 
 export const metadata: Metadata = {
-  title: 'KI-Grundkurs für Einsteiger – Online-Kurs auf Deutsch | SPEKTRUM',
-  description: 'Der ideale KI-Einstiegskurs ohne Vorkenntnisse – auf Deutsch. ChatGPT, KI-Tools und Prompt Engineering Schritt für Schritt erklärt. Für den DACH-Raum. 90 Tage Zugang – CHF 89.',
-  keywords: ['KI Grundkurs Deutsch', 'KI Einsteiger Kurs', 'ChatGPT Kurs Deutsch', 'Künstliche Intelligenz lernen DACH', 'KI Kurs Deutschland Österreich Schweiz', 'KI Weiterbildung Online Deutsch', 'KI Einführung Kurs'],
-  alternates: { canonical: 'https://kurse.spekt.ch/kurs-allgemein' },
+  title: 'UVP mit KI – Gratis Kurs | SPEKTRUM',
+  description: 'Gratis Einführungskurs in die Umweltverträglichkeitsprüfung (UVP) nach Schweizer Recht – von der UVP-Pflicht über Schutzgüter bis zum Pflichtenheft. Mit Einführung in das KI-Tool uvp.interessenabwaegung.ch.',
+  keywords: ['UVP Schweiz', 'Umweltverträglichkeitsprüfung', 'USG UVPV', 'UVP Kurs', 'UVP KI Tool', 'Umweltrecht Schweiz', 'Schutzgüter UVP', 'Pflichtenheft UVP'],
+  alternates: { canonical: 'https://kurse.spekt.ch/kurs-uvp' },
   openGraph: {
-    title: 'KI-Grundkurs für Einsteiger – auf Deutsch',
-    description: 'ChatGPT und KI ohne Vorkenntnisse – der ideale Einstieg für den DACH-Raum.',
-    url: 'https://kurse.spekt.ch/kurs-allgemein',
+    title: 'UVP mit KI – Gratis Kurs',
+    description: 'Gratis Einführung in die Umweltverträglichkeitsprüfung nach Schweizer Recht – zugänglich für alle.',
+    url: 'https://kurse.spekt.ch/kurs-uvp',
     siteName: 'SPEKTRUM KI-Kurse',
     locale: 'de_CH',
     type: 'website',
   },
 };
 
-export default async function KursAllgemeinPage() {
+export default async function KursUvpPage() {
   const auth = getUserFromCookie();
   // Keine Weiterleitung – Kursübersichtsseiten sind öffentlich (SEO)
-  const user = auth ? getUserByEmail(auth.email) : null;
-  const purchased = hasCourseAccess(user, 'kurs-allgemein');
-  const expiry = getCourseExpiry(user, 'kurs-allgemein');
   const progress = auth ? getProgress(auth.email) : { completedLessons: [] as string[], quizResults: [], lastActivity: '' };
-  const allLessonIds = COURSE_ALLGEMEIN.modules.flatMap(m => m.lessons.map(l => `${m.slug}/${l.slug}`));
+  const allLessonIds = COURSE_UVP.modules.flatMap(m => m.lessons.map(l => `${m.slug}/${l.slug}`));
   const completedForCourse = progress.completedLessons.filter(id => allLessonIds.includes(id));
   const totalLessons = allLessonIds.length;
   const percent = totalLessons > 0 ? Math.round(completedForCourse.length / totalLessons * 100) : 0;
@@ -54,7 +48,7 @@ export default async function KursAllgemeinPage() {
           margin-bottom: 32px;
           transition: color 0.15s;
         }
-        .kp-back:hover { color: #0057a8; }
+        .kp-back:hover { color: #1b5e20; }
 
         /* ---- Kurs-Header ---- */
         .kp-header { margin-bottom: 32px; }
@@ -79,9 +73,9 @@ export default async function KursAllgemeinPage() {
           border-radius: 100px;
           font-size: 13px;
           font-weight: 600;
-          border: 1.5px solid #00a896;
-          color: #007a6e;
-          background: #f0fff8;
+          border: 1.5px solid #1b5e20;
+          color: #1b5e20;
+          background: #e8f5e9;
           white-space: nowrap;
         }
         .kp-subtitle {
@@ -93,16 +87,16 @@ export default async function KursAllgemeinPage() {
 
         /* ---- Fortschritts-Card ---- */
         .kp-progress-card {
-          background: linear-gradient(135deg, #f0f7ff 0%, #f0fff8 100%);
+          background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
           border-radius: 14px;
           padding: 20px 24px;
           margin-bottom: 40px;
-          border: 1px solid #e0eeff;
+          border: 1px solid #a5d6a7;
         }
         .kp-progress-label {
           font-size: 12px;
           font-weight: 700;
-          color: #0057a8;
+          color: #1b5e20;
           text-transform: uppercase;
           letter-spacing: 0.07em;
           margin-bottom: 10px;
@@ -118,7 +112,7 @@ export default async function KursAllgemeinPage() {
           color: #1d1d1f;
           margin-bottom: 20px;
         }
-        .kp-section-heading svg { color: #0057a8; flex-shrink: 0; }
+        .kp-section-heading svg { color: #1b5e20; flex-shrink: 0; }
 
         /* ---- Modul-Card ---- */
         .kp-module-card {
@@ -129,7 +123,7 @@ export default async function KursAllgemeinPage() {
           margin-bottom: 16px;
           transition: border-color 0.15s, box-shadow 0.15s;
         }
-        .kp-module-card:hover { border-color: #c0d4f0; box-shadow: 0 4px 20px rgba(0,87,168,0.06); }
+        .kp-module-card:hover { border-color: #a5d6a7; box-shadow: 0 4px 20px rgba(27,94,32,0.07); }
         .kp-module-card-title {
           font-size: 17px;
           font-weight: 700;
@@ -165,54 +159,12 @@ export default async function KursAllgemeinPage() {
           gap: 4px;
           padding: 3px 10px;
           border-radius: 100px;
-          border: 1.5px solid #00a896;
-          color: #007a6e;
+          border: 1.5px solid #1b5e20;
+          color: #1b5e20;
           font-size: 12px;
           font-weight: 600;
           background: transparent;
         }
-        /* ---- Preis-Card ---- */
-        .kp-price-card {
-          background: white;
-          border: 1.5px solid #e8e8ed;
-          border-radius: 14px;
-          padding: 24px 28px;
-          margin-bottom: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 20px;
-          flex-wrap: wrap;
-        }
-        .kp-price-left {}
-        .kp-price-amount {
-          font-size: 36px;
-          font-weight: 900;
-          color: #1d1d1f;
-          line-height: 1;
-          margin-bottom: 5px;
-          letter-spacing: -0.02em;
-        }
-        .kp-price-sub {
-          font-size: 14px;
-          color: #8e8e93;
-          font-weight: 500;
-        }
-        .kp-buy-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: #00a896;
-          color: white;
-          padding: 14px 28px;
-          border-radius: 10px;
-          font-weight: 700;
-          font-size: 15px;
-          text-decoration: none;
-          transition: opacity 0.15s, transform 0.15s;
-          white-space: nowrap;
-        }
-        .kp-buy-btn:hover { opacity: 0.9; transform: translateY(-1px); }
 
         /* ---- Lektionsliste ---- */
         .kp-lessons { display: flex; flex-direction: column; gap: 8px; }
@@ -228,8 +180,8 @@ export default async function KursAllgemeinPage() {
           color: #1d1d1f;
           transition: all 0.15s;
         }
-        .kp-lesson:hover { border-color: #0057a8; background: #f0f7ff; }
-        .kp-lesson.done { border-color: #b8ede7; background: #f0fff8; }
+        .kp-lesson:hover { border-color: #1b5e20; background: #e8f5e9; }
+        .kp-lesson.done { border-color: #a5d6a7; background: #e8f5e9; }
         .kp-lesson-check {
           width: 22px; height: 22px;
           border-radius: 50%;
@@ -239,7 +191,7 @@ export default async function KursAllgemeinPage() {
           flex-shrink: 0;
           transition: all 0.15s;
         }
-        .kp-lesson-check.done { background: #00a896; border-color: #00a896; color: white; }
+        .kp-lesson-check.done { background: #1b5e20; border-color: #1b5e20; color: white; }
         .kp-lesson-title { font-size: 14px; font-weight: 500; flex: 1; }
         .kp-lesson-desc { font-size: 12px; color: #8e8e93; margin-top: 1px; }
         .kp-lesson-arrow { color: #b0b0b8; font-size: 16px; }
@@ -247,7 +199,7 @@ export default async function KursAllgemeinPage() {
         /* ---- Abschlusstest-Card ---- */
         .kp-final-card {
           background: white;
-          border: 1.5px solid #b8ede7;
+          border: 1.5px solid #a5d6a7;
           border-radius: 14px;
           padding: 24px;
           margin-bottom: 16px;
@@ -261,7 +213,7 @@ export default async function KursAllgemeinPage() {
           color: #1d1d1f;
           margin-bottom: 8px;
         }
-        .kp-final-heading svg { color: #00a896; }
+        .kp-final-heading svg { color: #1b5e20; }
         .kp-final-desc {
           font-size: 14px;
           color: #6e6e73;
@@ -274,11 +226,11 @@ export default async function KursAllgemeinPage() {
           gap: 6px;
           padding: 5px 14px;
           border-radius: 100px;
-          border: 1.5px solid #00a896;
-          color: #007a6e;
+          border: 1.5px solid #1b5e20;
+          color: #1b5e20;
           font-size: 13px;
           font-weight: 600;
-          background: #f0fff8;
+          background: #e8f5e9;
         }
 
         /* ---- Unterer CTA ---- */
@@ -300,7 +252,7 @@ export default async function KursAllgemeinPage() {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          background: linear-gradient(135deg, #0057a8 0%, #00a896 100%);
+          background: linear-gradient(135deg, #1b5e20 0%, #00a896 100%);
           color: white;
           padding: 12px 24px;
           border-radius: 10px;
@@ -321,19 +273,20 @@ export default async function KursAllgemeinPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Course',
-        name: 'KI-Grundkurs für Einsteiger',
-        description: 'Der ideale KI-Einstiegskurs ohne Vorkenntnisse – auf Deutsch. ChatGPT, KI-Tools und Prompt Engineering Schritt für Schritt erklärt.',
-        url: 'https://kurse.spekt.ch/kurs-allgemein',
+        name: 'UVP mit KI',
+        description: 'Einführung in die Umweltverträglichkeitsprüfung (UVP) nach Schweizer Recht – von der UVP-Pflicht über Schutzgüter bis zum Pflichtenheft.',
+        url: 'https://kurse.spekt.ch/kurs-uvp',
         provider: { '@type': 'Organization', name: 'SPEKTRUM Partner GmbH', url: 'https://spekt.ch' },
         instructor: { '@type': 'Person', name: 'Andreas Rupf', url: 'https://spekt.ch' },
-        offers: { '@type': 'Offer', price: '89', priceCurrency: 'CHF', availability: 'https://schema.org/InStock', validFrom: '2024-01-01' },
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'CHF', availability: 'https://schema.org/InStock', validFrom: '2024-01-01' },
         educationalLevel: 'Einsteiger',
         inLanguage: 'de',
         availableLanguage: 'de',
         coursePrerequisites: 'Keine Vorkenntnisse erforderlich',
-        teaches: ['ChatGPT Grundlagen', 'Prompt Engineering', 'KI-Tools im Alltag', 'Künstliche Intelligenz Grundlagen'],
-        hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT5H', inLanguage: 'de' },
+        teaches: ['UVP Schweiz', 'Umweltverträglichkeitsprüfung', 'USG UVPV', 'Schutzgüter UVP', 'Pflichtenheft'],
+        hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT2H', inLanguage: 'de' },
       }) }} />
+
       <Header userEmail={auth?.email} />
       <div className="kp-wrap">
 
@@ -348,31 +301,11 @@ export default async function KursAllgemeinPage() {
         {/* Kurs-Header */}
         <div className="kp-header">
           <div className="kp-title-row">
-            <h1 className="kp-title">{COURSE_ALLGEMEIN.title}</h1>
+            <h1 className="kp-title">{COURSE_UVP.title}</h1>
             <span className="kp-badge">Einsteiger</span>
           </div>
-          <p className="kp-subtitle">{COURSE_ALLGEMEIN.description}</p>
+          <p className="kp-subtitle">{COURSE_UVP.description}</p>
         </div>
-
-        {/* Preis-Card */}
-        {purchased ? (
-          <div className="kp-price-card" style={{ background: 'linear-gradient(135deg, #f0fff8 0%, #e6ffe6 100%)', borderColor: '#00a896' }}>
-            <div className="kp-price-left">
-              <div className="kp-price-amount" style={{ color: '#007a6e' }}>✓ Zugang aktiv</div>
-              <div className="kp-price-sub">
-                {expiry ? `Gültig bis ${formatExpiry(expiry)} (${daysRemaining(expiry)} Tage)` : '90 Tage Zugang'}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="kp-price-card">
-            <div className="kp-price-left">
-              <div className="kp-price-amount">CHF 89</div>
-              <div className="kp-price-sub">90 Tage Zugang</div>
-            </div>
-            <BuyButton courseSlug="kurs-allgemein" label="Zugang kaufen – CHF 89" color="#0057a8" />
-          </div>
-        )}
 
         {/* Login-Prompt für nicht eingeloggte User */}
         {!auth && (
@@ -408,7 +341,7 @@ export default async function KursAllgemeinPage() {
           Kursmodule
         </div>
 
-        {COURSE_ALLGEMEIN.modules.map((modul, mi) => {
+        {COURSE_UVP.modules.map((modul, mi) => {
           const quizCount = modul.lessons.reduce((s, l) => s + (l.quiz ? l.quiz.questions.length : 0), 0);
           const doneLessons = modul.lessons.filter(l =>
             progress.completedLessons.includes(`${modul.slug}/${l.slug}`)
@@ -440,7 +373,7 @@ export default async function KursAllgemeinPage() {
                   </span>
                 )}
                 {doneLessons > 0 && (
-                  <span className="kp-meta-item" style={{ color: '#00a896', marginLeft: 'auto' }}>
+                  <span className="kp-meta-item" style={{ color: '#1b5e20', marginLeft: 'auto' }}>
                     {doneLessons}/{modul.lessons.length} abgeschlossen
                   </span>
                 )}
@@ -448,37 +381,20 @@ export default async function KursAllgemeinPage() {
 
               {/* Lektionen */}
               <div className="kp-lessons">
-                {modul.lessons.map((lektion, li) => {
+                {modul.lessons.map(lektion => {
                   const lessonId = `${modul.slug}/${lektion.slug}`;
                   const done = progress.completedLessons.includes(lessonId);
-                  const isFreePreview = mi === 0 && li === 0;
-                  if (!purchased && !isFreePreview) {
-                    return (
-                      <div key={lektion.id} className="kp-lesson" style={{ opacity: 0.55, cursor: 'default' }}>
-                        <div className="kp-lesson-check" style={{ fontSize: 12 }}>🔒</div>
-                        <div style={{ flex: 1 }}>
-                          <div className="kp-lesson-title">{lektion.title}</div>
-                          <div className="kp-lesson-desc">{lektion.description}</div>
-                        </div>
-                      </div>
-                    );
-                  }
                   return (
                     <Link
                       key={lektion.id}
-                      href={`/kurs-allgemein/${modul.slug}/${lektion.slug}`}
+                      href={`/kurs-uvp/${modul.slug}/${lektion.slug}`}
                       className={`kp-lesson${done ? ' done' : ''}`}
                     >
                       <div className={`kp-lesson-check${done ? ' done' : ''}`}>
                         {done ? '✓' : ''}
                       </div>
                       <div style={{ flex: 1 }}>
-                        <div className="kp-lesson-title">
-                          {lektion.title}
-                          {isFreePreview && !purchased && (
-                            <span style={{ marginLeft: 8, fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 100, background: '#00a896', color: 'white', textTransform: 'uppercase', letterSpacing: 0.5, verticalAlign: 'middle' }}>Gratis-Vorschau</span>
-                          )}
-                        </div>
+                        <div className="kp-lesson-title">{lektion.title}</div>
                         <div className="kp-lesson-desc">{lektion.description}</div>
                       </div>
                       <span className="kp-lesson-arrow">→</span>
@@ -503,7 +419,7 @@ export default async function KursAllgemeinPage() {
             Schliesse alle Module ab und beweise dein Wissen im finalen Test.
             Bei 70% oder mehr erhältst du dein persönliches Abschlusszertifikat.
           </p>
-          <Link href="/zertifikat?course=kurs-allgemein" className="kp-cert-badge" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+          <Link href="/zertifikat?course=kurs-uvp" className="kp-cert-badge" style={{ textDecoration: 'none', cursor: 'pointer' }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="8" r="6"/>
               <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
@@ -513,21 +429,21 @@ export default async function KursAllgemeinPage() {
         </div>
 
         {/* Unterer CTA */}
-        {!purchased && (
-          <div className="kp-cta-bar">
-            <span className="kp-cta-text">
-              90 Tage Zugang zu allen {COURSE_ALLGEMEIN.modules.length} Modulen inkl. Abschlusszertifikat.
-            </span>
-            <BuyButton courseSlug="kurs-allgemein" label="Zugang kaufen – CHF 89" color="#0057a8" />
-          </div>
-        )}
+        <div className="kp-cta-bar">
+          <span className="kp-cta-text">
+            Frei zugänglich – alle {COURSE_UVP.modules.length} Module inkl. Abschlusszertifikat.
+          </span>
+          <Link href="/register" className="kp-cta-btn">
+            Jetzt ohne Kosten starten
+          </Link>
+        </div>
 
       </div>
 
       {/* SEO-Textblock */}
       <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 24px 48px', color: '#6e6e73', fontSize: 14, lineHeight: 1.7 }}>
-        <h2 style={{ fontSize: 16, fontWeight: 700, color: '#1d1d1f', marginBottom: 10 }}>KI-Grundkurs auf Deutsch – für den DACH-Raum</h2>
-        <p>Dieser KI-Grundkurs richtet sich an alle im deutschsprachigen Raum, die Künstliche Intelligenz verstehen und praktisch anwenden wollen – ohne Programmierkenntnisse oder technische Vorkenntnisse. Du lernst, was KI wirklich kann und wo ihre Grenzen liegen, wie du ChatGPT effektiv nutzt und wie Prompt Engineering funktioniert. Der Kurs ist vollständig auf Deutsch und mit Beispielen aus dem Berufsalltag in der Schweiz, Deutschland und Österreich gestaltet. Ideal als Einstieg für alle Berufsfelder – von der Verwaltung bis zum Planungsbüro.</p>
+        <h2 style={{ fontSize: 16, fontWeight: 700, color: '#1d1d1f', marginBottom: 10 }}>Umweltverträglichkeitsprüfung (UVP) nach Schweizer Recht – mit KI-Unterstützung</h2>
+        <p>Die Umweltverträglichkeitsprüfung (UVP) ist ein zentrales Instrument des Schweizer Umweltrechts (USG/UVPV). Sie stellt sicher, dass grössere Bauprojekte auf ihre Umweltverträglichkeit hin geprüft werden – von der UVP-Pflicht über Schutzgüter bis zum Pflichtenheft. Dieser Gratis-Kurs führt in die Grundlagen der UVP ein und zeigt, wie KI-Tools den UVP-Prozess strukturieren und unterstützen können. Kostenlos und ohne Vorkenntnisse zugänglich.</p>
       </div>
 
       <Footer />
