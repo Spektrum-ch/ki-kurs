@@ -73,3 +73,18 @@ export interface Course {
   description: string;
   modules: Module[];
 }
+
+/** Blog-Post */
+export interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  date: string;
+  updatedAt?: string;
+  readingTime: number;
+  tags: string[];
+  image: string;
+  ogImage?: string;
+}

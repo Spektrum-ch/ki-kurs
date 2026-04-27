@@ -4,10 +4,10 @@ import path from 'path';
 
 const BASE_URL = 'https://kurse.spekt.ch';
 
-/** Blog-Posts dynamisch aus /data/blog.json laden (falls vorhanden) */
+/** Blog-Posts dynamisch aus /src/data/blog.json laden (falls vorhanden) */
 function getBlogPosts(): { slug: string; updatedAt?: string }[] {
   try {
-    const file = path.join(process.cwd(), 'data', 'blog.json');
+    const file = path.join(process.cwd(), 'src', 'data', 'blog.json');
     if (!fs.existsSync(file)) return [];
     return JSON.parse(fs.readFileSync(file, 'utf-8'));
   } catch {
