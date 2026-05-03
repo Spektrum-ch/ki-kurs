@@ -172,6 +172,9 @@ export default function Footer() {
               <a href="https://spekt.ch/ki-beratung.html" target="_blank" rel="noopener noreferrer">KI-Beratung</a>
               <a href="https://spekt.ch/ki-workshop.html" target="_blank" rel="noopener noreferrer">Workshops</a>
               <a href="https://minu-ai.ch" target="_blank" rel="noopener noreferrer">MINU-AI</a>
+              <a href="https://interessenabwaegung.ch" target="_blank" rel="noopener noreferrer" title="KI-Interessenabwägung RPG">Interessenabwägung.ch</a>
+              <a href="https://bauzonenkapazitaet.ch" target="_blank" rel="noopener noreferrer" title="Bauzonenkapazität berechnen">Bauzonenkapazität.ch</a>
+              <a href="https://uvp.interessenabwaegung.ch" target="_blank" rel="noopener noreferrer" title="UVP-Screening mit KI">uvp.interessenabwaegung.ch</a>
               <a href="mailto:kurs@spekt.ch">Kontakt</a>
               <a href="https://spekt.ch/datenschutz.html" target="_blank" rel="noopener noreferrer">Datenschutz</a>
               <a href="https://spekt.ch/impressum.html" target="_blank" rel="noopener noreferrer">Impressum</a>
