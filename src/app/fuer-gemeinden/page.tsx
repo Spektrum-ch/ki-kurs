@@ -22,7 +22,7 @@ const PATHS = [
     label: 'Team, Gemeinde oder Büro',
     heading: 'Wir buchen für mehrere Personen',
     desc: 'Mehrere Zugänge, eine Rechnung. Jede Person lernt in ihrem Tempo und erhält auf Wunsch eine persönliche Teilnahmebestätigung.',
-    price: 'CHF 2\'900',
+    price: 'CHF 1\'900',
     priceNote: 'Pro KI-Intensivprogramm · unbegrenzte Plätze · Sammelrechnung',
     cta: 'Anfrage senden',
     href: '#anfrage',
@@ -33,7 +33,7 @@ const PATHS = [
 const FAQS = [
   {
     q: 'Wie viele Personen kann ein Team-Zugang nutzen?',
-    a: 'Unbegrenzt viele – der Business-Zugang (CHF 2\'900 pro KI-Intensivprogramm) ist als Teamlizenz konzipiert. Jede Person erhält einen eigenen Login mit ihrer geschäftlichen E-Mail-Adresse.',
+    a: 'Unbegrenzt viele – der Business-Zugang (CHF 1\'900 pro KI-Intensivprogramm) ist als Teamlizenz konzipiert. Jede Person erhält einen eigenen Login mit ihrer geschäftlichen E-Mail-Adresse.',
   },
   {
     q: 'Wie loggen sich die Teilnehmer ein?',

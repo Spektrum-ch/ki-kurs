@@ -153,7 +153,7 @@ const jsonLd = {
     {
       '@type': 'Offer',
       name: 'Team-Lizenz – KI-Intensivprogramm',
-      price: '2900',
+      price: '1900',
       priceCurrency: 'CHF',
       availability: 'https://schema.org/InStock',
       url: 'https://kurse.spekt.ch/fuer-gemeinden#anfrage',

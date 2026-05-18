@@ -221,7 +221,7 @@ const faqJsonLd = {
       name: 'Was kosten die KI-Kurse und KI-Intensivprogramme bei SPEKTRUM?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Es gibt zwei Einstiegspunkte: Der Kurs "Interessenabwägung mit KI" ist gratis. Der KI-Grundkurs Einsteiger kostet CHF 89 (90 Tage Zugang). Die KI-Intensivprogramme – strukturierte Lernpfade mit je 3–4 Kursen – kosten ab CHF 290 (Basis), CHF 790 (Plus, mit 1:1-Sessions) oder CHF 2\'900 (Business, für Teams und Gemeinden). Einmalzahlung, kein Abo.',
+        text: 'Es gibt zwei Einstiegspunkte: Der Kurs "Interessenabwägung mit KI" ist gratis. Der KI-Grundkurs Einsteiger kostet CHF 89 (90 Tage Zugang). Die KI-Intensivprogramme – strukturierte Lernpfade mit je 3–4 Kursen – kosten ab CHF 290 (Basis), CHF 590 (Plus, mit 1:1-Sessions) oder CHF 1\'900 (Business, für Teams und Gemeinden). Einmalzahlung, kein Abo.',
       },
     },
     {

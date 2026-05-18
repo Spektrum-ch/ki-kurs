@@ -3,8 +3,8 @@ import { ALL_COURSES } from './courses';
 /** Einheits-Preise über alle 4 Lehrgänge (Tier-Modell) */
 export const TIER_PRICES = {
   basis: { price: 290, priceLabel: 'CHF 290' },
-  plus:  { price: 790, priceLabel: 'CHF 790' },
-  business: { price: 2900, priceLabel: 'CHF 2\'900' }, // nur als Referenz – Kauf per Anfrage
+  plus:  { price: 590, priceLabel: 'CHF 590' },
+  business: { price: 1900, priceLabel: 'CHF 1\'900' }, // nur als Referenz – Kauf per Anfrage
 } as const;
 
 export type TierKey = keyof typeof TIER_PRICES;

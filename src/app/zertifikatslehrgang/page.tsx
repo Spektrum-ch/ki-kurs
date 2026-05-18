@@ -289,7 +289,7 @@ export default function ZertifikatslehrgangPage() {
                     <ul className="zl-tier-features">
                       <li><strong>Alles aus Plus</strong></li>
                       <li>Bis zu 10 Team-Mitglieder</li>
-                      <li>Halbtägiger Workshop (online / Zürich)</li>
+                      <li>Halbtägige Vor-Ort-Session inklusive</li>
                       <li>KI-Readiness-Assessment (PDF)</li>
                       <li>Individuelle Terminabsprache</li>
                     </ul>

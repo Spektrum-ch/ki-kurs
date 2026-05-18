@@ -2,7 +2,6 @@ import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
 import { BlogPost } from '@/types';
-import { blogContent } from '@/data/blog-content';
 
 interface BlogPageProps {
   params: { slug: string };
