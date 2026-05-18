@@ -53,8 +53,8 @@ export default function BlogPostPage({ params }: BlogPageProps) {
     );
   }
 
-  const contentFn = blogContent[params.slug as keyof typeof blogContent];
-  const content = contentFn ? contentFn() : '';
+  // Content will be loaded from blog post data
+  const content = post.excerpt || '';
 
   return (
     <>
