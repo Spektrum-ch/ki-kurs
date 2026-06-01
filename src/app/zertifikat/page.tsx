@@ -226,13 +226,11 @@ export default async function ZertifikatPage({ searchParams }: Props) {
           align-items: flex-end;
         }
         .zert-sig-left {}
-        .zert-sig-script {
-          font-family: Georgia, 'Times New Roman', serif;
-          font-size: 24px;
-          font-style: italic;
-          color: #0057a8;
-          margin-bottom: 6px;
-          letter-spacing: 0.02em;
+        .zert-sig-img {
+          height: 52px;
+          width: auto;
+          margin-bottom: 2px;
+          display: block;
         }
         .zert-sig-name {
           font-size: 14px;
@@ -436,7 +434,8 @@ export default async function ZertifikatPage({ searchParams }: Props) {
               {/* Signatur */}
               <div className="zert-sig-section">
                 <div className="zert-sig-left">
-                  <div className="zert-sig-script">Andreas Rupf</div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/unterschrift.jpg" alt="Unterschrift Andreas Rupf" className="zert-sig-img" />
                   <div className="zert-sig-name">Andreas Rupf</div>
                   <div className="zert-sig-role">
                     Kursleitung<br />
