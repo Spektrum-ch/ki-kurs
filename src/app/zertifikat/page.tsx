@@ -98,9 +98,13 @@ export default async function ZertifikatPage({ searchParams }: Props) {
           gap: 14px;
           margin-bottom: 36px;
         }
-        .zert-logo {
-          height: 40px;
-          width: auto;
+        .zert-wordmark {
+          font-size: 22px;
+          font-weight: 900;
+          letter-spacing: 0.14em;
+          color: #0057a8;
+          text-transform: uppercase;
+          line-height: 1;
         }
         .zert-org-block {
           border-left: 1.5px solid #d8d8dc;
@@ -384,12 +388,7 @@ export default async function ZertifikatPage({ searchParams }: Props) {
 
               {/* Logo + Org */}
               <div className="zert-header">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/spektrum-logo.svg"
-                  alt="SPEKTRUM Partner GmbH"
-                  className="zert-logo"
-                />
+                <div className="zert-wordmark">SPEKTRUM</div>
                 <div className="zert-org-block">
                   <div className="zert-org-name">SPEKTRUM Partner GmbH</div>
                   <div className="zert-org-sub">kurse.spekt.ch</div>
