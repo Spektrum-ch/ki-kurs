@@ -20,7 +20,8 @@ export interface Progress {
   completedLessons: string[]; // z.B. ["modul-1/einfuehrung", "modul-1/grundlagen"]
   quizResults: QuizResult[];
   lastActivity: string;
-  certificateIssued?: boolean;
+  certificateIssued?: boolean;             // legacy: Hauptkurs (ki-planungswelt)
+  certificateIssuedCourses?: string[];     // interne Kurs-Slugs, z.B. ['ki-planungswelt', 'ki-interessenabwaegung']
 }
 
 /** Ergebnis eines Quiz */

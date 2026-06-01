@@ -44,8 +44,12 @@ export default function BuyButton({
       } else if (res.status === 401) {
         const ret = lehrgangSlug ? `/zertifikatslehrgang#${lehrgangSlug}` : `/${courseSlug ?? 'kurse'}`;
         window.location.href = `/login?redirect=${encodeURIComponent(ret)}`;
+      } else if (res.status === 503) {
+        // Stripe-Preis noch nicht konfiguriert
+        alert('Dieser Kauf ist momentan noch nicht buchbar. Bitte melde dich direkt bei info@spekt.ch – wir melden uns innerhalb von 24 h.');
+        setLoading(false);
       } else {
-        alert(data.error || 'Fehler beim Checkout.');
+        alert(data.error || 'Fehler beim Checkout. Bitte nochmals versuchen oder info@spekt.ch kontaktieren.');
         setLoading(false);
       }
     } catch {

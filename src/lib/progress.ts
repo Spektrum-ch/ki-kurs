@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import type { Progress, QuizResult } from '@/types';
 import { COURSE } from '@/data/course';
+import { getLessonsForCourse } from '@/lib/courseMap';
 
 function getDataDir(): string {
   return process.env.DATA_DIR || path.join(process.cwd(), 'data');
@@ -91,7 +92,45 @@ export function getProgressPercent(email: string): number {
   return Math.round((progress.completedLessons.length / total) * 100);
 }
 
-/** Prüft ob der Kurs abgeschlossen ist */
+/** Prüft ob der Hauptkurs (ki-planungswelt) abgeschlossen ist – Legacy */
 export function isCourseComplete(email: string): boolean {
   return getProgressPercent(email) === 100;
+}
+
+// ─── Kursübergreifende Funktionen ─────────────────────────────────────────────
+
+/** Fortschritt in Prozent für einen bestimmten Kurs (0–100) */
+export function getProgressPercentForCourse(email: string, courseSlug: string): number {
+  const lessons = getLessonsForCourse(courseSlug);
+  if (!lessons.length) return 0;
+  const progress = getProgress(email);
+  const done = progress.completedLessons.filter(id => lessons.includes(id));
+  return Math.round((done.length / lessons.length) * 100);
+}
+
+/** Prüft ob ein bestimmter Kurs vollständig abgeschlossen ist */
+export function isCourseCompleteForSlug(email: string, courseSlug: string): boolean {
+  return getProgressPercentForCourse(email, courseSlug) === 100;
+}
+
+/** Prüft ob das Zertifikat für einen Kurs bereits ausgestellt wurde */
+export function isCertificateIssued(email: string, courseSlug: string): boolean {
+  const progress = getProgress(email);
+  // Legacy-Kompatibilität: Hauptkurs über altes certificateIssued-Flag
+  if (courseSlug === 'ki-planungswelt' && progress.certificateIssued) return true;
+  return progress.certificateIssuedCourses?.includes(courseSlug) ?? false;
+}
+
+/** Markiert das Zertifikat für einen Kurs als ausgestellt (verhindert Doppelversand) */
+export function setCertificateIssued(email: string, courseSlug: string): void {
+  const all = readAllProgress();
+  const idx = all.findIndex(p => p.email.toLowerCase() === email.toLowerCase());
+  if (idx !== -1) {
+    const issued = all[idx].certificateIssuedCourses ?? [];
+    if (!issued.includes(courseSlug)) {
+      all[idx].certificateIssuedCourses = [...issued, courseSlug];
+    }
+    all[idx].lastActivity = new Date().toISOString();
+    writeAllProgress(all);
+  }
 }

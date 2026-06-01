@@ -54,3 +54,24 @@ export function getLessonsForCourse(courseSlug: string): string[] {
 export function getTotalLessonsForCourse(courseSlug: string): number {
   return getLessonsForCourse(courseSlug).length;
 }
+
+/** Interner Kurs-Slug → Route-Slug (URL-Pfad ohne führendem /) */
+const ROUTE_SLUG_MAP: Record<string, string> = {
+  'ki-planungswelt':        'kurs',
+  'ki-einsteiger':          'kurs-allgemein',
+  'ki-bueroalltag':         'kurs-buero',
+  'ki-interessenabwaegung': 'kurs-interessenabwaegung',
+  'ki-gemeinden':           'kurs-gemeinden',
+  'ki-agentic':             'kurs-agentic',
+  'ki-strategie-gemeinden': 'kurs-strategie',
+  'ki-uvp':                 'kurs-uvp',
+};
+
+export function getRouteSlugForCourse(courseSlug: string): string {
+  return ROUTE_SLUG_MAP[courseSlug] ?? courseSlug;
+}
+
+/** Kurs-Titel aus internem Slug */
+export function getCourseTitle(courseSlug: string): string {
+  return COURSE_REGISTRY.find(r => r.slug === courseSlug)?.course.title ?? 'Kurs';
+}

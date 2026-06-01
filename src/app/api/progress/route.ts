@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getUserFromCookie } from '@/lib/auth';
-import { markLessonComplete, saveQuizResult, getProgress, getProgressPercent, isCourseComplete } from '@/lib/progress';
+import { markLessonComplete, saveQuizResult, getProgress, getProgressPercent, isCertificateIssued, setCertificateIssued } from '@/lib/progress';
 import { sendCertificateEmail } from '@/lib/email';
 import { getUserByEmail } from '@/lib/users';
 import { trackEvent } from '@/lib/analytics';
-import { getCourseForLesson, getLessonsForCourse } from '@/lib/courseMap';
+import { getCourseForLesson, getLessonsForCourse, getRouteSlugForCourse, getCourseTitle } from '@/lib/courseMap';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,9 +15,8 @@ export async function GET() {
 
   const progress = getProgress(user.email);
   const percent = getProgressPercent(user.email);
-  const complete = isCourseComplete(user.email);
 
-  return NextResponse.json({ progress, percent, complete });
+  return NextResponse.json({ progress, percent });
 }
 
 /** POST: Lektion abschliessen oder Quiz-Resultat speichern */
@@ -53,24 +52,25 @@ export async function POST(req: NextRequest) {
           // Lektion abgeschlossen
           trackEvent({ event: 'lesson_completed', email, courseSlug, lessonId, lessonNumber, totalLessons });
 
-          // Letzte Lektion dieses Kurses → course_completed
+          // Letzte Lektion dieses Kurses → course_completed + Zertifikats-E-Mail
           const doneAfter = [...doneBefore, lessonId].filter(id => courseLessons.includes(id));
           if (doneAfter.length === courseLessons.length) {
             trackEvent({ event: 'course_completed', email, courseSlug });
+
+            // Zertifikat-E-Mail nur einmalig pro Kurs senden
+            if (!isCertificateIssued(email, courseSlug)) {
+              const dbUser = getUserByEmail(email);
+              if (dbUser) {
+                const routeSlug = getRouteSlugForCourse(courseSlug);
+                const title = getCourseTitle(courseSlug);
+                await sendCertificateEmail(email, dbUser.name, routeSlug, title);
+                setCertificateIssued(email, courseSlug);
+              }
+            }
           }
         }
       }
       // ────────────────────────────────────────────────────────────
-
-      // Hauptkurs (ki-planungswelt) abgeschlossen → Zertifikat senden
-      if (isCourseComplete(email)) {
-        const dbUser = getUserByEmail(email);
-        const freshProgress = getProgress(email);
-        if (dbUser && !freshProgress.certificateIssued) {
-          await sendCertificateEmail(email, dbUser.name);
-          markLessonComplete(email, '__cert_sent__');
-        }
-      }
 
       return NextResponse.json({ success: true, percent: getProgressPercent(email) });
     }

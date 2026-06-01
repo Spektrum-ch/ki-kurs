@@ -211,14 +211,27 @@ export async function sendUserIncidentEmail(userEmail: string): Promise<void> {
   });
 }
 
-/** Zertifikats-E-Mail */
-export async function sendCertificateEmail(email: string, name: string): Promise<void> {
+/** Zertifikats-E-Mail – kursübergreifend.
+ *  @param courseSlug  Route-Slug des Kurses (z.B. 'kurs-interessenabwaegung'), default: 'kurs'
+ *  @param courseTitle Anzeigename des Kurses, default: 'KI für die Planungswelt'
+ */
+export async function sendCertificateEmail(
+  email: string,
+  name: string,
+  courseSlug = 'kurs',
+  courseTitle = 'KI für die Planungswelt',
+): Promise<void> {
+  if (!isSmtpConfigured()) {
+    console.log(`[DEV] Zertifikats-E-Mail (nicht gesendet): ${email} → ${courseSlug}`);
+    return;
+  }
   const transporter = getTransporter();
+  const certUrl = `${BASE_URL}/zertifikat?course=${encodeURIComponent(courseSlug)}`;
 
   await transporter.sendMail({
     from: FROM,
     to: email,
-    subject: '🎓 Du hast den Kurs abgeschlossen!',
+    subject: `🎓 Kursabschluss: ${courseTitle}`,
     html: `
       <div style="font-family: Inter, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 40px 20px; background: #f8f9fa;">
         <div style="background: white; border-radius: 16px; padding: 40px; box-shadow: 0 4px 20px rgba(0,87,168,0.08);">
@@ -229,9 +242,9 @@ export async function sendCertificateEmail(email: string, name: string): Promise
             Herzlichen Glückwunsch, ${name}!
           </h1>
           <p style="color: #6e6e73; margin-bottom: 32px; font-size: 15px; text-align: center;">
-            Du hast den Kurs «KI für die Planungswelt» erfolgreich abgeschlossen.
+            Du hast den Kurs «${courseTitle}» erfolgreich abgeschlossen.
           </p>
-          <a href="${BASE_URL}/zertifikat" style="
+          <a href="${certUrl}" style="
             display: block;
             background: linear-gradient(135deg, #0057a8 0%, #00a896 100%);
             color: white;
@@ -242,9 +255,15 @@ export async function sendCertificateEmail(email: string, name: string): Promise
             text-decoration: none;
             text-align: center;
           ">
-            Zertifikat herunterladen →
+            Zertifikat anzeigen →
           </a>
+          <p style="color: #aeaeb2; font-size: 12px; text-align: center; margin-top: 20px;">
+            Das Zertifikat kann direkt im Browser als PDF gespeichert werden.
+          </p>
         </div>
+        <p style="text-align: center; color: #999; font-size: 12px; margin-top: 24px;">
+          SPEKTRUM Partner GmbH · kurse.spekt.ch
+        </p>
       </div>
     `,
   });
