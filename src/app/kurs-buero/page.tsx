@@ -7,12 +7,11 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProgressBar from '@/components/ProgressBar';
 import Link from 'next/link';
-import BuyButton from '@/components/BuyButton';
 import { hasCourseAccess, getCourseExpiry, formatExpiry, daysRemaining } from '@/lib/courseAccess';
 
 export const metadata: Metadata = {
   title: 'KI im Büroalltag – KI-Kurs für Planungs- & Architekturbüros | SPEKTRUM',
-  description: 'KI praktisch einsetzen im Planungs-, Architektur- und Ingenieurbüro. Automatisierung, ChatGPT und KI-Workflows für Büros im DACH-Raum. 90 Tage Zugang – CHF 19.',
+  description: 'KI praktisch einsetzen im Planungs-, Architektur- und Ingenieurbüro. Automatisierung, ChatGPT und KI-Workflows für Büros im DACH-Raum. Teil des KI-Intensivprogramms für Planungsbüros.',
   keywords: ['KI Planungsbüro', 'KI Architekturbüro', 'KI Ingenieurbüro', 'ChatGPT Büro DACH', 'KI Büroautomation', 'KI Kurs Planungsbüros', 'Künstliche Intelligenz Büro Deutschland Österreich Schweiz'],
   alternates: { canonical: 'https://kurse.spekt.ch/kurs-buero' },
   openGraph: {
@@ -326,7 +325,6 @@ export default async function KursBueroPage() {
         url: 'https://kurse.spekt.ch/kurs-buero',
         provider: { '@type': 'Organization', name: 'SPEKTRUM Partner GmbH', url: 'https://spekt.ch' },
         instructor: { '@type': 'Person', name: 'Andreas Rupf', url: 'https://spekt.ch' },
-        offers: { '@type': 'Offer', price: '19', priceCurrency: 'CHF', availability: 'https://schema.org/InStock', validFrom: '2024-01-01' },
         educationalLevel: 'Einsteiger',
         inLanguage: 'de',
         availableLanguage: 'de',
@@ -367,10 +365,12 @@ export default async function KursBueroPage() {
         ) : (
           <div className="kp-price-card">
             <div className="kp-price-left">
-              <div className="kp-price-amount">CHF 19</div>
-              <div className="kp-price-sub">90 Tage Zugang</div>
+              <div className="kp-price-amount" style={{ fontSize: 20 }}>Im Zertifikatslehrgang enthalten</div>
+              <div className="kp-price-sub">Teil des KI-Intensivprogramms für Planungsbüros</div>
             </div>
-            <BuyButton courseSlug="kurs-buero" label="Zugang kaufen – CHF 19" color="#0057a8" />
+            <Link href="/zertifikatslehrgang#ki-planungsbuero" style={{ padding: '14px 28px', borderRadius: 10, fontWeight: 700, fontSize: 15, background: '#0057a8', color: 'white', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              Zum Lehrgang →
+            </Link>
           </div>
         )}
 
@@ -501,7 +501,7 @@ export default async function KursBueroPage() {
           </div>
           <p className="kp-final-desc">
             Schliesse alle Module ab und beweise dein Wissen im finalen Test.
-            Bei 70% oder mehr erhältst du dein persönliches Abschlusszertifikat.
+            Sobald du alle Lektionen abgeschlossen hast, erhältst du dein persönliches Abschlusszertifikat.
           </p>
           <Link href="/zertifikat?course=kurs-buero" className="kp-cert-badge" style={{ textDecoration: 'none', cursor: 'pointer' }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -513,12 +513,16 @@ export default async function KursBueroPage() {
         </div>
 
         {/* Unterer CTA */}
-        <div className="kp-cta-bar">
-          <span className="kp-cta-text">
-            90 Tage Zugang zu allen {COURSE_BUERO.modules.length} Modulen inkl. Abschlusszertifikat.
-          </span>
-          {!purchased && <BuyButton courseSlug="kurs-buero" label="Zugang kaufen – CHF 19" color="#0057a8" />}
-        </div>
+        {!purchased && (
+          <div className="kp-cta-bar">
+            <span className="kp-cta-text">
+              Dieser Kurs ist Teil des KI-Intensivprogramms für Planungsbüros – inkl. Zugang zu allen {COURSE_BUERO.modules.length} Modulen und Abschlusszertifikat.
+            </span>
+            <Link href="/zertifikatslehrgang#ki-planungsbuero" style={{ padding: '14px 28px', borderRadius: 10, fontWeight: 700, fontSize: 15, background: '#0057a8', color: 'white', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              Zum Lehrgang →
+            </Link>
+          </div>
+        )}
 
       </div>
 

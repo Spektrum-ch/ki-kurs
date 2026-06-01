@@ -62,7 +62,7 @@ export default function LektionGemeindenPage() {
 
     setTimeout(() => {
       if (next) router.push(`/kurs-gemeinden/${next.moduleSlug}/${next.slug}`);
-      else router.push('/zertifikat');
+      else router.push('/zertifikat?course=kurs-gemeinden');
     }, 800);
   }
 
@@ -418,7 +418,7 @@ export default function LektionGemeindenPage() {
                   </svg>
                 </Link>
               ) : (
-                <Link href="/zertifikat" className="lk-done-next">
+                <Link href="/zertifikat?course=kurs-gemeinden" className="lk-done-next">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
                   </svg>

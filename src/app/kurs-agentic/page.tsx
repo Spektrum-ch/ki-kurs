@@ -341,7 +341,7 @@ export default async function KursAgenticPage() {
           </div>
           <p className="kp-final-desc">
             Schliesse alle Module ab und beweise dein Wissen im finalen Test.
-            Bei 70% oder mehr erhältst du dein persönliches Abschlusszertifikat.
+            Sobald du alle Lektionen abgeschlossen hast, erhältst du dein persönliches Abschlusszertifikat.
           </p>
           <Link href="/zertifikat?course=kurs-agentic" className="kp-cert-badge" style={{ textDecoration: 'none', cursor: 'pointer' }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

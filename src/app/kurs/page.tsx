@@ -6,13 +6,12 @@ import { COURSE } from '@/data/course';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProgressBar from '@/components/ProgressBar';
-import BuyButton from '@/components/BuyButton';
 import Link from 'next/link';
 import { hasCourseAccess, getCourseExpiry, formatExpiry, daysRemaining } from '@/lib/courseAccess';
 
 export const metadata: Metadata = {
   title: 'KI für die Planungswelt – Online-Kurs | SPEKTRUM',
-  description: 'Praxisnaher KI-Kurs für Raumplanende, Architektinnen und Stadtplaner im DACH-Raum. ChatGPT, Prompt Engineering und KI-Tools konkret für die Planungspraxis. 90 Tage Zugang – CHF 19.',
+  description: 'Praxisnaher KI-Kurs für Raumplanende, Architektinnen und Stadtplaner im DACH-Raum. ChatGPT, Prompt Engineering und KI-Tools konkret für die Planungspraxis. Teil des KI-Intensivprogramms für Raumplanung.',
   keywords: ['KI Raumplanung', 'KI Kurs Architekt', 'ChatGPT Raumplaner', 'KI Stadtplanung', 'Künstliche Intelligenz Raumplanung Deutschland Österreich Schweiz', 'KI Weiterbildung Raumplaner', 'Online Kurs Raumplanung KI'],
   alternates: { canonical: 'https://kurse.spekt.ch/kurs' },
   openGraph: {
@@ -326,7 +325,6 @@ export default async function KursPage() {
         url: 'https://kurse.spekt.ch/kurs',
         provider: { '@type': 'Organization', name: 'SPEKTRUM Partner GmbH', url: 'https://spekt.ch' },
         instructor: { '@type': 'Person', name: 'Andreas Rupf', url: 'https://spekt.ch' },
-        offers: { '@type': 'Offer', price: '19', priceCurrency: 'CHF', availability: 'https://schema.org/InStock', validFrom: '2024-01-01' },
         educationalLevel: 'Einsteiger',
         inLanguage: 'de',
         availableLanguage: 'de',
@@ -367,10 +365,12 @@ export default async function KursPage() {
         ) : (
           <div className="kp-price-card">
             <div className="kp-price-left">
-              <div className="kp-price-amount">CHF 19</div>
-              <div className="kp-price-sub">90 Tage Zugang</div>
+              <div className="kp-price-amount" style={{ fontSize: 20 }}>Im Zertifikatslehrgang enthalten</div>
+              <div className="kp-price-sub">Teil des KI-Intensivprogramms für Raumplanung</div>
             </div>
-            <BuyButton courseSlug="kurs" label="Zugang kaufen – CHF 19" color="#0057a8" />
+            <Link href="/zertifikatslehrgang#ki-raumplanung" style={{ padding: '14px 28px', borderRadius: 10, fontWeight: 700, fontSize: 15, background: '#0057a8', color: 'white', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              Zum Lehrgang →
+            </Link>
           </div>
         )}
 
@@ -501,7 +501,7 @@ export default async function KursPage() {
           </div>
           <p className="kp-final-desc">
             Schliesse alle Module ab und beweise dein Wissen im finalen Test.
-            Bei 70% oder mehr erhältst du dein persönliches Abschlusszertifikat.
+            Sobald du alle Lektionen abgeschlossen hast, erhältst du dein persönliches Abschlusszertifikat.
           </p>
           <Link href="/zertifikat?course=kurs" className="kp-cert-badge" style={{ textDecoration: 'none', cursor: 'pointer' }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -516,9 +516,11 @@ export default async function KursPage() {
         {!purchased && (
           <div className="kp-cta-bar">
             <span className="kp-cta-text">
-              90 Tage Zugang zu allen {COURSE.modules.length} Modulen inkl. Abschlusszertifikat.
+              Dieser Kurs ist Teil des KI-Intensivprogramms für Raumplanung – inkl. Zugang zu allen {COURSE.modules.length} Modulen und Abschlusszertifikat.
             </span>
-            <BuyButton courseSlug="kurs" label="Zugang kaufen – CHF 19" color="#0057a8" />
+            <Link href="/zertifikatslehrgang#ki-raumplanung" style={{ padding: '14px 28px', borderRadius: 10, fontWeight: 700, fontSize: 15, background: '#0057a8', color: 'white', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              Zum Lehrgang →
+            </Link>
           </div>
         )}
 
