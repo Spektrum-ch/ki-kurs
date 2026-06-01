@@ -390,7 +390,7 @@ export default async function ZertifikatPage({ searchParams }: Props) {
               <div className="zert-header">
                 <div className="zert-wordmark">SPEKTRUM</div>
                 <div className="zert-org-block">
-                  <div className="zert-org-name">SPEKTRUM Partner GmbH</div>
+                  <div className="zert-org-name">Partner GmbH</div>
                   <div className="zert-org-sub">kurse.spekt.ch</div>
                 </div>
               </div>
@@ -437,8 +437,7 @@ export default async function ZertifikatPage({ searchParams }: Props) {
                   <img src="/images/unterschrift.jpg" alt="Unterschrift Andreas Rupf" className="zert-sig-img" />
                   <div className="zert-sig-name">Andreas Rupf</div>
                   <div className="zert-sig-role">
-                    Kursleitung<br />
-                    SPEKTRUM Partner GmbH
+                    Kursleitung · kurse.spekt.ch
                   </div>
                 </div>
                 <div className="zert-sig-right">
