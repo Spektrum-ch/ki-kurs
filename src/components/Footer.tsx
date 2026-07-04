@@ -178,6 +178,7 @@ export default function Footer() {
               <a href="mailto:kurs@spekt.ch">Kontakt</a>
               <a href="https://spekt.ch/datenschutz.html" target="_blank" rel="noopener noreferrer">Datenschutz</a>
               <a href="https://spekt.ch/impressum.html" target="_blank" rel="noopener noreferrer">Impressum</a>
+              <a href="/fakten">Fakten</a>
             </div>
           </div>
 

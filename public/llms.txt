@@ -69,3 +69,7 @@ Künstliche Intelligenz, KI, ChatGPT, Claude, Mistral, Prompt Engineering, KI-Ag
 ## Stand
 
 April 2026 – wird laufend aktualisiert.
+
+## Facts Page
+
+- Grounding page with plain company and course facts: https://kurse.spekt.ch/fakten
