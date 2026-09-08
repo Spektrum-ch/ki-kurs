@@ -314,8 +314,8 @@ export default async function KursUvpPage() {
               🔐 Einloggen oder registrieren um Zugang zu erhalten
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
-              <a href="/login" style={{ padding: '8px 18px', borderRadius: 8, border: '1.5px solid #0057a8', color: '#0057a8', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Einloggen</a>
-              <a href="/register" style={{ padding: '8px 18px', borderRadius: 8, background: '#0057a8', color: 'white', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Registrieren</a>
+              <a href="/login?redirect=%2Fkurs-uvp" style={{ padding: '8px 18px', borderRadius: 8, border: '1.5px solid #0057a8', color: '#0057a8', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Einloggen</a>
+              <a href="/register?redirect=%2Fkurs-uvp" style={{ padding: '8px 18px', borderRadius: 8, background: '#0057a8', color: 'white', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Registrieren</a>
             </div>
           </div>
         )}
@@ -433,7 +433,7 @@ export default async function KursUvpPage() {
           <span className="kp-cta-text">
             Frei zugänglich – alle {COURSE_UVP.modules.length} Module inkl. Abschlusszertifikat.
           </span>
-          <Link href="/register" className="kp-cta-btn">
+          <Link href="/register?redirect=%2Fkurs-uvp" className="kp-cta-btn">
             Jetzt ohne Kosten starten
           </Link>
         </div>

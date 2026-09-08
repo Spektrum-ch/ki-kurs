@@ -7,7 +7,7 @@ function isProtectedRoute(pathname: string): boolean {
   // /kurs/modul/lektion – geschützt (hat trailing slash)
   const courseLessonPatterns = [
     '/kurs/', '/kurs-allgemein/', '/kurs-gemeinden/', '/kurs-buero/',
-    '/kurs-agentic/', '/kurs-strategie/', '/kurs-interessenabwaegung/',
+    '/kurs-agentic/', '/kurs-strategie/', '/kurs-interessenabwaegung/', '/kurs-uvp/',
   ];
   if (courseLessonPatterns.some(p => pathname.startsWith(p))) return true;
   // Zertifikat + Admin komplett geschützt
@@ -121,6 +121,7 @@ export const config = {
     '/kurs-agentic/:path+',
     '/kurs-strategie/:path+',
     '/kurs-interessenabwaegung/:path+',
+    '/kurs-uvp/:path+',
     '/zertifikat/:path*',  // /zertifikat selbst + Unterseiten geschützt
     '/admin/:path*',
   ],

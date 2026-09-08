@@ -27,7 +27,7 @@ export const COURSE_PRICES: Record<string, string> = {
 };
 
 // Gratis-Kurse brauchen keine Kaufprüfung
-export const FREE_COURSES = ['kurs-interessenabwaegung'];
+export const FREE_COURSES = ['kurs-interessenabwaegung', 'kurs-uvp'];
 
 export function isFree(courseSlug: string): boolean {
   return FREE_COURSES.includes(courseSlug);

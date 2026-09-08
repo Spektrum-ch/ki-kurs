@@ -2,7 +2,7 @@ import type { User } from '@/types';
 
 export const COURSE_ACCESS_DAYS = 90;          // Einzelkurs
 export const LEHRGANG_ACCESS_DAYS = 180;        // Lehrgang-Kurs
-export const FREE_COURSES = ['kurs-interessenabwaegung'];
+export const FREE_COURSES = ['kurs-interessenabwaegung', 'kurs-uvp'];
 
 /**
  * Parst den gespeicherten Wert aus purchasedCourses.

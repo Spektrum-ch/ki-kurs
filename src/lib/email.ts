@@ -40,7 +40,7 @@ export async function sendMagicLink(email: string, token: string, name: string, 
   await transporter.sendMail({
     from: FROM,
     to: email,
-    subject: 'Dein Login-Link – KI für die Planungswelt',
+    subject: 'Dein Login-Link – SPEKTRUM KI-Kurse',
     html: `
       <div style="font-family: Inter, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 40px 20px; background: #f8f9fa;">
         <div style="background: white; border-radius: 16px; padding: 40px; box-shadow: 0 4px 20px rgba(0,87,168,0.08);">
@@ -48,7 +48,7 @@ export async function sendMagicLink(email: string, token: string, name: string, 
             Hallo ${name} 👋
           </h1>
           <p style="color: #6e6e73; margin-bottom: 32px; font-size: 15px;">
-            Hier ist dein persönlicher Login-Link für den Kurs «KI für die Planungswelt».
+            Hier ist dein persönlicher Login-Link für die SPEKTRUM KI-Kurse.
           </p>
           <a href="${link}" style="
             display: inline-block;
