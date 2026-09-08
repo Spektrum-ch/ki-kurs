@@ -55,7 +55,10 @@ function LoginForm() {
             <div className="auth-success">
               <div className="auth-success-icon">📬</div>
               <strong>Link gesendet!</strong><br /><br />
-              Prüfe dein E-Mail-Postfach und klicke auf den Login-Link.
+              Falls ein Konto mit dieser E-Mail existiert, erhältst du gleich einen Login-Link – prüfe dein Postfach.<br /><br />
+              <span style={{ fontSize: 13, color: '#6e6e73' }}>
+                Noch kein Konto? <Link href={redirect !== '/kurse' ? `/register?redirect=${encodeURIComponent(redirect)}` : '/register'} style={{ color: '#0057a8', fontWeight: 600 }}>Jetzt kostenlos registrieren →</Link>
+              </span>
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
@@ -68,7 +71,7 @@ function LoginForm() {
             </form>
           )}
           <div className="auth-switch">
-            Noch kein Konto? <Link href="/register">Kostenlos registrieren</Link>
+            Noch kein Konto? <Link href={redirect !== '/kurse' ? `/register?redirect=${encodeURIComponent(redirect)}` : '/register'}>Kostenlos registrieren</Link>
           </div>
         </div>
       </div>

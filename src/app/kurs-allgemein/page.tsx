@@ -25,11 +25,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function KursAllgemeinPage() {
+export default async function KursAllgemeinPage({
+  searchParams,
+}: {
+  searchParams?: { checkout?: string };
+}) {
   const auth = getUserFromCookie();
   // Keine Weiterleitung – Kursübersichtsseiten sind öffentlich (SEO)
   const user = auth ? getUserByEmail(auth.email) : null;
   const purchased = hasCourseAccess(user, 'kurs-allgemein');
+  // Rücksprung nach Login/Registrierung: Checkout automatisch starten,
+  // sofern eingeloggt und noch nicht gekauft.
+  const autoCheckout = !!searchParams?.checkout && !!auth && !purchased;
+  // Login/Registrieren-Links behalten die Kaufabsicht (?checkout=1) bei.
+  const authRedirect = encodeURIComponent('/kurs-allgemein?checkout=1');
   const expiry = getCourseExpiry(user, 'kurs-allgemein');
   const progress = auth ? getProgress(auth.email) : { completedLessons: [] as string[], quizResults: [], lastActivity: '' };
   const allLessonIds = COURSE_ALLGEMEIN.modules.flatMap(m => m.lessons.map(l => `${m.slug}/${l.slug}`));
@@ -370,7 +379,7 @@ export default async function KursAllgemeinPage() {
               <div className="kp-price-amount">CHF 89</div>
               <div className="kp-price-sub">90 Tage Zugang</div>
             </div>
-            <BuyButton courseSlug="kurs-allgemein" label="Zugang kaufen – CHF 89" color="#0057a8" />
+            <BuyButton courseSlug="kurs-allgemein" label="Zugang kaufen – CHF 89" color="#0057a8" autoStart={autoCheckout} />
           </div>
         )}
 
@@ -381,8 +390,8 @@ export default async function KursAllgemeinPage() {
               🔐 Einloggen oder registrieren um Zugang zu erhalten
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
-              <a href="/login" style={{ padding: '8px 18px', borderRadius: 8, border: '1.5px solid #0057a8', color: '#0057a8', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Einloggen</a>
-              <a href="/register" style={{ padding: '8px 18px', borderRadius: 8, background: '#0057a8', color: 'white', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Registrieren</a>
+              <a href={`/login?redirect=${authRedirect}`} style={{ padding: '8px 18px', borderRadius: 8, border: '1.5px solid #0057a8', color: '#0057a8', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Einloggen</a>
+              <a href={`/register?redirect=${authRedirect}`} style={{ padding: '8px 18px', borderRadius: 8, background: '#0057a8', color: 'white', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>Registrieren</a>
             </div>
           </div>
         )}

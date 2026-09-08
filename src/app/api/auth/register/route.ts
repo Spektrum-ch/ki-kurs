@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, name } = await req.json();
+    const { email, name, redirect } = await req.json();
 
     if (!email || !name) {
       return NextResponse.json({ error: 'E-Mail und Name sind erforderlich.' }, { status: 400 });
@@ -16,6 +16,8 @@ export async function POST(req: NextRequest) {
 
     const emailClean = email.toLowerCase().trim();
     const nameClean = name.trim();
+    // Kaufabsicht (z.B. /kurs-allgemein?checkout=1) durch den Magic-Link tragen.
+    const safeRedirect = (typeof redirect === 'string' && redirect.startsWith('/')) ? redirect : '/kurse';
 
     // E-Mail-Format prüfen
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailClean)) {
@@ -30,7 +32,7 @@ export async function POST(req: NextRequest) {
       const expires = getLoginTokenExpiry();
       const { updateUser } = await import('@/lib/users');
       updateUser(emailClean, { login_token: token, login_token_expires: expires });
-      await sendMagicLink(emailClean, token, existingUser.name);
+      await sendMagicLink(emailClean, token, existingUser.name, safeRedirect);
       return NextResponse.json({ message: 'Du bist bereits registriert. Wir haben dir einen neuen Login-Link gesendet.' });
     }
 
@@ -50,7 +52,7 @@ export async function POST(req: NextRequest) {
     // Willkommens-E-Mail + Magic-Link senden
     await Promise.all([
       sendWelcomeEmail(emailClean, nameClean),
-      sendMagicLink(emailClean, loginToken, nameClean),
+      sendMagicLink(emailClean, loginToken, nameClean, safeRedirect),
     ]);
 
     return NextResponse.json({ message: 'Registrierung erfolgreich! Prüfe deine E-Mails für den Login-Link.' });

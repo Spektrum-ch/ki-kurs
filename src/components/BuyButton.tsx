@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface Props {
   /** Einzelkurs. Mutually exclusive mit lehrgangSlug. */
@@ -14,6 +14,12 @@ interface Props {
   fullWidth?: boolean;
   /** Visueller Stil: 'primary' (blau gefüllt), 'subtle' (grau), 'custom' (color-Prop). */
   variant?: 'primary' | 'subtle' | 'custom';
+  /**
+   * Startet den Checkout automatisch beim Mounten (für den Rücksprung nach
+   * Login/Registrierung via ?checkout=1). Der Trigger-Parameter wird dabei aus
+   * der URL entfernt, damit ein «Zurück» im Browser keine Endlosschleife auslöst.
+   */
+  autoStart?: boolean;
 }
 
 export default function BuyButton({
@@ -24,8 +30,23 @@ export default function BuyButton({
   color = '#0057a8',
   fullWidth = false,
   variant = 'custom',
+  autoStart = false,
 }: Props) {
   const [loading, setLoading] = useState(false);
+  const autoStarted = useRef(false);
+
+  // Auto-Checkout nach Login/Registrierung: genau einmal feuern.
+  useEffect(() => {
+    if (autoStart && !autoStarted.current) {
+      autoStarted.current = true;
+      // ?checkout aus der URL entfernen, damit «Zurück» nicht erneut auslöst.
+      try {
+        window.history.replaceState({}, '', window.location.pathname);
+      } catch {}
+      handleBuy();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
 
   async function handleBuy() {
     setLoading(true);
@@ -42,8 +63,12 @@ export default function BuyButton({
       if (data.url) {
         window.location.href = data.url;
       } else if (res.status === 401) {
-        const ret = lehrgangSlug ? `/zertifikatslehrgang#${lehrgangSlug}` : `/${courseSlug ?? 'kurse'}`;
-        window.location.href = `/login?redirect=${encodeURIComponent(ret)}`;
+        // Nicht eingeloggt → zur Registrierung (fängt neue UND bestehende Konten ab).
+        // ?checkout=1 sorgt dafür, dass der Kauf nach dem Magic-Link automatisch startet.
+        const ret = lehrgangSlug
+          ? `/zertifikatslehrgang?checkout=1#${lehrgangSlug}`
+          : `/${courseSlug ?? 'kurse'}?checkout=1`;
+        window.location.href = `/register?redirect=${encodeURIComponent(ret)}`;
       } else if (res.status === 503) {
         // Stripe-Preis noch nicht konfiguriert
         alert('Dieser Kauf ist momentan noch nicht buchbar. Bitte melde dich direkt bei info@spekt.ch – wir melden uns innerhalb von 24 h.');

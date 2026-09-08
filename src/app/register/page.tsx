@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import Header from '@/components/Header';
 
-export default function RegisterPage() {
+function RegisterForm() {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') || '';
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,7 +22,7 @@ export default function RegisterPage() {
     const res = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, name }),
+      body: JSON.stringify({ email, name, redirect }),
     });
     const data = await res.json();
     setLoading(false);
@@ -175,10 +178,18 @@ export default function RegisterPage() {
           )}
 
           <div className="auth-switch">
-            Bereits registriert? <Link href="/login">Einloggen</Link>
+            Bereits registriert? <Link href={redirect ? `/login?redirect=${encodeURIComponent(redirect)}` : '/login'}>Einloggen</Link>
           </div>
         </div>
       </div>
     </>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div style={{ textAlign: 'center', padding: '100px' }}>Laden...</div>}>
+      <RegisterForm />
+    </Suspense>
   );
 }
