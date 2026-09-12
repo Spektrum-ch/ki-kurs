@@ -17,6 +17,13 @@ const HANDOFF_AUDIENCE = 'tool-admin-handoff';
 const COOKIE_NAME = 'kurs-auth';
 const COOKIE_MAX_AGE = 60 * 24 * 60 * 60;
 
+// Hinter Nginx zeigt nextUrl.origin auf «localhost:PORT» – Basis wie in magic-link aus den Headern.
+function basisUrl(request: NextRequest): string {
+  const proto = request.headers.get('x-forwarded-proto') || 'https';
+  const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || 'kurse.spekt.ch';
+  return `${proto}://${host}`;
+}
+
 function sicheresZiel(next: string | null, fallback: string): string {
   if (!next || !next.startsWith('/') || next.startsWith('//') || next.includes('://')) return fallback;
   return next;
@@ -26,7 +33,8 @@ export async function GET(request: NextRequest) {
   const key = process.env.COURSE_STATS_API_KEY || '';
   const token = request.nextUrl.searchParams.get('token') || '';
   const ziel = sicheresZiel(request.nextUrl.searchParams.get('next'), '/admin');
-  const login = new URL('/login?error=handoff', request.nextUrl.origin);
+  const basis = basisUrl(request);
+  const login = new URL('/login?error=handoff', basis);
 
   if (!key || !token) return NextResponse.redirect(login);
 
@@ -45,7 +53,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(login);
   }
 
-  const response = NextResponse.redirect(new URL(ziel, request.nextUrl.origin));
+  const response = NextResponse.redirect(new URL(ziel, basis));
   response.cookies.set(COOKIE_NAME, createToken(email), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
