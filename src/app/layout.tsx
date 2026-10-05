@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   keywords: ['KI Kurs Raumplanung Schweiz', 'KI Weiterbildung Gemeinde Schweiz', 'Künstliche Intelligenz Raumplanung DACH', 'Interessenabwägung KI RPG Schweiz', 'UVP Umweltverträglichkeitsprüfung KI Kurs', 'KI-Intensivprogramm Verwaltung Online', 'ChatGPT Raumplanung', 'KI Verwaltung DACH', 'Online Kurs KI Deutsch', 'KI Agenten Kurs Deutsch', 'KI Strategie Gemeinden', 'KI Planungsbüro Schweiz'],
   authors: [{ name: 'Andreas Rupf', url: 'https://spekt.ch' }],
   metadataBase: new URL('https://kurse.spekt.ch'),
+  icons: {
+    icon: [{ url: '/favicon.png', type: 'image/png', sizes: '594x594' }],
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     siteName: 'SPEKTRUM KI-Kurse',
     locale: 'de_CH',
