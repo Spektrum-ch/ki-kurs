@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: `${post.title} | KI-Kurse SPEKTRUM`,
     description: post.excerpt,
     keywords: post.tags,
+    alternates: { canonical: `https://kurse.spekt.ch/blog/${post.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
